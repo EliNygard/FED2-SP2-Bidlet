@@ -35,7 +35,7 @@ Make sure you have Git installed. If not, you can download it from [here](https:
 1. Clone the repo:
 
 ```bash
-git clone git@github.com:elinygard/sp2-auction.git
+git clone https://github.com/EliNygard/sp2-auction.git
 ```
 
 2. Install the dependencies:
