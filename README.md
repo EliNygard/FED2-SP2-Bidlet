@@ -24,4 +24,72 @@ The API can be found under Auction House endpoints in the [Noroff API documentat
 
 I aimed to design and build a website where it is easy for the user to move around the site and find items they are interested in. I think the search function is an important part of an auction website and especially wanted that to be working well for the user.   
 
+<br>
+
+## Getting Started With the Project
+
+Make sure you have Git installed. If not, you can download it from [here](https://git-scm.com/downloads)
+
+### Installing
+
+1. Clone the repo:
+
+```bash
+git clone git@github.com:elinygard/sp2-auction.git
+```
+
+2. Install the dependencies:
+
+```
+npm install
+```
+
+Will install: 
+- Typescript
+- Tailwind
+
+### Running
+
+To run the app, run the following commands:
+
+```bash
+npm run start
+```
+
+➡️ Add only if tests are finished, instructions to install Jest and Cypress?: 
+### Running tests
+
+To run the unit tests, run the following command: 
+```bash
+npm run test
+```
+
+To run the end-to-end tests, run the following command: 
+```bash
+npm run e2e
+```
+
+#### ????Test User
+Use the following test credentials for testing:
+email: 
+password: 
+???api-key
+
+<br>
+
+You can register a user with a stud.noroff.no email (expamle@stud.noroff.no) to create an item or bid on items. 
+
+<p align="right"><a href="#readme-top">⬆️ Back to Top</a></p>
+
+## Contact
+Feel free to contact me
+
+Eli Nygård 
+
+Email: eli.nygard@gmail.com
+
+[My Linkedin Page](https://www.linkedin.com/in/eli-nyg%C3%A5rd/)
+
+GitHub Project Link: [https://github.com/EliNygard/sp2-auction](https://github.com/EliNygard/sp2-auction)
+
 ➡️ Badges for languages, tests
