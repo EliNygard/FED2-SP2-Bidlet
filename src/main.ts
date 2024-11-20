@@ -3,6 +3,8 @@ import typescriptLogo from './typescript.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
 
+// add a router
+
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
   <h1>Bidlet will be here!!</h1>
