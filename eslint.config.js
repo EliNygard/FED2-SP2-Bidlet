@@ -1,9 +1,11 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import tseslint from "typescript-eslint";
+import tailwind from "eslint-plugin-tailwindcss";
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
+  ...tailwind.configs["flat/recommended"],
   {
     ignores: ["dist/"],
   },
