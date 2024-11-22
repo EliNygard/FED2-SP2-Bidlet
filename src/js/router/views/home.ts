@@ -1,8 +1,13 @@
+import '../../components/header-component.ts'
+
 function initializePage():void {
     const page = document.getElementById("app")
     if(page) {
         console.log("home page");
-
+        const header = document.createElement('header-component')
+        console.log(header);
+        page.appendChild(header)
+        
         
         
         // const heading = document.createElement('h1');
