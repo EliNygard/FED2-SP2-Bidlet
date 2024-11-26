@@ -11,6 +11,7 @@ export default {
         widest: ".1375rem",
       },
       fontSize: {
+        "22px": "1.375rem",
         "3xl": "2rem",
         "4xl": "2.5rem",
       },
