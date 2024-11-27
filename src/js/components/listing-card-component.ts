@@ -5,6 +5,8 @@ class ListingCardComponent extends HTMLElement {
   private _pendingSellerName: string | null = null;
   private itemImageElement: HTMLImageElement | null = null;
   private _pendingItemImage: { src: string; alt: string } | null = null;
+  private currentBidElement: HTMLElement | null = null;
+  private _pendingCurrentBid: string | null = null
 
   constructor() {
     super();
@@ -12,18 +14,22 @@ class ListingCardComponent extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = `
-        <section class="border border-brand-dark py-2 px-3 text-brand-dark font-body">
-          <a href="./itemPage">
-            <img class="item-img" src="" alt="" />
+        <section class="border border-brand-dark py-2 px-3 mx-auto md:mx-0 max-w-96 md:max-w-full text-brand-dark font-body flex flex-col h-full">
+          <a class="" href="./itemPage">
+          <div class="m-auto h-72 flex justify-center items-center">
+            <img class="max-w-full max-h-full object-contain item-img" src="" alt="" />
+          </div>
+          <div>
             <div class="py-4">
-              <h2 class="text-lg lg:text-22px title"></h2>
+              <h2 class="text-lg lg:text-22px overflow-hidden title"></h2>
               <p class="text-base lg:text-lg seller-name"></p>
             </div>
             <div class="text-base lg:text-lg pb-7">
-              <p class="current-bid">Current bid</p>
+              <p class="current-bid"></p>
               <p class="ends-at">Ends at</p>
               <p class="ended bg-brand-light text-brand-default inline-flex py-px px-1 rounded">Sold</p>
             </div>
+          </div>  
           </a>
         </section>
       `;
@@ -31,6 +37,7 @@ class ListingCardComponent extends HTMLElement {
     this.titleElement = this.querySelector(".title");
     this.sellerNameElement = this.querySelector(".seller-name");
     this.itemImageElement = this.querySelector(".item-img") as HTMLImageElement;
+    this.currentBidElement = this.querySelector(".current-bid")
 
     // Apply pending title if it was set before connectedCallback
     if (this._pendingTitle !== null) {
@@ -44,6 +51,10 @@ class ListingCardComponent extends HTMLElement {
     if (this._pendingItemImage !== null) {
       this.itemImage = this._pendingItemImage;
       this._pendingItemImage = null;
+    }
+    if (this._pendingCurrentBid !== null) {
+      this.currentBid = this._pendingCurrentBid
+      this._pendingCurrentBid = null
     }
   }
 
@@ -68,6 +79,13 @@ class ListingCardComponent extends HTMLElement {
       this.sellerNameElement.textContent = value;
     } else {
       this._pendingSellerName = value;
+    }
+  }
+  set currentBid(value: string) {
+    if (this.currentBidElement) {
+      this.currentBidElement.textContent = value
+    } else {
+      this._pendingCurrentBid = value
     }
   }
 }
