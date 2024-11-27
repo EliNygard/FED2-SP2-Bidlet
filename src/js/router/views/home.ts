@@ -2,44 +2,10 @@ import "../../components/header-component.ts";
 import "../../components/footer-component.ts";
 import "../../components/listing-card-component.ts";
 import api from "../../../api/instance.ts";
+import {getCurrentBid} from "../../utilities/getCurrentBid.ts"
 import ListingCardComponent from "../../components/listing-card-component.ts";
+import { Listing } from "../../types/types.ts"
 
-interface Media {
-  url: string;
-  alt: string;
-}
-
-interface User {
-  name: string;
-  email: string;
-  bio?: string;
-  avatar?: Media;
-  banner?: Media;
-  wins?: string[];
-}
-
-interface Bid {
-  id: string;
-  amount: number;
-  bidder: User;
-  created: string;
-}
-
-interface Listing {
-  id?: string;
-  title: string;
-  description?: string;
-  tags?: string[];
-  media?: Media[];
-  created: string;
-  updated: string;
-  endsAt: string;
-  seller?: User;
-  bids?: Bid[];
-  _count?: {
-    bids: number;
-  };
-}
 
 async function initializePage(): Promise<void> {
   const page = document.getElementById("app");
@@ -48,20 +14,32 @@ async function initializePage(): Promise<void> {
     const main = document.createElement("main");
     const footer = document.createElement("footer-component");
 
+    const bgListingsSection = document.createElement("div")
+    bgListingsSection.className = "bg-brand-default"
+    const listingsSection = document.createElement("div")
+    listingsSection.className = "max-w-7xl py-8 px-5 mt-4 m-auto grid gap-3 justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch"
+
+    bgListingsSection.appendChild(listingsSection)
+
     const listings = await api.listings.readAll("&_active=true&sortOrder_endsAt=asc");
     // console.log(listings);
+
     listings.forEach((listing: Listing) => {
+
+      const highestBid = getCurrentBid(listing)
+      console.log(highestBid);
+      
+
       const listingCard = document.createElement("listing-card-component") as ListingCardComponent;
       listingCard.title = listing.title;
       listingCard.sellerName = listing.seller?.name || "Anonym";
       listingCard.itemImage = {
         src: listing.media?.[0]?.url || "default-image-url",
-        alt: listing.media?.[0]?.alt || `Image of item for sale: ${listing.title}`
-      }
-      
-      console.log(listing.media?.[0]?.url);
-      console.log(listing.media?.[0]?.alt);
-      main.appendChild(listingCard);
+        alt: listing.media?.[0]?.alt || `Image of item for sale: ${listing.title}`,
+      };
+      listingCard.currentBid = `Current bid: ${highestBid}`
+
+      listingsSection.appendChild(listingCard);
 
       // if (listing.bids) {
       //     listing.bids.forEach((bid) => {
@@ -69,7 +47,7 @@ async function initializePage(): Promise<void> {
       //     })
       // };
     });
-
+    main.appendChild(bgListingsSection)
     page.append(header, main, footer);
   } else {
     console.error("Could not display page");
