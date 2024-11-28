@@ -7,6 +7,8 @@ class ListingCardComponent extends HTMLElement {
   private _pendingItemImage: { src: string; alt: string } | null = null;
   private currentBidElement: HTMLElement | null = null;
   private _pendingCurrentBid: string | null = null
+  private linkElement: HTMLAnchorElement | null = null
+  private _pendingListingId: string | null = null
 
   constructor() {
     super();
@@ -15,7 +17,7 @@ class ListingCardComponent extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `
         <section class="border border-brand-dark py-2 px-3 mx-auto md:mx-0 max-w-96 md:max-w-full text-brand-dark font-body flex flex-col h-full">
-          <a class="" href="./itemPage">
+          <a class="item-page-link" href="">
           <div class="m-auto h-72 flex justify-center items-center">
             <img class="max-w-full max-h-full object-contain item-img" src="" alt="" />
           </div>
@@ -38,6 +40,7 @@ class ListingCardComponent extends HTMLElement {
     this.sellerNameElement = this.querySelector(".seller-name");
     this.itemImageElement = this.querySelector(".item-img") as HTMLImageElement;
     this.currentBidElement = this.querySelector(".current-bid")
+    this.linkElement = this.querySelector(".item-page-link")
 
     // Apply pending title if it was set before connectedCallback
     if (this._pendingTitle !== null) {
@@ -55,6 +58,10 @@ class ListingCardComponent extends HTMLElement {
     if (this._pendingCurrentBid !== null) {
       this.currentBid = this._pendingCurrentBid
       this._pendingCurrentBid = null
+    }
+    if (this._pendingListingId !== null) {
+      this.listingId = this._pendingListingId
+      this._pendingListingId = null
     }
   }
 
@@ -86,6 +93,13 @@ class ListingCardComponent extends HTMLElement {
       this.currentBidElement.textContent = value
     } else {
       this._pendingCurrentBid = value
+    }
+  }
+  set listingId(value: string) {
+    if (this.linkElement) {
+      this.linkElement.href = `./item?id=${value}`
+    } else {
+      this._pendingListingId = value
     }
   }
 }

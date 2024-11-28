@@ -20,7 +20,7 @@ export interface Media {
   }
   
   export interface Listing {
-    id?: string;
+    id: string;
     title: string;
     description?: string;
     tags?: string[];

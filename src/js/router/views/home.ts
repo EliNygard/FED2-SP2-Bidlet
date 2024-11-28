@@ -21,14 +21,12 @@ async function initializePage(): Promise<void> {
 
     bgListingsSection.appendChild(listingsSection)
 
-    const listings = await api.listings.readAll("&_active=true&sortOrder_endsAt=asc");
-    // console.log(listings);
+    const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc");
+    console.log(listings);
 
     listings.forEach((listing: Listing) => {
 
       const highestBid = getCurrentBid(listing)
-      console.log(highestBid);
-      
 
       const listingCard = document.createElement("listing-card-component") as ListingCardComponent;
       listingCard.title = listing.title;
@@ -38,6 +36,7 @@ async function initializePage(): Promise<void> {
         alt: listing.media?.[0]?.alt || `Image of item for sale: ${listing.title}`,
       };
       listingCard.currentBid = `Current bid: ${highestBid}`
+      listingCard.listingId = listing.id
 
       listingsSection.appendChild(listingCard);
 
