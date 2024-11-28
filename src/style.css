@@ -3,3 +3,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply cursor-pointer bg-accent-default font-heading uppercase text-base;
+  }
+
+  .btn-big {
+    @apply h-14 max-w-max70;
+  }
+}
+
+.form-input {
+  @apply border border-brand-dark h-14;
+}
