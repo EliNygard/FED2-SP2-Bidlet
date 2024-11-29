@@ -1,4 +1,20 @@
+import { calculateTimeRemaining, formatDate } from "../utilities/formatting";
+
 class ItemPageComponent extends HTMLElement {
+    private itemImageElement: HTMLImageElement | null = null
+    private _pendingItemImage: { src: string; alt: string } | null = null
+    private titleElement: HTMLElement | null = null
+    private _pendingTitle: string | null= null
+    private sellerElement: HTMLElement | null = null
+    private _pendingSeller: string | null= null
+    private currentBidElement: HTMLElement | null = null;
+  private _pendingCurrentBid: string | null = null;
+  private timeLeftElement: HTMLElement | null = null;
+  private _pendingTimeLeft: string | null = null;
+  private endsAtElement: HTMLElement | null = null;
+  private _pendingEndsAt: string | null = null;
+    
+
     constructor() {
         super()
     }
@@ -10,7 +26,7 @@ class ItemPageComponent extends HTMLElement {
         <span class="fa-solid fa-ellipsis-vertical"></span>
       </div> -->
       <div class="">
-        <img class="max-w-full max-h-full object-contain" src="" alt="" />
+        <img class="max-w-full max-h-full object-contain item-img" src="" alt="" />
         <ul id="carousel"></ul>
       </div>
 
@@ -24,28 +40,29 @@ class ItemPageComponent extends HTMLElement {
       </div>
 
       <div class="mb-6 mt-8">
-        <div class="mb-6">
-          <p
+        <ul class="mb-6 tags">
+          <!--<li
             class="font-heading uppercase text-xs md:text-sm text-brand-dark bg-brand-default hover:bg-accent-default rounded inline-flex px-1 py-1"
           >
             Interior &amp; Furniture
-          </p>
-        </div>
+          </li> -->
+        </ul>
         <div>
-          <h1 class="font-heading text-2xl md:text-3xl mb-2">Comfortable blue chair</h1>
+          <h1 class="title font-heading text-2xl md:text-3xl mb-2"></h1>
           <a href="">
-            <p class="font-body text-sm md:text-base mb-5">Eli Nygård</p>
+            <p class="seller font-body text-sm md:text-base mb-5"></p>
           </a>
-          <p class="font-body text-base md:text-lg mb-4">Current bid: 600 kr</p>
-          <p class="font-body text-sm md:text-base mb-1">Time left: 10 days 21 hours 38 min</p>
-          <p class="font-body text-sm md:text-base">Ends at 23 December 2024, 19:30</p>
+          <p class="current-bid font-body text-base md:text-lg mb-4">Current bid: 600 kr</p>
+          <p class="time-left font-body text-sm md:text-base mb-1"></p>
+          <p class="ends-at font-body text-sm md:text-base"></p>
         </div>
       </div>
 
       <form class="flex flex-col gap-4" action="" name="bid">
-        <label class="hidden" for="bid">Add your bid</label>
+        <label class="hidden" id="bid"">Add your bid</label>
         <input
           class="form-input max-w-max70"
+          id="bid"
           type="text"
           name="bid-amount"
           pattern="\\d+(.\\d+)?"
@@ -58,7 +75,7 @@ class ItemPageComponent extends HTMLElement {
 
       <section class="mt-12">
         <h2 class="font-heading text-xl md:text-2xl mb-2">Description</h2>
-        <p class="font-body text-base md:text-lg">
+        <p class="description font-body text-base md:text-lg">
           Lorem ipsum dolor sit amet consectetur. Ut suspendisse aliquam quam penatibus. Magnis vulputate pellentesque
           feugiat lacus consectetur nibh.
         </p>
@@ -73,9 +90,119 @@ class ItemPageComponent extends HTMLElement {
       </section>
     </section>
         `
+
+        this.itemImageElement = this.querySelector(".item-img") as HTMLImageElement
+        this.titleElement = this.querySelector(".title")
+        this.sellerElement = this.querySelector(".seller")
+        this.currentBidElement = this.querySelector(".current-bid");
+        this.timeLeftElement = this.querySelector(".time-left")
+        this.endsAtElement = this.querySelector(".ends-at")
+
+        if (this._pendingItemImage !== null) {
+            this.itemImage = this._pendingItemImage
+            this._pendingItemImage = null
+        }
+        if (this._pendingTitle !== null) {
+            this.title = this._pendingTitle
+            this._pendingTitle = null
+        }
+        if (this._pendingSeller !== null) {
+            this.seller = this._pendingSeller
+            this._pendingSeller = null
+        }
+        if (this._pendingCurrentBid !== null) {
+            this.currentBid = this._pendingCurrentBid;
+            this._pendingCurrentBid = null;
+        }
+        if (this._pendingTimeLeft !== null) {
+            this.timeLeft = this._pendingTimeLeft;
+            this._pendingTimeLeft = null;
+        }
+        if (this._pendingEndsAt !== null) {
+            this.endsAt = this._pendingEndsAt;
+            this._pendingEndsAt = null;
+          }
+
+
+        this.dispatchEvent(new Event("renderComplete"));
+        
     }
+    
+    set itemImage(value: { src: string; alt: string }) {
+        if (this.itemImageElement) {
+            this.itemImageElement.src = value.src
+            this.itemImageElement.alt = value.alt
+        } else {
+            this._pendingItemImage = value
+        }
+    }
+    set title(value: string) {
+        if (this.titleElement) {
+            this.titleElement.textContent = value
+        } else {
+            this._pendingTitle = value
+        }
+    }
+    set seller(value:string) {
+        if (this.sellerElement) {
+            this.sellerElement.textContent = value
+        } else {
+            this._pendingSeller = value
+        }
+    }
+    set currentBid(value: string) {
+        if (this.currentBidElement) {
+          this.currentBidElement.textContent = value;
+        } else {
+          this._pendingCurrentBid = value;
+        }
+      }
+    set timeLeft(value: string) {
+        if (this.timeLeftElement) {
+            const now = new Date();
+            const endsAtDate = new Date(value);
+      
+            if (endsAtDate < now) {
+              this.timeLeftElement.className = "ends-at bg-brand-light text-brand-default inline-flex py-px px-1 rounded";
+              this.timeLeftElement.textContent = "Auction ended";
+              if (this.currentBidElement) {
+                this.currentBidElement.remove();
+              }
+            } else {
+              this.timeLeftElement.className = "ends-at";
+              this.timeLeftElement.textContent = "Time left: " + calculateTimeRemaining(endsAtDate.toISOString());
+            }
+          } else {
+            this._pendingTimeLeft = value;
+          }
+    }
+    set endsAt(value:string) {
+        if(this.endsAtElement) {
+            this.endsAtElement.textContent = "Ends at: " + formatDate(value)
+        }else {
+            this._pendingEndsAt = value
+        }
+    }
+
+    addTags(tags: string[]) {
+        console.log(tags);
+        
+        const tagsListElement = this.querySelector(".tags");
+        console.log(tagsListElement);
+        
+        if (tagsListElement) {
+          tags.forEach(tag => {
+            const tagItem = document.createElement("li");
+            tagItem.textContent = tag;
+            tagItem.className = "font-heading uppercase text-xs md:text-sm text-brand-dark bg-brand-default hover:bg-accent-default rounded inline-flex px-1 py-1";
+            tagsListElement.appendChild(tagItem);
+          });
+        }
+      }
+
+    
 }
 
-customElements.define("-item-page-component", ItemPageComponent)
+customElements.define("item-page-component", ItemPageComponent)
 
 export default ItemPageComponent
