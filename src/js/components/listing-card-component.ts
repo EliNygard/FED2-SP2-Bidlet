@@ -1,4 +1,4 @@
-import { formatEndsAt } from "../utilities/formatting";
+import { calculateTimeRemaining } from "../utilities/formatting";
 
 class ListingCardComponent extends HTMLElement {
   private titleElement: HTMLElement | null = null;
@@ -39,11 +39,11 @@ class ListingCardComponent extends HTMLElement {
               </section>
               `;
 
+    this.linkElement = this.querySelector(".item-page-link");
     this.titleElement = this.querySelector(".title");
     this.sellerNameElement = this.querySelector(".seller-name");
     this.itemImageElement = this.querySelector(".item-img") as HTMLImageElement;
     this.currentBidElement = this.querySelector(".current-bid");
-    this.linkElement = this.querySelector(".item-page-link");
     this.endsAtElement = this.querySelector(".ends-at");
 
     if (this._pendingTitle !== null) {
@@ -121,7 +121,7 @@ class ListingCardComponent extends HTMLElement {
         }
       } else {
         this.endsAtElement.className = "ends-at";
-        this.endsAtElement.textContent = formatEndsAt(endsAtDate.toISOString());
+        this.endsAtElement.textContent = calculateTimeRemaining(endsAtDate.toISOString());
       }
     } else {
       this._pendingEndsAt = value;
