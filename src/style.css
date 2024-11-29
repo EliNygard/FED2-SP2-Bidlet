@@ -6,7 +6,7 @@
 
 @layer components {
   .btn {
-    @apply cursor-pointer bg-accent-default font-heading uppercase text-base;
+    @apply cursor-pointer bg-accent-default font-heading uppercase text-base md:text-lg;
   }
 
   .btn-big {
