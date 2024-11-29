@@ -45,17 +45,22 @@ export default class EndpointsAPI {
   };
 
   listing = {
-    read: async (id: string) => {
+    read: async (id: string | null) => {
+      if (!id) {
+        throw new Error("Invalid listing ID")
+      }
+
       const url = new URL(`${this.apiListingsPath}/${id}${this.apiListingsQueryParam}`);
       const response = await fetch(url, {
         headers: this.util.setupHeaders(true, false),
         method: "GET",
       });
+      
       if (response.ok) {
         const { data } = await response.json();
         return data;
       }
-      throw new Error("Could not fetch post");
+      throw new Error("Could not fetch listing");
     },
   };
 
@@ -71,7 +76,7 @@ export default class EndpointsAPI {
         const { data } = await response.json();
         return data;
       }
-      throw new Error("Could not fetch listings.");
+      throw new Error("Could not fetch listings");
     },
   };
 }
