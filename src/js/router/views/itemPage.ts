@@ -33,6 +33,7 @@ async function initializePage(): Promise<void> {
         listingItem.currentBid = `Current bid: ${highestBid} kr`
         listingItem.timeLeft = listing.endsAt
         listingItem.endsAt = listing.endsAt
+        listingItem.description = listing.description
         
         main.appendChild(listingItem)
         console.log(listingItem);
@@ -42,6 +43,12 @@ async function initializePage(): Promise<void> {
         if (tags) {
             listingItem.addTags(tags);
             console.log(tags);
+        }
+        const bids = listing.bids
+        if (bids) {
+            listingItem.addBids(bids)
+            console.log(bids);
+            
         }
     })
         

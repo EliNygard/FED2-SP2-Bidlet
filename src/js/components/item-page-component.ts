@@ -1,4 +1,5 @@
-import { calculateTimeRemaining, formatDate } from "../utilities/formatting";
+import { Bid } from "../types/types";
+import { calculateTimeRemaining, formatDate, formatDateAndTime } from "../utilities/formatting";
 
 class ItemPageComponent extends HTMLElement {
     private itemImageElement: HTMLImageElement | null = null
@@ -13,6 +14,8 @@ class ItemPageComponent extends HTMLElement {
   private _pendingTimeLeft: string | null = null;
   private endsAtElement: HTMLElement | null = null;
   private _pendingEndsAt: string | null = null;
+  private descriptionElement: HTMLElement | null = null;
+  private _pendingDescription: string | null = null;
     
 
     constructor() {
@@ -53,7 +56,7 @@ class ItemPageComponent extends HTMLElement {
             <p class="seller font-body text-sm md:text-base mb-5"></p>
           </a>
           <p class="current-bid font-body text-base md:text-lg mb-4">Current bid: 600 kr</p>
-          <p class="time-left font-body text-sm md:text-base mb-1"></p>
+          <p class="time-left"></p>
           <p class="ends-at font-body text-sm md:text-base"></p>
         </div>
       </div>
@@ -82,11 +85,9 @@ class ItemPageComponent extends HTMLElement {
       </section>
 
       <section class="mt-12 mr-10 flex flex-col gap-4 max-w-60">
-        <h2 class="font-heading text-xl md:text-2xl">All bids (2)</h2>
-        <div class="flex flex-row justify-between">
-          <p class="font-body text-base md:text-lg">28.12.2024 - 14:20</p>
-          <p class="font-body text-base md:text-lg">2000 kr</p>
-        </div>
+        <h2 class="bids-title font-heading text-xl md:text-2xl">All bids</h2>
+        <ul class="bids-list">
+        </ul>
       </section>
     </section>
         `
@@ -97,6 +98,7 @@ class ItemPageComponent extends HTMLElement {
         this.currentBidElement = this.querySelector(".current-bid");
         this.timeLeftElement = this.querySelector(".time-left")
         this.endsAtElement = this.querySelector(".ends-at")
+        this.descriptionElement = this.querySelector(".description")
 
         if (this._pendingItemImage !== null) {
             this.itemImage = this._pendingItemImage
@@ -122,6 +124,10 @@ class ItemPageComponent extends HTMLElement {
             this.endsAt = this._pendingEndsAt;
             this._pendingEndsAt = null;
           }
+        if (this._pendingDescription !== null) {
+            this.description = this._pendingDescription
+            this._pendingDescription = null
+        }
 
 
         this.dispatchEvent(new Event("renderComplete"));
@@ -163,13 +169,13 @@ class ItemPageComponent extends HTMLElement {
             const endsAtDate = new Date(value);
       
             if (endsAtDate < now) {
-              this.timeLeftElement.className = "ends-at bg-brand-light text-brand-default inline-flex py-px px-1 rounded";
+              this.timeLeftElement.className = "time-left bg-brand-light text-brand-default inline-flex py-px px-1 rounded";
               this.timeLeftElement.textContent = "Auction ended";
               if (this.currentBidElement) {
                 this.currentBidElement.remove();
               }
             } else {
-              this.timeLeftElement.className = "ends-at";
+              this.timeLeftElement.className = "time-left font-body text-sm md:text-base mb-1";
               this.timeLeftElement.textContent = "Time left: " + calculateTimeRemaining(endsAtDate.toISOString());
             }
           } else {
@@ -181,6 +187,13 @@ class ItemPageComponent extends HTMLElement {
             this.endsAtElement.textContent = "Ends at: " + formatDate(value)
         }else {
             this._pendingEndsAt = value
+        }
+    }
+    set description(value: string) {
+        if (this.descriptionElement) {
+            this.descriptionElement.textContent = value
+        } else {
+            this._pendingDescription = value
         }
     }
 
@@ -199,6 +212,30 @@ class ItemPageComponent extends HTMLElement {
           });
         }
       }
+
+    addBids(bids: Bid[]) {
+        console.log(bids);
+        const bidsListElement = this.querySelector(".bids-list")
+
+        if (bidsListElement) {
+            bids.forEach(bid => {
+                
+                const bidItem = document.createElement("li")
+                bidItem.className = "bids-list flex flex-row justify-between"
+                const bidDate = document.createElement("p")
+                bidDate.textContent = formatDateAndTime(bid.created)
+                bidDate.className = "font-body text-base md:text-lg"
+                const bidAmount = document.createElement("p")
+                bidAmount.textContent = `${bid.amount} kr`
+                bidAmount.className = "font-body text-base md:text-lg"
+
+                bidItem.append(bidDate, bidAmount)
+                bidsListElement.append(bidItem)
+            })
+        }
+        
+        
+    }
 
     
 }
