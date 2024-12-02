@@ -174,6 +174,7 @@ export async function displayItem(listing: Listing) {
         bidItem.className = "bids-list flex flex-row justify-between"
         const bidDate = document.createElement("p");
         bidDate.textContent = formatDateAndTime(bid.created);
+        
         bidDate.className = "font-body text-base md:text-lg";
         const bidAmount = document.createElement("p");
         bidAmount.textContent = `${bid.amount} kr`;

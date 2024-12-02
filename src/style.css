@@ -10,7 +10,7 @@
   }
 
   .btn-big {
-    @apply h-14 max-w-max70;
+    @apply h-14 min-w-64 max-w-max70;
   }
 }
 
