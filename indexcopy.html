@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Favicon -->
+    <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
+
+    <!-- Icons -->
+    <script src="https://kit.fontawesome.com/2c5c2a6dff.js" crossorigin="anonymous"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="/src/main.ts"></script>
+    <title>Bidlet</title>
+  </head>
+  <body class="min-h-screen py-2">
+    <div id="bid-message" class="absolute inset-0 flex justify-center items-center md:top-40 bg-black bg-opacity-50">
+      <section class="relative flex flex-col items-center font-body bg-white">
+        <h1 class="text-lg mb-7">Your bid</h1>
+        <h2 class="text-base mb-12">Green sofa</h2>
+
+        <div class="flex flex-row gap-9 mb-24 justify-between text-base">
+          <p>Bid</p>
+          <p>700kr</p>
+        </div>
+        <!-- <div class="flex flex-row justify-between text-base">
+          <p>Remaining credit</p>
+          <p>300</p>
+        </div> -->
+
+        <button class="btn btn-big">Confirm bid</button>
+      </section>
+    </div>
+  </body>
+</html>

@@ -5,7 +5,7 @@ class FooterComponent extends HTMLElement {
 
   connectedCallback() {
     this.innerHTML = `
-        <footer class="max-w-maxW52 mx-auto">
+        <footer class="max-w-maxW52 mx-auto mt-24">
       <div class="flex justify-center items-center gap-2 font-heading">
         <span aria-label="Copyright" class="fa-regular fa-copyright"></span>
         <p id="copy-year">2024</p>
