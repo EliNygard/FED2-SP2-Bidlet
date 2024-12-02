@@ -32,11 +32,14 @@ export function formatDate(dateString: string): string {
 export function formatDateAndTime(dateString: string): string {
   const value = dateString
   const date = new Date(value)
+  console.log(date);
+  
+  
   const year = date.getFullYear()
-  const month = date.getMonth()
+  const month = date.getMonth() + 1
   const day = date.getDate()
-  const hour = date.getHours()
-  const minutes = date.getMinutes()
+  const hour = String(date.getHours()).padStart(2, '0')
+  const minutes = String(date.getMinutes()).padStart(2, '0')
 
   return `${day}.${month}.${year} - ${hour}:${minutes}`
 }
