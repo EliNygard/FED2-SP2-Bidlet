@@ -4,8 +4,6 @@ import { calculateTimeRemaining, formatDateAndTime } from "../utilities/formatti
 import { getCurrentBid } from "../utilities/getCurrentBid";
 
 export async function displayItem(listing: Listing) {
-    console.log(listing);
-
     const section = document.createElement("section");
     section.className = "flex flex-col m-auto my-6 px-4 max-w-xl";
 
@@ -70,25 +68,25 @@ export async function displayItem(listing: Listing) {
     const detailsInnerDiv = document.createElement("div");
 
     const title = document.createElement("h1");
-    title.className = "title font-heading text-2xl md:text-3xl mb-2";
+    title.className = "title font-heading text-2xl md:text-3xl mb-3";
     title.textContent = listing.title || "No title available";
     detailsInnerDiv.appendChild(title);
 
     const sellerLink = document.createElement("a");
     const seller = document.createElement("p");
-    seller.className = "seller font-body text-sm md:text-base mb-5";
+    seller.className = "font-body text-sm md:text-base mb-7";
     seller.textContent = listing.seller.name || "Unknown seller";
     sellerLink.appendChild(seller);
     detailsInnerDiv.appendChild(sellerLink);
 
     const currentBid = document.createElement("p");
-    currentBid.className = "current-bid font-body text-base md:text-lg mb-4";
+    currentBid.className = "font-body text-base md:text-lg mb-6";
     const highestBid = getCurrentBid(listing)
     currentBid.textContent = `Current bid: ${highestBid || "0"} kr`;
     detailsInnerDiv.appendChild(currentBid);
 
     const timeLeft = document.createElement("p");
-    timeLeft.className = "time-left font-body text-sm md:text-base";
+    timeLeft.className = "font-body mb-2 text-sm md:text-base";
     const timeLeftConverted = calculateTimeRemaining(listing.endsAt)
     timeLeft.textContent = timeLeftConverted || "No time information";
     detailsInnerDiv.appendChild(timeLeft);
@@ -131,7 +129,6 @@ export async function displayItem(listing: Listing) {
     
     form.appendChild(bidButton);
     form.addEventListener("submit", (event: Event) => {
-        console.log("bid btn clicked");
         const id = listing.id
         onBid(event, id)
     })
@@ -167,7 +164,6 @@ export async function displayItem(listing: Listing) {
     bidsList.className = "bids-list";
     bidsSection.appendChild(bidsList);
     const bids = listing.bids;
-    console.log(bids);
     if (bids) {
         bids.forEach((bid: { created: string; amount: number }) => {
         const bidItem = document.createElement("li")
