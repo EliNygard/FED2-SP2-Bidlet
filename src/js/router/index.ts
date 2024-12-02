@@ -4,7 +4,6 @@ export default async function router(pathname = window.location.pathname) {
             await import("./views/home.ts")
             break;
         case "/item":
-        case "/item/index.html":
             await import ("./views/itemPage.ts")
             break;
         case "/search":
