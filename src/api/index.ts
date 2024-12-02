@@ -47,7 +47,7 @@ export default class EndpointsAPI {
   listing = {
     read: async (id: string | null) => {
       if (!id) {
-        throw new Error("Invalid listing ID")
+        throw new Error("Invalid listing ID");
       }
 
       const url = new URL(`${this.apiListingsPath}/${id}${this.apiListingsQueryParam}`);
@@ -55,7 +55,7 @@ export default class EndpointsAPI {
         headers: this.util.setupHeaders(true, false),
         method: "GET",
       });
-      
+
       if (response.ok) {
         const { data } = await response.json();
         return data;
@@ -77,6 +77,24 @@ export default class EndpointsAPI {
         return data;
       }
       throw new Error("Could not fetch listings");
+    },
+    bid: async (id: string | null, body: number) => {
+      if (!id) {
+        throw new Error("Could not find listing iD");
+      }
+
+      const url = new URL(`${this.apiListingsPath}${id}/bids`);
+      const response = await fetch(url, {
+        headers: this.util.setupHeaders(true, true),
+        method: "POST",
+        body: JSON.stringify(body),
+      });
+
+      if (response.ok) {
+        const { data } = await response.json();
+        return data;
+      }
+      throw new Error("Could not make bid. Please try again.");
     },
   };
 }

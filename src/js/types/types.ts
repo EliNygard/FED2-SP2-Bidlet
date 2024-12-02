@@ -28,7 +28,7 @@ export interface Media {
     created: string;
     updated: string;
     endsAt: string;
-    seller?: User;
+    seller: User;
     bids?: Bid[];
     _count?: {
       bids: number;
