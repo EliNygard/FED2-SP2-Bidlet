@@ -22,22 +22,22 @@ class ListingCardComponent extends HTMLElement {
     this.innerHTML = `
         <section class="border border-brand-dark pt-2 pb-7 px-4 mx-auto md:mx-0 max-w-96 md:max-w-full text-brand-dark font-body flex flex-col h-full">
           <a class="item-page-link" href="">
-          <div class="m-auto h-60 flex justify-center items-center">
-            <img class="max-w-full max-h-full object-contain item-img" src="" alt="" />
-          </div>
-          <div>
-            <div class="mt-4">
-              <h2 class="title mb-1 text-lg lg:text-22px overflow-hidden"></h2>
-              <p class="seller-name text-base lg:text-lg"></p>
+            <div class="m-auto h-60 flex justify-center items-center">
+              <img class="max-w-full max-h-full object-contain item-img" src="" alt="" />
             </div>
-            <div class="text-base lg:text-lg mt-4">
-              <p class="current-bid mb-1"></p>
-              <p class="ends-at"></p>
+            <div class="mx-2">
+              <div class="mt-4">
+                <h2 class="title mb-1 text-lg lg:text-22px overflow-hidden"></h2>
+                <p class="seller-name text-base lg:text-lg"></p>
               </div>
-              </div>  
-              </a>
-              </section>
-              `;
+              <div class="text-base lg:text-lg mt-4">
+                <p class="current-bid mb-1"></p>
+                <p class="ends-at"></p>
+              </div>
+            </div>  
+          </a>
+        </section>
+        `;
 
     this.linkElement = this.querySelector(".item-page-link");
     this.titleElement = this.querySelector(".title");
