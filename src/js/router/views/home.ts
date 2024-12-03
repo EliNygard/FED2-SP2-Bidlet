@@ -4,7 +4,6 @@ import "../../components/listing-card-component.ts";
 import "../../components/loader-component.ts";
 import api from "../../../api/instance.ts";
 import { populateListings } from "../../utilities/populateListings.ts";
-import { delay } from "../../utilities/delay.ts";
 
 async function initializePage(): Promise<void> {
   const page = document.getElementById("app");
@@ -24,7 +23,6 @@ async function initializePage(): Promise<void> {
     page.append(header, main, footer);
 
     try {
-      await delay(1000);
       const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc");
       // console.log(listings);
       bgListingsSection.appendChild(listingsSection);
@@ -35,8 +33,6 @@ async function initializePage(): Promise<void> {
       main.removeChild(loader);
     }
 
-    // main.appendChild(bgListingsSection);
-    // page.append(header, main, footer);
   } else {
     console.error("Could not display page");
   }
