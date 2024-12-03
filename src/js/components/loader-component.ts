@@ -22,6 +22,7 @@ class LoaderComponent extends HTMLElement {
           justify-content: center;
           align-items: center;
           height: 100%;
+          margin-top: 4rem;
         }
         
         .spinner {
