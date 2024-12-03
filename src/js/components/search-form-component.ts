@@ -14,6 +14,23 @@ class SearchFormComponent extends HTMLElement {
       `;
   
       const form = this.querySelector<HTMLFormElement>("#searchForm");
+    //   const input = this.querySelector<HTMLInputElement>("#searchInput")
+
+    //   form?.addEventListener("submit", (event) => {
+    //     event.preventDefault()
+    //   })
+
+    //   input?.addEventListener("input", (event) => {
+    //     const query = (event.target as HTMLInputElement).value.trim()
+    //     this.dispatchEvent(
+    //         new CustomEvent("search", {
+    //             detail: { query },
+    //             bubbles: true,
+    //         })
+    //     )
+    //   })
+
+
       form?.addEventListener("submit", (event) => {
         event.preventDefault(); 
         const query = this.querySelector<HTMLInputElement>("#searchInput")?.value;
