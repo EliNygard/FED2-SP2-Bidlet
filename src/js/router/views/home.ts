@@ -2,9 +2,7 @@ import "../../components/header-component.ts";
 import "../../components/footer-component.ts";
 import "../../components/listing-card-component.ts";
 import api from "../../../api/instance.ts";
-import { getCurrentBid } from "../../utilities/getCurrentBid.ts";
-import ListingCardComponent from "../../components/listing-card-component.ts";
-import { Listing } from "../../types/types.ts";
+import { populateListings } from "../../utilities/populateListings.ts";
 
 async function initializePage(): Promise<void> {
   const page = document.getElementById("app");
@@ -21,25 +19,15 @@ async function initializePage(): Promise<void> {
 
     bgListingsSection.appendChild(listingsSection);
 
-    const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc");
-    // console.log(listings);
+    try {
+      const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc");
+      // console.log(listings);
+      populateListings(listings, listingsSection)
 
-    listings.forEach((listing: Listing) => {
-      const highestBid = getCurrentBid(listing);
-
-      const listingCard = document.createElement("listing-card-component") as ListingCardComponent;
-      listingCard.listingId = listing.id;
-      listingCard.itemImage = {
-        src: listing.media?.[0]?.url || "default-image-url",
-        alt: listing.media?.[0]?.alt || `Image of item for sale: ${listing.title}`,
-      };
-      listingCard.title = listing.title;
-      listingCard.sellerName = listing.seller?.name || "Anonym";
-      listingCard.currentBid = `Current bid: ${highestBid} kr`;
-      listingCard.endsAt = listing.endsAt;
-
-      listingsSection.appendChild(listingCard);
-    });
+    } catch (error) {
+      console.error(error);
+      
+    }
 
     main.appendChild(bgListingsSection);
     page.append(header, main, footer);
