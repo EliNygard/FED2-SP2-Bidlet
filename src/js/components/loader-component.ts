@@ -3,26 +3,22 @@ class LoaderComponent extends HTMLElement {
       super();
       const shadow = this.attachShadow({ mode: "open" });
   
-      // Create a container for the loader
       const container = document.createElement("div");
       container.classList.add("loader");
   
-      // Create the spinner (or any loading graphic)
       const spinner = document.createElement("div");
       spinner.classList.add("spinner");
   
-      // Append spinner to the container
       container.appendChild(spinner);
   
-      // Apply styles
       const style = document.createElement("style");
       style.textContent = `
         .loader {
           display: flex;
           justify-content: center;
           align-items: center;
-          height: 100%;
-          margin-top: 4rem;
+          height: 100vh;
+          margin-top: 0rem;
         }
         
         .spinner {
