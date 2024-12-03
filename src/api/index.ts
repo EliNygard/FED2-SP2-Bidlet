@@ -96,5 +96,21 @@ export default class EndpointsAPI {
       }
       throw new Error("Could not make bid. Please try again.");
     },
+    search: async (query: string | null) => {
+      if (!query) {
+        throw new Error("Please type in your search.")
+      }
+
+      const url = new URL(`${this.apiListingsPath}/search?q=${query}&_seller=true&sort=endsAt&sortOrder=desc`)
+      const response = await fetch(url, {
+        method: "GET",
+      })
+
+      if (response.ok) {
+        const { data } = await response.json()
+        return data;
+      }
+      throw new Error("Could not find a match for the search. Please try again.")
+    }
   };
 }
