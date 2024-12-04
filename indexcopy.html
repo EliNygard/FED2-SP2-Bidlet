@@ -13,21 +13,14 @@
     <title>Bidlet</title>
   </head>
   <body class="min-h-screen py-2">
-    <div id="bid-message" class="absolute inset-0 flex justify-center items-center md:top-40 bg-black bg-opacity-50">
-      <section class="relative flex flex-col items-center font-body bg-white">
-        <h1 class="text-lg mb-7">Your bid</h1>
-        <h2 class="text-base mb-12">Green sofa</h2>
-
-        <div class="flex flex-row gap-9 mb-24 justify-between text-base">
-          <p>Bid</p>
-          <p>700kr</p>
-        </div>
-        <!-- <div class="flex flex-row justify-between text-base">
-          <p>Remaining credit</p>
-          <p>300</p>
-        </div> -->
-
-        <button class="btn btn-big">Confirm bid</button>
+    <div id="" class="absolute bg-brand-default px-6 py-2 min-h-screen min-w-full flex flex-col text-brand-dark">
+      <button class="inline-flex justify-end">X</button>
+      <section class="flex flex-col mx-auto mt-11">
+        <h1 class="font-heading text-2xl md:text-3xl">Log in at Bidlet</h1>
+        <form class="font-body flex flex-col gap-2 max-w-2xl" name="login" action="">
+          <label for="email" class="">Email *</label>
+          <input type="email" id="email" name="email" pattern="^[\w\-.]+@(stud\.)?noroff\.no$" required />
+        </form>
       </section>
     </div>
   </body>
