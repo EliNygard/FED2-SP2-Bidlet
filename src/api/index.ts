@@ -31,6 +31,18 @@ export default class EndpointsAPI {
     }
   }
 
+  set user(userData) {
+    localStorage.setItem("user", JSON.stringify(userData))
+  }
+
+  get user() {
+    try {
+      return JSON.parse(localStorage.user)
+    } catch {
+      return null
+    }
+  }
+
   static base = "https://v2.api.noroff.dev";
 
   private apiKey = "fe311d91-e71a-404d-a858-c3e3e9bd0e65";
@@ -83,13 +95,15 @@ export default class EndpointsAPI {
 
       if (response.ok) {
         const {data} = await response.json()
-        const { accessToken: token } = data;
+        const { accessToken: token, ...user } = data;
 
+        this.user = user
         this.token = token;
         localStorage.token = token;
 
         return data;
       }
+      throw new Error("Wrong email or password. Please try again or register a user if you do not already have one.")
     }
   };
 
