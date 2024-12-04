@@ -26,4 +26,9 @@ export default [
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    rules: {
+      // "no-useless-escape": "off",
+    },
+  },
 ];
