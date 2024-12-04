@@ -1,3 +1,5 @@
+import { onLogin } from "../ui/auth/login";
+
 class HeaderComponent extends HTMLElement {
   constructor() {
     super();
@@ -62,6 +64,7 @@ const loginForm = this.querySelector<HTMLFormElement>("#loginForm")
 loginForm?.addEventListener("submit", (event) => {
   event.preventDefault()
   console.log("login button clicked");
+  onLogin(event)
   
 })
 
