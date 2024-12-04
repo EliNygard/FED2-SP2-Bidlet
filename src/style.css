@@ -25,3 +25,11 @@
 .form-input {
   @apply border border-brand-dark h-12;
 }
+
+#login-dropdown {
+  @apply opacity-0 -translate-y-1/4 transition-opacity ease-in duration-300 pointer-events-none;
+}
+
+#login-dropdown.visible {
+  @apply opacity-100 translate-y-0 pointer-events-auto;
+}
