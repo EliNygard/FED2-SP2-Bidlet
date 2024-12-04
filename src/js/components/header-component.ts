@@ -5,6 +5,8 @@ class HeaderComponent extends HTMLElement {
 
   connectedCallback() {
     const isLoggedIn = Boolean(localStorage.getItem("token"));
+    const loginDropdownId = "login-dropdown"
+
     const loggedinLinks = `
     <a aria-label="Link to Create new Bidlet page" title="Create a new Bidlet" href="./create">
         <span aria-hidden="true" class="fa-solid fa-plus text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
@@ -14,9 +16,12 @@ class HeaderComponent extends HTMLElement {
       </a>
     `
     const loggedOutLinks = `
-    <a aria-label="Link to log in or register page" title="Log in or register an account" href="./login">
-          <span aria-hidden="true" class="fa-regular fa-user text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
-        </a>
+    <button id="profile-button" aria-label="Link to log in or register page" title="Log in or register an account"">
+      <span aria-hidden="true" class="fa-regular fa-user text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
+    </button>
+    <div id="${loginDropdownId}" class="hidden absolute bg-white shadow-md p-5 rounded-md top-12 right-0">
+      <h1>Login</h1>
+    </div>
     `
     this.innerHTML = `
     <header class="max-w-7xl mx-auto px-5 sticky">
@@ -33,7 +38,17 @@ class HeaderComponent extends HTMLElement {
   </nav>
 </header>
     `;
+
+    if (!isLoggedIn) {
+      const profileButton = this.querySelector("#profile-button")
+      const loginDropdown = this.querySelector(`#${loginDropdownId}`)
+
+      profileButton?.addEventListener("click", () => {
+        loginDropdown?.classList.toggle("hidden")
+      })
+    }
   }
+
 }
 
 customElements.define("header-component", HeaderComponent);
