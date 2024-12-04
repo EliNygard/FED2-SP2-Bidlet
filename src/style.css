@@ -6,7 +6,15 @@
 
 @layer components {
   .btn {
-    @apply cursor-pointer bg-accent-default font-heading uppercase text-base md:text-lg;
+    @apply cursor-pointer font-heading uppercase text-base md:text-lg;
+  }
+
+  .btn-accent {
+    @apply bg-accent-default text-brand-dark;
+  }
+
+  .btn-auth {
+    @apply bg-brand-dark text-brand-default;
   }
 
   .btn-big {
@@ -15,5 +23,5 @@
 }
 
 .form-input {
-  @apply border border-brand-dark h-14;
+  @apply border border-brand-dark h-12;
 }
