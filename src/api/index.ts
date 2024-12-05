@@ -79,11 +79,27 @@ export default class EndpointsAPI {
         body,
       });
 
+      const json = await response.json()
+
       if (response.ok) {
-        const { data } = await response.json();
+        const { data } = json;
         return data;
+      } else {
+        console.log(json);
+        
+        const errorDetails = {
+          status: response.status,
+          statusText: response.statusText,
+          messages: "Ups, something went wrong. Please try again.",
+        };
+        console.log(errorDetails.messages);
+
+        if (json?.errors.length > 0) {
+          errorDetails.messages = json.errors.map((err: { message: string }) => err.message).join(", ");
+        }
+        
+        throw errorDetails;
       }
-      throw new Error("Something went wrong. Could not register account. Please try again.");
     },
     login: async ({ email, password }: LoginUser) => {
       const body = JSON.stringify({ email, password })
