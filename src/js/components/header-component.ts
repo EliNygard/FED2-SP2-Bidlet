@@ -44,10 +44,8 @@ class HeaderComponent extends HTMLElement {
 
     if (!isLoggedIn) {
       const profileButton = this.querySelector("#profile-button");
-      const authComponent = this.querySelector(`auth-component`);
+      const authComponent = this.querySelector("auth-component");
       const closeButton = this.querySelector("#closeButton");
-      console.log(closeButton);
-      console.log(authComponent);
 
       profileButton?.addEventListener("click", () => {
         if (authComponent?.classList.contains("visible")) {
@@ -59,10 +57,8 @@ class HeaderComponent extends HTMLElement {
         }
       });
 
-      // move this to auth-component?:
       closeButton?.addEventListener("click", () => {
         if (authComponent?.classList.contains("visible")) {
-          console.log("closing login dropdown");
           authComponent.classList.remove("visible");
           authComponent.classList.add("hidden");
         }
