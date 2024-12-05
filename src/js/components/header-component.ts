@@ -1,4 +1,4 @@
-import "./auth-component";
+import "./auth-component.ts";
 
 class HeaderComponent extends HTMLElement {
   constructor() {
@@ -17,15 +17,15 @@ class HeaderComponent extends HTMLElement {
         <span aria-hidden="true" class="fa-regular fa-user text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
       </a>
     `;
+
     const loggedOutLinks = `
     <button id="profile-button" aria-label="Link to log in or register page" title="Log in or register an account">
       <span aria-hidden="true" class="fa-regular fa-user text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
     </button>
-    <div id="${loginDropdownId}" class="absolute top-0 left-0 h-full w-full">
-    <auth-component data-mode="login"></auth-component>
-    </div>
-    </div>
+
+    <auth-component data-mode="login" id="${loginDropdownId}" class="absolute top-0 left-0 h-full w-full"></auth-component>
     `;
+
     this.innerHTML = `
     <header class="max-w-7xl mx-auto px-5 sticky">
   <nav class="flex justify-between items-center">
@@ -42,14 +42,30 @@ class HeaderComponent extends HTMLElement {
 </header>
 `;
 
-if (!isLoggedIn) {
-  const profileButton = this.querySelector("#profile-button");
-  const loginDropdown = this.querySelector(`#${loginDropdownId}`);
-  
-  profileButton?.addEventListener("click", () => {
-    console.log("click");
-    
-    loginDropdown?.classList.toggle("visible");
+    if (!isLoggedIn) {
+      const profileButton = this.querySelector("#profile-button");
+      const authComponent = this.querySelector(`auth-component`);
+      const closeButton = this.querySelector("#closeButton");
+      console.log(closeButton);
+      console.log(authComponent);
+
+      profileButton?.addEventListener("click", () => {
+        if (authComponent?.classList.contains("visible")) {
+          authComponent.classList.remove("visible");
+          authComponent.classList.add("hidden");
+        } else {
+          authComponent?.classList.remove("hidden");
+          authComponent?.classList.add("visible");
+        }
+      });
+
+      // move this to auth-component?:
+      closeButton?.addEventListener("click", () => {
+        if (authComponent?.classList.contains("visible")) {
+          console.log("closing login dropdown");
+          authComponent.classList.remove("visible");
+          authComponent.classList.add("hidden");
+        }
       });
     }
   }
