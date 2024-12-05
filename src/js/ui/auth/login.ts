@@ -20,9 +20,9 @@ export async function onLogin(event: Event) {
         window.location.href = `./profile?name=${name}`
     } catch (error) {
         console.error("Login failed:", error);
-        //display error
+        //display error as in Figma
         alert(error)
-        window.location.href = "./"
+        // clear form
     } finally {
         // hide loader
     }
