@@ -28,7 +28,7 @@ export default [
   ...tseslint.configs.recommended,
   {
     rules: {
-      // "no-useless-escape": "off",
+      "no-useless-escape": "off",
     },
   },
 ];
