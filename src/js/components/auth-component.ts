@@ -1,13 +1,16 @@
 import { onLogin } from "../ui/auth/login";
+import { onRegister } from "../ui/auth/register";
 
 class AuthComponent extends HTMLElement {
     private mode: string
-  constructor() {
+  
+    constructor() {
     super();
     this.mode = this.getAttribute("data-mode") || "login"
-  }
+}
 
-  connectedCallback() {
+connectedCallback() {
+      this.mode = this.getAttribute("data-mode") || "login"
     this.render();
     this.attachEventListeners();
   }
@@ -23,11 +26,11 @@ class AuthComponent extends HTMLElement {
             <p class="font-body text-base md:text-xl">Register an account at Bidlet to start bid on items and sell your own</p>
         ` : ""
         }
-        <form class="font-body text-base md:text-lg flex flex-col gap-2 max-w-2xl my-12" name="${isLogin ? "login" : "register"}" id="${isLogin ? "loginForm" : "registerForm"}" action="">
+        <form class="font-body text-base md:text-lg flex flex-col gap-2 max-w-2xl my-12" name="${isLogin ? "login" : "register"}" id="${isLogin ? "loginForm" : "registerForm"}" action="#">
            ${
             !isLogin ? `
             <label for="name" class="">Name *</label>
-            <input class="form-input mb-2" type="text" id="name" name="name" pattern="^[\w]+$" required />
+            <input class="form-input mb-2" type="text" id="name" name="name" required />
             ` : ""
           }
           <label for="email" class="">Email *</label>
@@ -62,16 +65,16 @@ class AuthComponent extends HTMLElement {
 
   attachEventListeners() {
     const closeButton = this.querySelector<HTMLButtonElement>("#closeButton");
-    const loginForm = this.querySelector<HTMLFormElement>("#loginForm");
+    const authForm = this.querySelector<HTMLFormElement>(this.mode === "login" ? "#loginForm" : "#registerForm");
 
-    loginForm?.addEventListener("submit", (event) => {
+    authForm?.addEventListener("submit", (event) => {
       event.preventDefault();
       if (this.mode === "login") {
           console.log("login button clicked");
           onLogin(event);
       } else {
         console.log("Register button clicked");
-        
+        onRegister(event)
       }
     });
 
