@@ -9,15 +9,16 @@ class AuthComponent extends HTMLElement {
   }
 
   connectedCallback() {
-    this.mode = this.getAttribute("data-mode") || "login"
+    this.mode = this.getAttribute("data-mode") || "login";
     this.render();
     this.attachEventListeners();
   }
 
   setMode(mode: string) {
-    this.mode = mode
-    this.setAttribute("data-mode", mode)
-    this.render()
+    this.mode = mode;
+    this.setAttribute("data-mode", mode);
+    this.render();
+    this.attachEventListeners();
   }
 
   render() {
@@ -80,25 +81,20 @@ class AuthComponent extends HTMLElement {
   }
 
   attachEventListeners() {
-    const closeButton = this.querySelector<HTMLButtonElement>("#closeButton");
     const authForm = this.querySelector<HTMLFormElement>(this.mode === "login" ? "#loginForm" : "#registerForm");
-    
-    
 
-    authForm?.addEventListener("submit", (event) => {
-      event.preventDefault();
-      if (this.mode === "login") {
-        console.log("login button clicked");
-        onLogin(event);
-      } else {
-        console.log("Register button clicked");
-        onRegister(event);
-      }
-    });
-
-    closeButton?.addEventListener("click", () => {
-        console.log("close btn clicked");
-    });
+    if (authForm) {
+      authForm.onsubmit = (event) => {
+        event.preventDefault();
+        if (this.mode === "login") {
+          console.log("login btn clicked");
+          onLogin(event);
+        } else {
+          console.log("register btn clicked");
+          onRegister(event);
+        }
+      };
+    }
   }
 }
 
