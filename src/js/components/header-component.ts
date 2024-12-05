@@ -1,4 +1,4 @@
-import { onLogin } from "../ui/auth/login";
+import "./auth-component";
 
 class HeaderComponent extends HTMLElement {
   constructor() {
@@ -22,24 +22,8 @@ class HeaderComponent extends HTMLElement {
       <span aria-hidden="true" class="fa-regular fa-user text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
     </button>
     <div id="${loginDropdownId}" class="absolute top-0 left-0 h-full w-full">
-    <div class="bg-brand-default px-6 py-2 min-h-screen w-full md:max-w-xl flex flex-col m-auto md:my-20 text-brand-dark">
-      <button class="inline-flex justify-end" id="closeButton">X</button>
-      <section class="flex flex-col items-center mt-11 mb-8">
-        <h1 class="font-heading text-2xl md:text-3xl">Log in at Bidlet</h1>
-        <form class="font-body text-base md:text-lg flex flex-col gap-2 max-w-2xl my-12" name="login" id="loginForm" action="">
-          <label for="email" class="">Email *</label>
-          <input class="form-input mb-2" type="email" id="email" name="email" required />
-          <label for="password" class="">Password *</label>
-          <input class="form-input" type="password" id="password" name="password" required />
-          <p class="text-brand-light text-xs md:text-sm">* Required</p>
-          <button class="btn btn-auth btn-big mt-12">Log in</button>
-        </form>
-        <div class="flex flex-col items-center">
-          <p>Not a user on Bidlet yet?</p>
-          <a class="underline" href="/register">Register here</a>
-        </div>
-      </section>
-      </div>
+    <auth-component data-mode="login"></auth-component>
+    </div>
     </div>
     `;
     this.innerHTML = `
@@ -58,33 +42,17 @@ class HeaderComponent extends HTMLElement {
 </header>
 `;
 
-const closeButton = this.querySelector<HTMLButtonElement>("#closeButton")
-const loginForm = this.querySelector<HTMLFormElement>("#loginForm")
-
-loginForm?.addEventListener("submit", (event) => {
-  event.preventDefault()
-  console.log("login button clicked");
-  onLogin(event)
-  
-})
-
-closeButton?.addEventListener("click", () => {
-  const loginDropdown = this.querySelector(`#${loginDropdownId}`);
-  loginDropdown?.classList.toggle("visible");
-      });
-
 if (!isLoggedIn) {
   const profileButton = this.querySelector("#profile-button");
   const loginDropdown = this.querySelector(`#${loginDropdownId}`);
   
   profileButton?.addEventListener("click", () => {
+    console.log("click");
+    
     loginDropdown?.classList.toggle("visible");
       });
     }
   }
-  
-  
-  
 }
 
 customElements.define("header-component", HeaderComponent);
