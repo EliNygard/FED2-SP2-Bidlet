@@ -1,4 +1,5 @@
 import { RegisterUser, LoginUser } from "../js/types/types";
+import { ApiError } from "./error";
 
 export default class EndpointsAPI {
   apiBase: string = "";
@@ -81,25 +82,35 @@ export default class EndpointsAPI {
 
       const json = await response.json()
 
-      if (response.ok) {
-        const { data } = json;
-        return data;
-      } else {
-        console.log(json);
-        
-        const errorDetails = {
-          status: response.status,
-          statusText: response.statusText,
-          messages: "Ups, something went wrong. Please try again.",
-        };
-        console.log(errorDetails.messages);
+      if (!response.ok) {
+        const errorMessages = json?.errors?.length
+        ? json.errors.map((error: { message: string }) => error.message).join(". ")
+        : "Something went wrong. Please try again."
 
-        if (json?.errors.length > 0) {
-          errorDetails.messages = json.errors.map((err: { message: string }) => err.message).join(", ");
-        }
-        
-        throw errorDetails;
+        throw new ApiError(response.status, response.statusText, errorMessages)
       }
+
+      const { data } = json
+      return data
+      // if (response.ok) {
+      //   const { data } = json;
+      //   return data;
+      // } else {
+      //   console.log(json);
+        
+      //   const errorDetails = {
+      //     status: response.status,
+      //     statusText: response.statusText,
+      //     messages: "Ups, something went wrong. Please try again.",
+      //   };
+      //   console.log(errorDetails.messages);
+
+      //   if (json?.errors.length > 0) {
+      //     errorDetails.messages = json.errors.map((err: { message: string }) => err.message).join(", ");
+      //   }
+        
+      //   throw errorDetails;
+      // }
     },
     login: async ({ email, password }: LoginUser) => {
       const body = JSON.stringify({ email, password })
