@@ -13,6 +13,8 @@
     <title>Bidlet</title>
   </head>
   <body class="min-h-screen py-2">
+    <div id="${loginDropdownId}" class="absolute top-0 left-0 h-full w-full"></div>
+
     <div>
       <div
         class="bg-brand-default px-6 py-2 min-h-screen w-full md:max-w-xl flex flex-col m-auto md:my-20 text-brand-dark"
@@ -20,6 +22,12 @@
         <button class="inline-flex justify-end">X</button>
         <section class="flex flex-col items-center mt-11 mb-8">
           <h1 class="font-heading text-2xl md:text-3xl">Register at Bidlet</h1>
+
+          <div class="border border-alert-dark bg-alert-light py-4 px-5 font-body text-base max-w-96 flex gap-6">
+            <p>Invalid username or password. Please try again.</p>
+            <button>X</button>
+          </div>
+
           <form class="font-body text-base md:text-lg flex flex-col gap-2 max-w-2xl my-12" name="login" action="">
             <label for="email" class="">Email *</label>
             <input
