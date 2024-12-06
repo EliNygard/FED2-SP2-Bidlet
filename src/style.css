@@ -6,15 +6,27 @@
 
 @layer components {
   .btn {
-    @apply cursor-pointer font-heading uppercase text-base md:text-lg;
+    @apply cursor-pointer font-heading uppercase text-base md:text-lg transition ease-in;
+  }
+
+  .btn:hover {
+    @apply duration-300;
   }
 
   .btn-accent {
     @apply bg-accent-default text-brand-dark;
   }
 
+  .btn-accent:hover {
+    @apply bg-transparent border border-brand-dark text-brand-dark;
+  }
+
   .btn-auth {
     @apply bg-brand-dark text-brand-default;
+  }
+
+  .btn-auth:hover {
+    @apply bg-transparent border border-brand-dark text-brand-dark;
   }
 
   .btn-big {
@@ -23,13 +35,5 @@
 }
 
 .form-input {
-  @apply border border-brand-dark h-12;
-}
-
-#login-dropdown {
-  @apply opacity-0 -translate-y-1/4 transition-all ease-in duration-300 pointer-events-none absolute hidden;
-}
-
-#login-dropdown.visible {
-  @apply opacity-100 translate-y-0 pointer-events-auto block;
+  @apply border border-brand-dark h-12 p-2;
 }
