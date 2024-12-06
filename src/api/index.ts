@@ -33,14 +33,14 @@ export default class EndpointsAPI {
   }
 
   set user(userData) {
-    localStorage.setItem("user", JSON.stringify(userData))
+    localStorage.setItem("user", JSON.stringify(userData));
   }
 
   get user() {
     try {
-      return JSON.parse(localStorage.user)
+      return JSON.parse(localStorage.user);
     } catch {
-      return null
+      return null;
     }
   }
 
@@ -80,58 +80,46 @@ export default class EndpointsAPI {
         body,
       });
 
-      const json = await response.json()
+      const json = await response.json();
 
       if (!response.ok) {
         const errorMessages = json?.errors?.length
-        ? json.errors.map((error: { message: string }) => error.message).join(". ")
-        : "Something went wrong. Please try again."
+          ? json.errors.map((error: { message: string }) => error.message).join(". ")
+          : "Something went wrong. Please try again.";
 
-        throw new ApiError(response.status, response.statusText, errorMessages)
+        throw new ApiError(response.status, response.statusText, errorMessages);
       }
 
-      const { data } = json
-      return data
-      // if (response.ok) {
-      //   const { data } = json;
-      //   return data;
-      // } else {
-      //   console.log(json);
-        
-      //   const errorDetails = {
-      //     status: response.status,
-      //     statusText: response.statusText,
-      //     messages: "Ups, something went wrong. Please try again.",
-      //   };
-      //   console.log(errorDetails.messages);
-
-      //   if (json?.errors.length > 0) {
-      //     errorDetails.messages = json.errors.map((err: { message: string }) => err.message).join(", ");
-      //   }
-        
-      //   throw errorDetails;
-      // }
+      const { data } = json;
+      return data;
     },
     login: async ({ email, password }: LoginUser) => {
-      const body = JSON.stringify({ email, password })
+      const body = JSON.stringify({ email, password });
       const response = await fetch(EndpointsAPI.paths.login, {
         headers: this.util.setupHeaders(true, true, true),
         method: "POST",
         body,
-      })
+      });
 
-      if (response.ok) {
-        const {data} = await response.json()
-        const { accessToken: token, ...user } = data;
+      const json = await response.json();
 
-        this.user = user
-        this.token = token;
-        localStorage.token = token;
+      if (!response.ok) {
+        const errorMessages = json?.errors?.length
+          ? json.errors.map((error: { message: string }) => error.message).join(". ")
+          : "Something went wrong. Please try again.";
 
-        return data;
+        throw new ApiError(response.status, response.statusText, errorMessages);
       }
-      throw new Error("Wrong email or password. Please try again or register a user if you do not already have one.")
-    }
+
+      const { data } = json;
+      const { accessToken: token, ...user } = data;
+      this.user = user;
+      this.token = token;
+      localStorage.token = token;
+
+      return data;
+
+    },
   };
 
   listing = {
