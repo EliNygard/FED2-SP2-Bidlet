@@ -24,7 +24,8 @@ class AuthComponent extends HTMLElement {
   render() {
     const isLogin = this.mode === "login";
     this.innerHTML = `
-        <div class="bg-brand-default px-6 py-2 min-h-screen w-full md:max-w-xl flex flex-col m-auto md:my-20 text-brand-dark">
+    <div id="authWrapper" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
+        <div id="authContainer" class="bg-brand-default px-6 py-2 w-full md:max-w-xl flex flex-col md:my-20 text-brand-dark max-h-[90vh] overflow-y-auto">
       <button class="inline-flex justify-end mt-4 md:mt-9 md:mr-6" id="closeButton">
         <span class="fa-solid fa-x text-2xl"></span>
       </button>
@@ -76,6 +77,7 @@ class AuthComponent extends HTMLElement {
         }
         </div>
       </section>
+      </div>
       </div>
         `;
   }

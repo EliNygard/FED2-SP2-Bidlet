@@ -23,7 +23,7 @@ class HeaderComponent extends HTMLElement {
       <span aria-hidden="true" class="fa-regular fa-user text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
     </button>
 
-    <auth-component data-mode="login" id="${loginDropdownId}" class="absolute top-0 left-0 h-full w-full"></auth-component>
+    <auth-component data-mode="login" id="${loginDropdownId}" class="hidden"></auth-component>
     `;
 
     this.innerHTML = `
@@ -48,20 +48,24 @@ class HeaderComponent extends HTMLElement {
       const closeButton = this.querySelector("#closeButton");
 
       profileButton?.addEventListener("click", () => {
-        if (authComponent?.classList.contains("visible")) {
-          authComponent.classList.remove("visible");
-          authComponent.classList.add("hidden");
-        } else {
-          authComponent?.classList.remove("hidden");
-          authComponent?.classList.add("visible");
-        }
+        authComponent?.classList.toggle("hidden")
+        authComponent?.classList.toggle("block")
+        // if (authComponent?.classList.contains("visible")) {
+        //   authComponent.classList.remove("visible");
+        //   authComponent.classList.add("hidden");
+        // } else {
+        //   authComponent?.classList.remove("hidden");
+        //   authComponent?.classList.add("visible");
+        // }
       });
 
       closeButton?.addEventListener("click", () => {
-        if (authComponent?.classList.contains("visible")) {
-          authComponent.classList.remove("visible");
-          authComponent.classList.add("hidden");
-        }
+        authComponent?.classList.toggle("hidden")
+        authComponent?.classList.toggle("block")
+        // if (authComponent?.classList.contains("visible")) {
+        //   authComponent.classList.remove("visible");
+        //   authComponent.classList.add("hidden");
+        // }
       });
     }
   }
