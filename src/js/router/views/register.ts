@@ -7,6 +7,7 @@ function initializePage(): void {
 
     const registerForm = document.createElement("auth-component");
     registerForm.setAttribute("data-mode", "register");
+    // registerForm.className = "inset-0 bg-white z-50 flex items-center justify-center"
 
     main.appendChild(registerForm);
     page.appendChild(main);
