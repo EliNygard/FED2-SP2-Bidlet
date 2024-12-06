@@ -1,3 +1,5 @@
+import "./auth-component.ts";
+
 class HeaderComponent extends HTMLElement {
   constructor() {
     super();
@@ -5,6 +7,8 @@ class HeaderComponent extends HTMLElement {
 
   connectedCallback() {
     const isLoggedIn = Boolean(localStorage.getItem("token"));
+    const loginDropdownId = "login-dropdown";
+
     const loggedinLinks = `
     <a aria-label="Link to Create new Bidlet page" title="Create a new Bidlet" href="./create">
         <span aria-hidden="true" class="fa-solid fa-plus text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
@@ -12,12 +16,16 @@ class HeaderComponent extends HTMLElement {
       <a aria-label="Link to profile page" title="Go to your profile page" href="./profile">
         <span aria-hidden="true" class="fa-regular fa-user text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
       </a>
-    `
+    `;
+
     const loggedOutLinks = `
-    <a aria-label="Link to log in or register page" title="Log in or register an account" href="./login">
-          <span aria-hidden="true" class="fa-regular fa-user text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
-        </a>
-    `
+    <button id="profile-button" aria-label="Link to log in or register page" title="Log in or register an account">
+      <span aria-hidden="true" class="fa-regular fa-user text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
+    </button>
+
+    <auth-component data-mode="login" id="${loginDropdownId}" class="hidden"></auth-component>
+    `;
+
     this.innerHTML = `
     <header class="max-w-7xl mx-auto px-5 sticky">
   <nav class="flex justify-between items-center">
@@ -32,7 +40,34 @@ class HeaderComponent extends HTMLElement {
     </div>
   </nav>
 </header>
-    `;
+`;
+
+    if (!isLoggedIn) {
+      const profileButton = this.querySelector("#profile-button");
+      const authComponent = this.querySelector("auth-component");
+      const closeButton = this.querySelector("#closeButton");
+
+      profileButton?.addEventListener("click", () => {
+        authComponent?.classList.toggle("hidden")
+        authComponent?.classList.toggle("block")
+        // if (authComponent?.classList.contains("visible")) {
+        //   authComponent.classList.remove("visible");
+        //   authComponent.classList.add("hidden");
+        // } else {
+        //   authComponent?.classList.remove("hidden");
+        //   authComponent?.classList.add("visible");
+        // }
+      });
+
+      closeButton?.addEventListener("click", () => {
+        authComponent?.classList.toggle("hidden")
+        authComponent?.classList.toggle("block")
+        // if (authComponent?.classList.contains("visible")) {
+        //   authComponent.classList.remove("visible");
+        //   authComponent.classList.add("hidden");
+        // }
+      });
+    }
   }
 }
 

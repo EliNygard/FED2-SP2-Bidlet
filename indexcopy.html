@@ -13,22 +13,46 @@
     <title>Bidlet</title>
   </head>
   <body class="min-h-screen py-2">
-    <div id="bid-message" class="absolute inset-0 flex justify-center items-center md:top-40 bg-black bg-opacity-50">
-      <section class="relative flex flex-col items-center font-body bg-white">
-        <h1 class="text-lg mb-7">Your bid</h1>
-        <h2 class="text-base mb-12">Green sofa</h2>
+    <auth-component
+      data-mode="login"
+      id="${loginDropdownId}"
+      class="absolute top-0 left-0 h-full w-full"
+    ></auth-component>
 
-        <div class="flex flex-row gap-9 mb-24 justify-between text-base">
-          <p>Bid</p>
-          <p>700kr</p>
-        </div>
-        <!-- <div class="flex flex-row justify-between text-base">
-          <p>Remaining credit</p>
-          <p>300</p>
-        </div> -->
+    <div>
+      <div
+        class="bg-brand-default px-6 py-2 min-h-screen w-full md:max-w-xl flex flex-col m-auto md:my-20 text-brand-dark"
+      >
+        <button class="inline-flex justify-end">X</button>
+        <section class="flex flex-col items-center mt-11 mb-8">
+          <h1 class="font-heading text-2xl md:text-3xl">Register at Bidlet</h1>
 
-        <button class="btn btn-big">Confirm bid</button>
-      </section>
+          <div class="border border-alert-dark bg-alert-light py-4 px-5 font-body text-base max-w-96 flex gap-6">
+            <p>Invalid username or password. Please try again.</p>
+            <button>X</button>
+          </div>
+
+          <form class="font-body text-base md:text-lg flex flex-col gap-2 max-w-2xl my-12" name="login" action="">
+            <label for="email" class="">Email *</label>
+            <input
+              class="form-input mb-2"
+              type="email"
+              id="email"
+              name="email"
+              pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
+              required
+            />
+            <label for="password" class="">Password *</label>
+            <input class="form-input" type="password" id="password" name="password" required />
+            <p class="text-brand-light text-xs md:text-sm">* Required</p>
+            <button class="btn btn-auth btn-big mt-12">Log in</button>
+          </form>
+          <div class="flex flex-col items-center">
+            <p>Not a user on Bidlet yet?</p>
+            <a class="underline" href="/register">Register here</a>
+          </div>
+        </section>
+      </div>
     </div>
   </body>
 </html>
