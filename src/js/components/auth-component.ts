@@ -43,7 +43,7 @@ class AuthComponent extends HTMLElement {
              !isLogin
                ? `
             <label for="name" class="">Name *</label>
-            <input class="form-input mb-2" type="text" id="name" name="name" required />
+            <input class="form-input mb-2" type="text" id="name" name="name" />
             `
                : ""
            }
@@ -89,10 +89,8 @@ class AuthComponent extends HTMLElement {
       authForm.onsubmit = (event) => {
         event.preventDefault();
         if (this.mode === "login") {
-          console.log("login btn clicked");
           onLogin(event);
         } else {
-          console.log("register btn clicked");
           onRegister(event);
         }
       };
