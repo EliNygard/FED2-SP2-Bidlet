@@ -61,9 +61,9 @@ class AuthComponent extends HTMLElement {
               : ""
           }
           <p class="text-brand-light text-xs md:text-sm">* Required</p>
-          <button class="btn btn-auth btn-big mt-12">${isLogin ? "Log in" : "Register"}</button>
+          <button class="btn btn-auth btn-big mt-12" type="submit">${isLogin ? "Log in" : "Register"}</button>
         </form>
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center text-base md:text-lg">
         ${
           isLogin
             ? `
