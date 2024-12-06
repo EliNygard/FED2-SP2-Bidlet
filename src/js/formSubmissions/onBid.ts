@@ -23,6 +23,6 @@ export async function onBid(event: Event, id: string) {
     console.error(error);
   } finally {
     // display a message?
-    // window.location.reload();
+    window.location.reload();
   }
 }
