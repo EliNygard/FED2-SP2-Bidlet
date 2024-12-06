@@ -2,7 +2,7 @@ import { ApiError } from "../../../api/error.ts";
 import api from "../../../api/instance.ts";
 import { LoginUser } from "../../types/types.ts";
 import { createErrorMessageElement } from "../errorHandling/createErrorMessage.ts";
-import "../../components/auth-loader-component.ts"
+import "../../components/auth-loader-component.ts";
 
 export async function onLogin(event: Event) {
   event.preventDefault();
@@ -23,6 +23,7 @@ export async function onLogin(event: Event) {
   const loader = document.createElement("auth-loader-component");
   button.textContent = "";
   button.appendChild(loader);
+  let errorMessage: HTMLElement | null = null;
 
   try {
     const { name } = await api.auth.login(data);
@@ -43,7 +44,7 @@ export async function onLogin(event: Event) {
 
     if (authComponent) {
       const heading = authComponent.querySelector("h1");
-      const errorMessage = createErrorMessageElement(
+      errorMessage = createErrorMessageElement(
         error instanceof ApiError ? error.message : "An error occurred. Please try again.",
       );
       if (heading) {
@@ -53,7 +54,12 @@ export async function onLogin(event: Event) {
       }
     }
   } finally {
-    button.removeChild(loader)
-    button.textContent = "Log in"
+    button.removeChild(loader);
+    button.textContent = "Log in";
+    form.addEventListener("click", () => {
+      if (errorMessage && errorMessage.parentNode) {
+        errorMessage.parentNode.removeChild(errorMessage);
+      }
+    });
   }
 }

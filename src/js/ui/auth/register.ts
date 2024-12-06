@@ -11,6 +11,7 @@ export async function onRegister(event: Event) {
 
   const authComponent = document.querySelector("auth-component");
   const form = event.target as HTMLFormElement | null;
+
   if (!form) {
     console.error("Register form not found. Please try again.");
     return;
@@ -25,7 +26,8 @@ export async function onRegister(event: Event) {
   const loader = document.createElement("auth-loader-component");
   button.textContent = "";
   button.appendChild(loader);
-
+  let errorMessage: HTMLElement | null = null
+  
   try {
     await api.auth.register(data);
     displayLoginComponent();
@@ -39,10 +41,10 @@ export async function onRegister(event: Event) {
     } else {
       console.error("Registration failed:", error);
     }
-
+    
     if (authComponent) {
       const heading = authComponent.querySelector("h1");
-      const errorMessage = createErrorMessageElement(
+      errorMessage = createErrorMessageElement(
         error instanceof ApiError ? error.message : "An error occurred. Please try again",
       );
       if (heading) {
@@ -54,5 +56,10 @@ export async function onRegister(event: Event) {
   } finally {
     button.removeChild(loader);
     button.textContent = "Register";
+    form.addEventListener("click", () => {
+      if (errorMessage && errorMessage.parentNode) {
+        errorMessage.parentNode.removeChild(errorMessage)
+      }
+    })
   }
 }
