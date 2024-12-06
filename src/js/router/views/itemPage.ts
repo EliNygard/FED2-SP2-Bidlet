@@ -15,17 +15,19 @@ async function initializePage(): Promise<void> {
     const main = document.createElement("main");
     const footer = document.createElement("footer-component");
     const loader = document.createElement("loader-component")
-
+    
     main.appendChild(loader)
     page.append(header, main, footer);
     try {
       if (!listingId) {
         throw new Error("Listing ID is missing");
       }
-
+      
       const listing = await api.listing.read(listingId);
       const item = await displayItem(listing);
-
+      
+      document.title = `Bidlet | ${listing.title}` 
+      
       main.appendChild(item);
     } catch (error) {
       if (error instanceof Error) {
