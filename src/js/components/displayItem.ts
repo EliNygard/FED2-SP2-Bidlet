@@ -123,7 +123,7 @@ export async function displayItem(listing: Listing) {
 
     const bidButton = document.createElement("button");
     bidButton.id = "bid-btn";
-    bidButton.className = "btn btn-big";
+    bidButton.className = "btn btn-big btn-accent";
     bidButton.textContent = "Place your bid";
     bidButton.setAttribute("type", "submit")
     
