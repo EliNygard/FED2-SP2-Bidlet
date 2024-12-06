@@ -1,18 +1,18 @@
 class LoaderComponent extends HTMLElement {
-    constructor() {
-      super();
-      const shadow = this.attachShadow({ mode: "open" });
-  
-      const container = document.createElement("div");
-      container.classList.add("loader");
-  
-      const spinner = document.createElement("div");
-      spinner.classList.add("spinner");
-  
-      container.appendChild(spinner);
-  
-      const style = document.createElement("style");
-      style.textContent = `
+  constructor() {
+    super();
+    const shadow = this.attachShadow({ mode: "open" });
+
+    const container = document.createElement("div");
+    container.classList.add("loader");
+
+    const spinner = document.createElement("div");
+    spinner.classList.add("spinner");
+
+    container.appendChild(spinner);
+
+    const style = document.createElement("style");
+    style.textContent = `
         .loader {
           display: flex;
           justify-content: center;
@@ -39,13 +39,10 @@ class LoaderComponent extends HTMLElement {
           }
         }
       `;
-  
-      // Attach elements to the shadow DOM
-      shadow.appendChild(style);
-      shadow.appendChild(container);
-    }
+
+    shadow.appendChild(style);
+    shadow.appendChild(container);
   }
-  
-  // Define the custom element
-  customElements.define("loader-component", LoaderComponent);
-  
+}
+
+customElements.define("loader-component", LoaderComponent);
