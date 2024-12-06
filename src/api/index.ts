@@ -1,5 +1,4 @@
 import { RegisterUser, LoginUser } from "../js/types/types";
-// import { api_key } from "./constants";
 import { ApiError } from "./error";
 
 export default class EndpointsAPI {
