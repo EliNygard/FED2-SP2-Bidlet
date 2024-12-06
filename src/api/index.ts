@@ -1,4 +1,5 @@
 import { RegisterUser, LoginUser } from "../js/types/types";
+// import { api_key } from "./constants";
 import { ApiError } from "./error";
 
 export default class EndpointsAPI {
@@ -118,7 +119,6 @@ export default class EndpointsAPI {
       localStorage.token = token;
 
       return data;
-
     },
   };
 
@@ -161,11 +161,11 @@ export default class EndpointsAPI {
         throw new Error("Could not find listing iD");
       }
 
-      const url = new URL(`${this.apiListingsPath}${id}/bids`);
+      const url = new URL(`${this.apiListingsPath}/${id}/bids`);
       const response = await fetch(url, {
-        headers: this.util.setupHeaders(true, true, false),
+        headers: this.util.setupHeaders(true, true, true),
         method: "POST",
-        body: JSON.stringify(body),
+        body: JSON.stringify({ amount: body }),
       });
 
       if (response.ok) {
