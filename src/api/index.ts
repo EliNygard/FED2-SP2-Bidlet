@@ -1,4 +1,4 @@
-import { RegisterUser, LoginUser } from "../js/types/types";
+import { RegisterUser, LoginUser, CreateListing } from "../js/types/types";
 import { ApiError } from "./error";
 
 export default class EndpointsAPI {
@@ -154,6 +154,37 @@ export default class EndpointsAPI {
         return data;
       }
       throw new Error("Could not fetch listings");
+    },
+    create: async ({ title, description, tags = [], media = [], endsAt }: CreateListing) => {
+      try {
+        const payload: CreateListing = {
+          title, description, tags, media, endsAt,
+        }
+
+        if (tags.length > 0) {
+          payload.tags = tags
+        }
+        if (media.length > 0) {
+          payload.media = media
+        }
+
+        const response = await fetch(this.apiListingsPath, {
+          headers: this.util.setupHeaders(true, true, true),
+          method: "POST",
+          body: JSON.stringify(payload)
+        })
+
+        if (!response.ok) {
+          throw new Error(`Failed to create new Bidlet. Please try again. ${response.statusText}`)
+        }
+
+        const data = await response.json()
+        return data
+
+      } catch (error) {
+        console.error(error);
+        throw error
+      }
     },
     bid: async (id: string | null, body: number) => {
       if (!id) {
