@@ -46,3 +46,11 @@ export interface Media {
       bids: number;
     };
   }
+  
+  export interface CreateListing {
+    title: string
+    description?: string;
+    tags?: string[];
+    media?: Media[];
+    endsAt: string;
+  }
