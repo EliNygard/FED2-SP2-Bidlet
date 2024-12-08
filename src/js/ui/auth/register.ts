@@ -56,10 +56,11 @@ export async function onRegister(event: Event) {
   } finally {
     button.removeChild(loader);
     button.textContent = "Register";
-    form.addEventListener("click", () => {
-      if (errorMessage && errorMessage.parentNode) {
-        errorMessage.parentNode.removeChild(errorMessage)
-      }
-    })
   }
+  
+  form.addEventListener("click", () => {
+    if (errorMessage && errorMessage.parentNode) {
+      errorMessage.parentNode.removeChild(errorMessage)
+    }
+  })
 }
