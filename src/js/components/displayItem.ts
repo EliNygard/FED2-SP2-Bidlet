@@ -9,6 +9,7 @@ export async function displayItem(listing: Listing) {
 
     // Image section
     const imageSection = document.createElement("div");
+    imageSection.className = "flex justify-center"
     const image = document.createElement("img");
     image.className = "max-w-full max-h-full object-contain item-img";
     if (listing.media) {
@@ -57,11 +58,14 @@ export async function displayItem(listing: Listing) {
     detailsDiv.appendChild(tagsList);
 
     const tags = listing.tags;
+    console.log(tags);
+    
     if (tags) {
         tags.forEach((tag:string) => {
         const tagItem = document.createElement("li")
         tagItem.className = "font-heading uppercase text-xs md:text-sm text-brand-dark bg-brand-default hover:bg-accent-default rounded inline-flex px-1 py-1"
         tagItem.textContent = tag
+        tagsList.append(tagItem)
     });
     }
 
