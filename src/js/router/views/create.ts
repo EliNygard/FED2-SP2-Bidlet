@@ -15,7 +15,6 @@ function initializePage(): void {
     page.append(header, main, footer);
 
     const form = document.querySelector("#createForm");
-    console.log(form);
     form?.addEventListener("submit", async (event) => {
       event.preventDefault()
       onCreateListing(event);

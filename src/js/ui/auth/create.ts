@@ -12,6 +12,11 @@ export async function onCreateListing(event: Event) {
     console.error("Register form not found. Please try again.");
     return;
   }
+  form.addEventListener("click", () => {
+    if (errorMessage && errorMessage.parentNode) {
+      errorMessage.parentNode.removeChild(errorMessage);
+    }
+  });
   const button = form.querySelector("button[type='submit']");
   if (!button) {
     console.error("Submit button not found");
@@ -24,36 +29,36 @@ export async function onCreateListing(event: Event) {
   let errorMessage: HTMLElement | null = null;
 
   try {
-  const formData = new FormData(form);
-  const formEntries = Object.fromEntries(formData.entries());
-  console.log("Form entries", formEntries);
+    const formData = new FormData(form);
+    const formEntries = Object.fromEntries(formData.entries());
+    console.log("Form entries", formEntries);
 
-  const title = formEntries.title as string | undefined;
-  const description = formEntries.description as string | undefined;
-  const endsAt = formEntries.endsAt as string | undefined;
+    const title = formEntries.title as string | undefined;
+    const description = formEntries.description as string | undefined;
+    const endsAt = formEntries.endsAt as string | undefined;
 
-  const utcDate = endsAt
-    ? new Date(new Date(endsAt).getTime() - new Date(endsAt).getTimezoneOffset() * 60 * 1000).toISOString()
-    : "";
-  const now = new Date().toISOString();
-  console.log(now);
+    const utcDate = endsAt
+      ? new Date(new Date(endsAt).getTime() - new Date(endsAt).getTimezoneOffset() * 60 * 1000).toISOString()
+      : "";
+    const now = new Date().toISOString();
+    console.log(now);
 
-  const selectedCategories = formData.getAll("category") as string[];
-  const imageInputs = form.querySelectorAll('input[name="image"]') as NodeListOf<HTMLInputElement>;
-  const images: Media[] = Array.from(imageInputs)
-    .map((image) => ({
-      url: image.value,
-      alt: image.alt || title || "",
-    }))
-    .filter((media) => media.url.trim() !== "");
+    const selectedCategories = formData.getAll("category") as string[];
+    const imageInputs = form.querySelectorAll('input[name="image"]') as NodeListOf<HTMLInputElement>;
+    const images: Media[] = Array.from(imageInputs)
+      .map((image) => ({
+        url: image.value,
+        alt: image.alt || title || "",
+      }))
+      .filter((media) => media.url.trim() !== "");
 
-  const data: CreateListing = {
-    title: title || "",
-    description: description || "",
-    endsAt: utcDate,
-    tags: selectedCategories,
-    media: images,
-  };
+    const data: CreateListing = {
+      title: title || "",
+      description: description || "",
+      endsAt: utcDate,
+      tags: selectedCategories,
+      media: images,
+    };
 
     if (!endsAt) {
       throw new Error("Please select when the auction ends");
@@ -66,7 +71,7 @@ export async function onCreateListing(event: Event) {
     if (newListing?.data?.id) {
       window.location.href = `/item?id=${newListing.data.id}`;
     } else {
-      throw new Error("Failed to create new listing")
+      throw new Error("Failed to create new listing");
     }
   } catch (error) {
     if (error) {
@@ -87,10 +92,4 @@ export async function onCreateListing(event: Event) {
     button.textContent = "Publish";
     button.removeChild(loader);
   }
-
-  form.addEventListener("click", () => {
-    if (errorMessage && errorMessage.parentNode) {
-      errorMessage.parentNode.removeChild(errorMessage);
-    }
-  });
 }
