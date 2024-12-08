@@ -21,7 +21,7 @@ export function displayCreate(): HTMLElement {
 
   const closeButton = wrapper.querySelector("#closeButton") as HTMLElement;
   closeButton.addEventListener("click", () => {
-    document.body.removeChild(wrapper);
+    history.back()
   });
 
   const form = document.createElement("form");
