@@ -24,7 +24,7 @@ async function initializePage(): Promise<void> {
 
     try {
       const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc");
-      // console.log(listings);
+      console.log(listings);
       bgListingsSection.appendChild(listingsSection);
       populateListings(listings, listingsSection);
     } catch (error) {

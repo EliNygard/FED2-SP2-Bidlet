@@ -25,6 +25,8 @@ async function initializePage(): Promise<void> {
       
       const listing = await api.listing.read(listingId);
       const item = await displayItem(listing);
+      console.log(listing);
+      
       
       document.title = `Bidlet | ${listing.title}` 
       
