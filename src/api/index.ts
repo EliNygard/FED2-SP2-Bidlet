@@ -161,6 +161,10 @@ export default class EndpointsAPI {
           title, description, tags, media, endsAt,
         }
 
+        if(!title) {
+          throw new Error("You must have a title")
+        }
+
         if (tags.length > 0) {
           payload.tags = tags
         }
@@ -175,7 +179,7 @@ export default class EndpointsAPI {
         })
 
         if (!response.ok) {
-          throw new Error(`Failed to create new Bidlet. Please try again. ${response.statusText}`)
+          throw new Error(`Failed to create new Bidlet ${response.statusText}`)
         }
 
         const data = await response.json()
