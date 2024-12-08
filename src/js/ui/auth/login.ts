@@ -56,10 +56,10 @@ export async function onLogin(event: Event) {
   } finally {
     button.removeChild(loader);
     button.textContent = "Log in";
-    form.addEventListener("click", () => {
-      if (errorMessage && errorMessage.parentNode) {
-        errorMessage.parentNode.removeChild(errorMessage);
-      }
-    });
   }
+  form.addEventListener("click", () => {
+    if (errorMessage && errorMessage.parentNode) {
+      errorMessage.parentNode.removeChild(errorMessage);
+    }
+  });
 }
