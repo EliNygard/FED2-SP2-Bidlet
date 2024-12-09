@@ -34,9 +34,9 @@ export default class EndpointsAPI {
 
   get token(): string | null {
     try {
-      return localStorage.getItem("token");
+      return localStorage.getItem("token") || "";
     } catch {
-      return null;
+      return "";
     }
   }
 
@@ -46,9 +46,9 @@ export default class EndpointsAPI {
 
   get user() {
     try {
-      return JSON.parse(localStorage.user);
+      return JSON.parse(localStorage.user) || "{}";
     } catch {
-      return null;
+      return "{}";
     }
   }
 
@@ -127,6 +127,18 @@ export default class EndpointsAPI {
 
       return data;
     },
+    logout: () => {
+      try {
+        this.user = "{}"
+        this.token = ""
+        window.location.href = "./"
+      } catch (error) {
+        console.error("Error during logout:", error);
+        alert("Could not log out. Please try again")
+      } finally {
+        localStorage.clear()
+      }
+    }
   };
 
   profiles = {
@@ -146,7 +158,25 @@ export default class EndpointsAPI {
         return data
       }
       throw new Error("Could not get profile")
+    },
+    bidsByProfile: async (userName: string | null) => {
+      if (!userName) {
+        throw new Error("No user name found")
+      }
+
+      const url = new URL(`${this.apiProfilesPath}/${userName}/bids?_listings=true`)
+      const response = await fetch(url, {
+        headers: this.util.setupHeaders(true, true, true),
+        method: "GET",
+      })
+
+      if (response.ok) {
+        const { data } = await response.json()
+        return data
+      }
+      throw new Error("Could not get your bids")
     }
+
   }
 
   listing = {

@@ -45,6 +45,7 @@ export interface Bid {
   amount: number;
   bidder: Seller;
   created: string;
+  listing?: Listing[]
 }
 
 export interface Listing {
@@ -56,7 +57,7 @@ export interface Listing {
   created: string;
   updated: string;
   endsAt: string;
-  seller: Seller;
+  seller?: Seller;
   bids?: Bid[];
   _count?: {
     bids: number;

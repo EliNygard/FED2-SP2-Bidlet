@@ -20,6 +20,7 @@ async function initializePage(): Promise<void> {
 
       main.appendChild(userCard);
       page.append(header, main, footer);
+      
     } catch (error) {
       console.error(error);
     } finally {
