@@ -10,12 +10,28 @@ export interface LoginUser {
   password: string;
 }
 
+export interface Profile {
+  name: string
+  email: string
+  bio?: string;
+  avatar?: Media;
+  banner?: Media;
+  credits: number
+  listings?: Listing[]
+  wins?: Listing[]
+  _count: {
+    listings: number
+    wins: number
+  }
+}
+
+
 export interface Media {
   url: string;
   alt: string;
 }
 
-export interface User {
+export interface Seller {
   name: string;
   email: string;
   bio?: string;
@@ -27,7 +43,7 @@ export interface User {
 export interface Bid {
   id: string;
   amount: number;
-  bidder: User;
+  bidder: Seller;
   created: string;
 }
 
@@ -40,7 +56,7 @@ export interface Listing {
   created: string;
   updated: string;
   endsAt: string;
-  seller: User;
+  seller: Seller;
   bids?: Bid[];
   _count?: {
     bids: number;
