@@ -14,121 +14,113 @@
     <title>Bidlet</title>
   </head>
   <body class="min-h-screen py-2">
-    <div id="createWrapper" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
-      <div
-        id="createContainer"
-        class="bg-brand-default px-6 py-2 w-full md:max-w-xl flex flex-col md:my-20 text-brand-dark max-h-[90vh] overflow-y-auto"
-      >
-        <button class="inline-flex justify-end mt-4 md:mt-9 md:mr-6" id="closeButton">
-          <span class="fa-solid fa-x text-2xl"></span>
-        </button>
-        <section class="flex flex-col items-center mt-11 mb-8">
-          <h1 class="font-heading text-2xl md:text-3xl">New Bidlet Item</h1>
-          <p class="font-body text-base max-w-sm mt-10 md:text-lg">What are you selling?</p>
-          <form
-            class="font-body text-base md:text-lg flex flex-col gap-1 max-w-2xl mt-4 mb-12"
-            name="create"
-            action="#"
-          >
-            <label for="title" class="">Title *</label>
-            <input class="form-input mb-2" type="text" id="title" name="title" required />
-            <p class="text-xs mb-4">Max 30 characters</p>
-
-            <label for="description" class="mt-2">Description</label>
-            <input class="form-input mb-2" type="text" id="description" name="description" />
-
-            <label for="date" class="mt-2">Auction end date and time *</label>
-            <input
-              class="form-input"
-              type="datetime-local"
-              id="endsAt"
-              name="endsAt"
-              placeholder="Select when the auction ends"
-              required
-            />
-
-            <label for="category" class="mt-2">Choose one or more categories</label>
-            <div class="flex flex-col gap-3 mt-1 text-base md:text-base">
-              <label class="flex items-center gap-2 py-2 pr-2">
-                <input type="checkbox" name="category" value="Furniture" />
-                Interior &amp; Furniture
-              </label>
-              <label class="flex items-center gap-2 py-2 pr-2">
-                <input type="checkbox" name="category" value="Fashion" />
-                Fashion &amp; Wearables
-              </label>
-              <label class="flex items-center gap-2 py-2 pr-2">
-                <input type="checkbox" name="category" value="Art" />
-                Art &amp; Design
-              </label>
-              <label class="flex items-center gap-2 py-2 pr-2">
-                <input type="checkbox" name="category" value="Sports" />
-                Outdoors &amp; Sports
-              </label>
-              <label class="flex items-center gap-2 py-2 pr-2">
-                <input type="checkbox" name="category" value="Books" />
-                Books
-              </label>
-              <label class="flex items-center gap-2 py-2 pr-2">
-                <input type="checkbox" name="category" value="Devices" />
-                Devices
-              </label>
+    <main>
+      <div class="mx-auto">
+        <div class="max-w-4xl mx-auto">
+          <section class="flex">
+            <button class="w-24 h-32">
+              <img
+                class="rounded-md h-full object-cover"
+                src="./public/phillip-goldsberry-fZuleEfeA1Q-unsplash.jpg"
+                alt=""
+              />
+            </button>
+            <div class="font-body ml-4">
+              <h1 class="text-2xl mb-5">Eli</h1>
+              <div class="flex flex-col items-center text-sm">
+                <p>1000</p>
+                <p>credits</p>
+              </div>
             </div>
+          </section>
 
-            <label for="image" class="mt-2">Add image</label>
-            <input class="form-input mb-2" type="text" id="image" name="image" />
-            <label for="image" class="mt-2">Add image</label>
-            <input class="form-input mb-2" type="text" id="image2" name="image" />
-            <label for="image" class="mt-2">Add image</label>
-            <input class="form-input mb-2" type="text" id="image3" name="image" />
-
-            <p class="text-brand-light text-xs md:text-sm">* Required</p>
-            <button class="btn btn-accent btn-big mt-12" type="submit">Publish</button>
-          </form>
-        </section>
-      </div>
-    </div>
-
-    <!-- <auth-component
-      data-mode="login"
-      id="${loginDropdownId}"
-      class="absolute top-0 left-0 h-full w-full"
-    ></auth-component>
-
-    <div>
-      <div
-        class="bg-brand-default px-6 py-2 min-h-screen w-full md:max-w-xl flex flex-col m-auto md:my-20 text-brand-dark"
-      >
-        <button class="inline-flex justify-end">X</button>
-        <section class="flex flex-col items-center mt-11 mb-8">
-          <h1 class="font-heading text-2xl md:text-3xl">Register at Bidlet</h1>
-
-          <div class="border border-alert-dark bg-alert-light py-4 px-5 font-body text-base max-w-96 flex gap-6">
-            <p>Invalid username or password. Please try again.</p>
-            <button>X</button>
+          <div class="my-9">
+            <button class="btn btn-accent px-3 py-2 text-brand-dark text-xs">Log out</button>
           </div>
 
-          <form class="font-body text-base md:text-lg flex flex-col gap-2 max-w-2xl my-12" name="login" action="">
-            <label for="email" class="">Email *</label>
-            <input
-              class="form-input mb-2"
-              type="email"
-              id="email"
-              name="email"
-              pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
-              required
-            />
-            <label for="password" class="">Password *</label>
-            <input class="form-input" type="password" id="password" name="password" required />
-            <p class="text-brand-light text-xs md:text-sm">* Required</p>
-            <button class="btn btn-auth btn-big mt-12">Log in</button>
-          </form>
-          <div class="flex flex-col items-center">
-            <p>Not a user on Bidlet yet?</p>
-            <a class="underline" href="/register">Register here</a>
+          <header class="font-body text-base md:text-lg flex justify-between max-w-sm">
+            <button class="hover:underline active:underline">My items</button>
+            <button class="hover:underline active:underline">My wins</button>
+            <button class="hover:underline active:underline">My bids</button>
+          </header>
+        </div>
+
+        <div class="bg-brand-default">
+          <div
+            class="max-w-4xl py-8 mt-4 m-auto grid gap-3 justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch"
+          >
+            <section
+              class="border border-brand-dark pt-2 pb-7 px-4 mx-auto md:mx-0 max-w-96 md:max-w-full text-brand-dark font-body flex flex-col h-full"
+            >
+              <a class="item-page-link" href="./item?id=ee771062-634d-4ac0-8604-988e4069e9c3">
+                <div class="m-auto h-60 flex justify-center items-center">
+                  <img
+                    class="max-w-full max-h-full object-contain item-img"
+                    src="https://github.com/HermanJasser/folder-for-images/blob/main/img/amundbilde.jpg?raw=true"
+                    alt="Image of item for sale: Amund (trønder)"
+                  />
+                </div>
+                <div class="mx-2">
+                  <div class="mt-4">
+                    <h2 class="title mb-1 text-lg lg:text-22px overflow-hidden">Amund (trønder)</h2>
+                    <p class="seller-name text-base lg:text-lg">HermanTJasser</p>
+                  </div>
+                  <div class="text-base lg:text-lg mt-4">
+                    <p class="current-bid mb-1">Current bid: 9 kr</p>
+                    <p class="ends-at">0d 21h 59min</p>
+                  </div>
+                </div>
+              </a>
+            </section>
+            <section
+              class="border border-brand-dark pt-2 pb-7 px-4 mx-auto md:mx-0 max-w-96 md:max-w-full text-brand-dark font-body flex flex-col h-full"
+            >
+              <a class="item-page-link" href="./item?id=ee771062-634d-4ac0-8604-988e4069e9c3">
+                <div class="m-auto h-60 flex justify-center items-center">
+                  <img
+                    class="max-w-full max-h-full object-contain item-img"
+                    src="https://github.com/HermanJasser/folder-for-images/blob/main/img/amundbilde.jpg?raw=true"
+                    alt="Image of item for sale: Amund (trønder)"
+                  />
+                </div>
+                <div class="mx-2">
+                  <div class="mt-4">
+                    <h2 class="title mb-1 text-lg lg:text-22px overflow-hidden">Amund (trønder)</h2>
+                    <p class="seller-name text-base lg:text-lg">HermanTJasser</p>
+                  </div>
+                  <div class="text-base lg:text-lg mt-4">
+                    <p class="current-bid mb-1">Current bid: 9 kr</p>
+                    <p class="ends-at">0d 21h 59min</p>
+                  </div>
+                </div>
+              </a>
+            </section>
+            <section
+              class="border border-brand-dark pt-2 pb-7 px-4 mx-auto md:mx-0 max-w-96 md:max-w-full text-brand-dark font-body flex flex-col h-full"
+            >
+              <a class="item-page-link" href="./item?id=ee771062-634d-4ac0-8604-988e4069e9c3">
+                <div class="m-auto h-60 flex justify-center items-center">
+                  <img
+                    class="max-w-full max-h-full object-contain item-img"
+                    src="https://github.com/HermanJasser/folder-for-images/blob/main/img/amundbilde.jpg?raw=true"
+                    alt="Image of item for sale: Amund (trønder)"
+                  />
+                </div>
+                <div class="mx-2">
+                  <div class="mt-4">
+                    <h2 class="title mb-1 text-lg lg:text-22px overflow-hidden">Amund (trønder)</h2>
+                    <p class="seller-name text-base lg:text-lg">HermanTJasser</p>
+                  </div>
+                  <div class="text-base lg:text-lg mt-4">
+                    <p class="current-bid mb-1">Current bid: 9 kr</p>
+                    <p class="ends-at">0d 21h 59min</p>
+                  </div>
+                </div>
+              </a>
+            </section>
           </div>
-        </section>
+        </div>
       </div>
-    </div> -->
+    </main>
   </body>
 </html>
