@@ -20,6 +20,14 @@ export default class EndpointsAPI {
     return `&_active=true`;
   }
 
+  get apiProfilesPath() {
+    return `${this.apiBase}/auction/profiles`
+  }
+
+  get apiProfilesQueryParams() {
+    return `?_listings=true&_wins=true`
+  }
+
   set token(accessToken: string) {
     localStorage.setItem("token", accessToken);
   }
@@ -120,6 +128,26 @@ export default class EndpointsAPI {
       return data;
     },
   };
+
+  profiles = {
+    singleProfile: async (userName: string | null) => {
+      if (!userName) {
+        throw new Error("No user name found")
+      }
+
+      const url = new URL(`${this.apiProfilesPath}/${userName}${this.apiProfilesQueryParams}`)
+      const response = await fetch(url, {
+        headers: this.util.setupHeaders(true, true, true),
+        method: "GET",
+      })
+
+      if (response.ok) {
+        const { data } = await response.json()
+        return data
+      }
+      throw new Error("Could not get profile")
+    }
+  }
 
   listing = {
     read: async (id: string | null) => {
