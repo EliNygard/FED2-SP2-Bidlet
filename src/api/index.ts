@@ -275,7 +275,7 @@ export default class EndpointsAPI {
         throw new Error("Please type in your search.");
       }
 
-      const url = new URL(`${this.apiListingsPath}/search?q=${query}&_seller=true&sort=endsAt&sortOrder=desc`);
+      const url = new URL(`${this.apiListingsPath}/search?q=${query}&_seller=true&_bids=true&sort=endsAt&sortOrder=desc`);
       const response = await fetch(url, {
         method: "GET",
       });
