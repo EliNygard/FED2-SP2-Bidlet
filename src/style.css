@@ -45,3 +45,7 @@
 .form-input {
   @apply border border-brand-dark h-12 p-2;
 }
+
+.page-content {
+  @apply relative;
+}

@@ -11,12 +11,12 @@ async function initializePage(): Promise<void> {
     showLoader(page);
     try {
       const userName = api.user.name;
-
+      page.className = "page-content"
       const header = document.createElement("header-component");
       const main = document.createElement("main");
       const footer = document.createElement("footer-component");
       const userCard = document.createElement("user-card-component");
-      userCard.className = "relative"
+      // userCard.className = "relative"
       userCard.setAttribute("user-name", userName);
 
       main.appendChild(userCard);

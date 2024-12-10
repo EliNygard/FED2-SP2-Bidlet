@@ -30,16 +30,18 @@ class UserCard extends HTMLElement {
   render(userData: Profile | null) {
     if (userData) {
       this.innerHTML = `
-        <div class="hidden w-full" id="updateImageContainer">
-          <div class="bg-white max-w-4xl m-auto p-8 z-50 flex flex-col">
-            <button class="inline-flex justify-end mt-4 md:mt-9 md:mr-6" id="closeButton">
-              <span class="fa-solid fa-x text-2xl"></span>
-            </button>
-            <form class="font-body text-base md:text-lg flex flex-col gap-1 max-w-2xl my-12" name="updateImage" action="#">
-              <label for="profileImg" class="mt-2">Update your profile image</label>
-              <input class="form-input mb-2" type="text" id="profileImg" name="profileImg" />
-              <button class="btn btn-auth btn-big mt-6" type="submit">Update</button>
-            </form>
+        <div class="hidden top-0 left-0 right-0 bottom-0 bg-brand-dark/50 z-50" id="updateImageContainer">
+          <div class="relative bg-white max-w-4xl m-auto p-8 z-10">
+            <div class="flex flex-col">
+              <button class="inline-flex justify-end mt-4 md:mt-9 md:mr-6" id="closeButton">
+                <span class="fa-solid fa-x text-2xl"></span>
+              </button>
+              <form class="font-body text-base md:text-lg flex flex-col gap-1 max-w-2xl my-12" name="updateImage" action="#">
+                <label for="profileImg" class="mt-2">Update your profile image</label>
+                <input class="form-input mb-2" type="text" id="profileImg" name="profileImg" />
+                <button class="btn btn-auth btn-big mt-6" type="submit">Update</button>
+              </form>
+            </div>
           </div>
         </div>
         
@@ -47,7 +49,7 @@ class UserCard extends HTMLElement {
           <div class="max-w-4xl mx-auto px-6 mt-14">
             <section class="flex">
               <button id="profileImage" class="w-24 h-32" title="Edit your profile image">
-                <img class="rounded-md h-full object-cover hover:object-contain" src="${userData.avatar?.url}" alt="">
+                <img class="rounded-md h-full object-cover" src="${userData.avatar?.url}" alt="">
               </button>
               <div class="font-body ml-4 flex flex-col items-start">
                 <h1 class="text-2xl mb-5">${userData.name}</h1>
@@ -103,17 +105,22 @@ class UserCard extends HTMLElement {
 
     // const body = document.querySelector("body");
 
+    const page = document.getElementById("app");
     const updateImageContainer = this.querySelector<HTMLElement>("#updateImageContainer");
     const profileImageBtn = this.querySelector<HTMLButtonElement>("#profileImage");
     profileImageBtn?.addEventListener("click", () => {
+      console.log(page);
+      
+      // updateImageContainer?.classList.remove("hidden")
+
       updateImageContainer?.classList.toggle("hidden");
-      updateImageContainer?.classList.toggle("absolute");
+      updateImageContainer?.classList.toggle("fixed");
     });
 
     const closeButton = this.querySelector("#closeButton");
     closeButton?.addEventListener("click", () => {
       updateImageContainer?.classList.toggle("hidden");
-      updateImageContainer?.classList.toggle("absolute");
+      updateImageContainer?.classList.toggle("fixed");
     });
 
     const updateForm = this.querySelector<HTMLFormElement>("form[name='updateImage']");
