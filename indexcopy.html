@@ -13,112 +13,19 @@
     <script type="module" src="/src/js/router/views/create.ts"></script>
     <title>Bidlet</title>
   </head>
-  <body class="min-h-screen py-2">
-    <main>
-      <div class="mx-auto">
-        <div class="max-w-4xl mx-auto">
-          <section class="flex">
-            <button class="w-24 h-32">
-              <img
-                class="rounded-md h-full object-cover"
-                src="./public/phillip-goldsberry-fZuleEfeA1Q-unsplash.jpg"
-                alt=""
-              />
-            </button>
-            <div class="font-body ml-4">
-              <h1 class="text-2xl mb-5">Eli</h1>
-              <div class="flex flex-col items-center text-sm">
-                <p>1000</p>
-                <p>credits</p>
-              </div>
-            </div>
-          </section>
-
-          <div class="my-9">
-            <button class="btn btn-accent px-3 py-2 text-brand-dark text-xs">Log out</button>
-          </div>
-
-          <header class="font-body text-base md:text-lg flex justify-between max-w-sm">
-            <button class="hover:underline active:underline">My items</button>
-            <button class="hover:underline active:underline">My wins</button>
-            <button class="hover:underline active:underline">My bids</button>
-          </header>
-        </div>
-
-        <div class="bg-brand-default">
-          <div
-            class="max-w-4xl py-8 mt-4 m-auto grid gap-3 justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch"
+  <body class="min-h-screen py-2 bg-slate-500">
+    <main class="">
+      <div class="">
+        <div class="max-w-xl bg-white m-auto p-8">
+          <form
+            class="font-body text-base md:text-lg flex flex-col gap-1 max-w-2xl my-12"
+            name="updateAvatar"
+            action="#"
           >
-            <section
-              class="border border-brand-dark pt-2 pb-7 px-4 mx-auto md:mx-0 max-w-96 md:max-w-full text-brand-dark font-body flex flex-col h-full"
-            >
-              <a class="item-page-link" href="./item?id=ee771062-634d-4ac0-8604-988e4069e9c3">
-                <div class="m-auto h-60 flex justify-center items-center">
-                  <img
-                    class="max-w-full max-h-full object-contain item-img"
-                    src="https://github.com/HermanJasser/folder-for-images/blob/main/img/amundbilde.jpg?raw=true"
-                    alt="Image of item for sale: Amund (trønder)"
-                  />
-                </div>
-                <div class="mx-2">
-                  <div class="mt-4">
-                    <h2 class="title mb-1 text-lg lg:text-22px overflow-hidden">Amund (trønder)</h2>
-                    <p class="seller-name text-base lg:text-lg">HermanTJasser</p>
-                  </div>
-                  <div class="text-base lg:text-lg mt-4">
-                    <p class="current-bid mb-1">Current bid: 9 kr</p>
-                    <p class="ends-at">0d 21h 59min</p>
-                  </div>
-                </div>
-              </a>
-            </section>
-            <section
-              class="border border-brand-dark pt-2 pb-7 px-4 mx-auto md:mx-0 max-w-96 md:max-w-full text-brand-dark font-body flex flex-col h-full"
-            >
-              <a class="item-page-link" href="./item?id=ee771062-634d-4ac0-8604-988e4069e9c3">
-                <div class="m-auto h-60 flex justify-center items-center">
-                  <img
-                    class="max-w-full max-h-full object-contain item-img"
-                    src="https://github.com/HermanJasser/folder-for-images/blob/main/img/amundbilde.jpg?raw=true"
-                    alt="Image of item for sale: Amund (trønder)"
-                  />
-                </div>
-                <div class="mx-2">
-                  <div class="mt-4">
-                    <h2 class="title mb-1 text-lg lg:text-22px overflow-hidden">Amund (trønder)</h2>
-                    <p class="seller-name text-base lg:text-lg">HermanTJasser</p>
-                  </div>
-                  <div class="text-base lg:text-lg mt-4">
-                    <p class="current-bid mb-1">Current bid: 9 kr</p>
-                    <p class="ends-at">0d 21h 59min</p>
-                  </div>
-                </div>
-              </a>
-            </section>
-            <section
-              class="border border-brand-dark pt-2 pb-7 px-4 mx-auto md:mx-0 max-w-96 md:max-w-full text-brand-dark font-body flex flex-col h-full"
-            >
-              <a class="item-page-link" href="./item?id=ee771062-634d-4ac0-8604-988e4069e9c3">
-                <div class="m-auto h-60 flex justify-center items-center">
-                  <img
-                    class="max-w-full max-h-full object-contain item-img"
-                    src="https://github.com/HermanJasser/folder-for-images/blob/main/img/amundbilde.jpg?raw=true"
-                    alt="Image of item for sale: Amund (trønder)"
-                  />
-                </div>
-                <div class="mx-2">
-                  <div class="mt-4">
-                    <h2 class="title mb-1 text-lg lg:text-22px overflow-hidden">Amund (trønder)</h2>
-                    <p class="seller-name text-base lg:text-lg">HermanTJasser</p>
-                  </div>
-                  <div class="text-base lg:text-lg mt-4">
-                    <p class="current-bid mb-1">Current bid: 9 kr</p>
-                    <p class="ends-at">0d 21h 59min</p>
-                  </div>
-                </div>
-              </a>
-            </section>
-          </div>
+            <label for="profileImg" class="mt-2">Update your profile image</label>
+            <input class="form-input mb-2" type="text" id="profileImg" name="profileImg" />
+            <button class="btn btn-auth btn-big mt-6" type="submit">Update</button>
+          </form>
         </div>
       </div>
     </main>

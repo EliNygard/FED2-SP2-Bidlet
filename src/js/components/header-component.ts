@@ -50,22 +50,11 @@ class HeaderComponent extends HTMLElement {
       profileButton?.addEventListener("click", () => {
         authComponent?.classList.toggle("hidden")
         authComponent?.classList.toggle("block")
-        // if (authComponent?.classList.contains("visible")) {
-        //   authComponent.classList.remove("visible");
-        //   authComponent.classList.add("hidden");
-        // } else {
-        //   authComponent?.classList.remove("hidden");
-        //   authComponent?.classList.add("visible");
-        // }
       });
 
       closeButton?.addEventListener("click", () => {
         authComponent?.classList.toggle("hidden")
         authComponent?.classList.toggle("block")
-        // if (authComponent?.classList.contains("visible")) {
-        //   authComponent.classList.remove("visible");
-        //   authComponent.classList.add("hidden");
-        // }
       });
     }
   }

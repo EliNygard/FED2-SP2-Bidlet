@@ -43,7 +43,6 @@ async function initializePage(): Promise<void> {
       searchForm.addEventListener("search", async (event: Event) => {
         const searchEvent = event as CustomEvent;
         const query = searchEvent.detail.query;
-        console.log(query);
         displayQuery.textContent = `Search result for '${query}':`;
         
         main.innerHTML = "";
