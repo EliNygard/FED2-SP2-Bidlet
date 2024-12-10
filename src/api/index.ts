@@ -1,4 +1,4 @@
-import { RegisterUser, LoginUser, CreateListing } from "../js/types/types";
+import { RegisterUser, LoginUser, CreateListing, UpdateProfile } from "../js/types/types";
 import { ApiError } from "./error";
 
 export default class EndpointsAPI {
@@ -142,6 +142,20 @@ export default class EndpointsAPI {
   };
 
   profiles = {
+    update: async (profileName: string | null, data: UpdateProfile) => {
+      const url = new URL(`${this.apiProfilesPath}/${profileName}`)
+
+      const response = await fetch(url, {
+        headers: this.util.setupHeaders(true, true, true),
+        method: "PUT",
+        body: JSON.stringify(data)
+      })
+
+      if (response.ok) {
+        return await response.json()
+      }
+      throw new Error("Error updating profile")
+    },
     singleProfile: async (userName: string | null) => {
       if (!userName) {
         throw new Error("No user name found")

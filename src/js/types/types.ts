@@ -25,6 +25,12 @@ export interface Profile {
   }
 }
 
+export interface UpdateProfile {
+  bio?: string
+  avatar?: Media
+  banner?: Media
+}
+
 
 export interface Media {
   url: string;
