@@ -23,9 +23,9 @@ class ListingCardComponent extends HTMLElement {
     if (listing) {
       const highestBid = getCurrentBid(listing);
       const id = listing.id;
-      const media = listing.media?.[0]
-      const imageUrl = media?.url || "default-image-url"
-      const imageAlt = media?.alt || `Item for sale, ${listing.title}`
+      const media = listing.media?.[0];
+      const imageUrl = media?.url || "default-image-url";
+      const imageAlt = media?.alt || `Item for sale, ${listing.title}`;
 
       this.innerHTML = `
         <section class="border border-brand-dark pt-2 pb-7 px-4 mx-auto md:mx-0 max-w-96 md:max-w-full text-brand-dark font-body flex flex-col h-full">
@@ -46,6 +46,23 @@ class ListingCardComponent extends HTMLElement {
           </a>
         </section>
         `;
+
+      const endsAtElement = this.querySelector(".ends-at");
+      const currentBidElement = this.querySelector(".current-bid");
+      if (endsAtElement) {
+        const now = new Date();
+        const endsAtDate = new Date(listing.endsAt);
+        if (endsAtDate < now) {
+          endsAtElement.className = "ends-at bg-brand-light text-brand-default inline-flex py-px px-1 rounded";
+          endsAtElement.textContent = "Auction ended";
+          if (currentBidElement) {
+            currentBidElement.remove();
+          }
+        } else {
+          endsAtElement.className = "ends-at";
+          endsAtElement.textContent = calculateTimeRemaining(endsAtDate.toISOString());
+        }
+      }
     }
   }
 }
