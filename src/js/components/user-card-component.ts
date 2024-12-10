@@ -14,10 +14,12 @@ class UserCard extends HTMLElement {
     if (userName) {
       try {
         const userData: Profile = await api.profiles.singleProfile(userName);
-        console.log(userData);
-        
+
         this.render(userData);
         this.attachEventListeners();
+
+        const myItemsBtn = this.querySelector("#myItemsBtn") as HTMLElement;
+        myItemsBtn?.click();
       } catch (error) {
         console.error(error);
         this.render(null);
@@ -45,7 +47,7 @@ class UserCard extends HTMLElement {
           <div class="max-w-4xl mx-auto px-6 mt-14">
             <section class="flex">
               <button id="profileImage" class="w-24 h-32" title="Edit your profile image">
-                <img class="rounded-md h-full object-cover" src="${userData.avatar?.url}" alt="">
+                <img class="rounded-md h-full object-cover hover:object-contain" src="${userData.avatar?.url}" alt="">
               </button>
               <div class="font-body ml-4 flex flex-col items-start">
                 <h1 class="text-2xl mb-5">${userData.name}</h1>
@@ -57,13 +59,13 @@ class UserCard extends HTMLElement {
             </section>
         
             <div class="my-9">
-              <button id="logout" class="btn btn-accent px-3 py-2 text-brand-dark text-xs">Log out</button>
+              <button id="logout" class="btn btn:hover btn-accent:hover btn-accent active:bg-accent-default px-3 py-2 text-brand-dark text-xs">Log out</button>
             </div>
   
             <header class="font-body text-base md:text-lg flex justify-between max-w-sm">
-              <button id="myItemsBtn" class="hover:underline active:underline">My items</button>
-              <button id="myWinsBtn" class="hover:underline active:underline">My wins</button>
-              <button id="myBidsBtn" class="hover:underline active:underline">My bids</button>
+              <button id="myItemsBtn" class="tab-btn">My items</button>
+              <button id="myWinsBtn" class="tab-btn">My wins</button>
+              <button id="myBidsBtn" class="tab-btn">My bids</button>
             </header>
 
           </div>
@@ -98,50 +100,55 @@ class UserCard extends HTMLElement {
     logoutBtn?.addEventListener("click", () => {
       api.auth.logout();
     });
-    
-    const body = document.querySelector("body")
-    console.log(body);
-    
-    const updateImageContainer = this.querySelector<HTMLElement>("#updateImageContainer")
+
+    // const body = document.querySelector("body");
+
+    const updateImageContainer = this.querySelector<HTMLElement>("#updateImageContainer");
     const profileImageBtn = this.querySelector<HTMLButtonElement>("#profileImage");
     profileImageBtn?.addEventListener("click", () => {
-      updateImageContainer?.classList.toggle("hidden")
-      updateImageContainer?.classList.toggle("absolute")
+      updateImageContainer?.classList.toggle("hidden");
+      updateImageContainer?.classList.toggle("absolute");
     });
 
-    const closeButton = this.querySelector("#closeButton")
+    const closeButton = this.querySelector("#closeButton");
     closeButton?.addEventListener("click", () => {
-      updateImageContainer?.classList.toggle("hidden")
-      updateImageContainer?.classList.toggle("absolute")
-    })
+      updateImageContainer?.classList.toggle("hidden");
+      updateImageContainer?.classList.toggle("absolute");
+    });
 
-    const updateForm = this.querySelector<HTMLFormElement>("form[name='updateImage']")
-    console.log(updateForm);
+    const updateForm = this.querySelector<HTMLFormElement>("form[name='updateImage']");
     if (updateForm) {
       updateForm.onsubmit = (event) => {
-        event.preventDefault()
-        onUpdate(event)
-      }
+        event.preventDefault();
+        onUpdate(event);
+      };
     }
-    
-    
-    const itemsContainer = this.querySelector<HTMLElement>("#itemsContainer");
-    const myItemsBtn = this.querySelector<HTMLButtonElement>("#myItemsBtn");
-    const myWinsBtn = this.querySelector<HTMLButtonElement>("#myWinsBtn");
-    const myBidsBtn = this.querySelector<HTMLButtonElement>("#myBidsBtn");
 
-    if (myItemsBtn && myWinsBtn && itemsContainer) {
-      myItemsBtn.addEventListener("click", () => {
+    const itemsContainer = this.querySelector<HTMLElement>("#itemsContainer");
+    const headerButtons = this.querySelectorAll(".tab-btn");
+
+    headerButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        
+        headerButtons.forEach((btn) => btn.classList.remove("active"));
+        button.classList.add("active");
+
+        if (!itemsContainer) return;
+
         itemsContainer.innerHTML = "";
         const userName = this.getAttribute("user-name");
-        if (userName) {
+        if (!userName) return;
+
+        if (button.id === "myItemsBtn") {
           api.profiles.singleProfile(userName).then((userData: Profile) => {
             userData.listings?.forEach((listing: Listing) => {
+              console.log(listing);
+
               const listingCard = document.createElement("listing-card-component");
               listingCard.setAttribute("data-listing", JSON.stringify(listing));
-              itemsContainer.appendChild(listingCard);
+              itemsContainer?.appendChild(listingCard);
             });
-            if (userData.listings?.length === 0) {
+            if (!userData.listings?.length) {
               itemsContainer.innerHTML = `
               <p>You have no Bidlets yet. Create one today!
               <a class="underline" href="./create">Create a new Bidlet</a>
@@ -149,19 +156,16 @@ class UserCard extends HTMLElement {
               `;
             }
           });
-        }
-      });
-      myWinsBtn.addEventListener("click", () => {
-        itemsContainer.innerHTML = "";
-        const userName = this.getAttribute("user-name");
-        if (userName) {
+        } else if (button.id === "myWinsBtn") {
           api.profiles.singleProfile(userName).then((userData: Profile) => {
             userData.wins?.forEach((win: Listing) => {
+              console.log(win);
+              
               const listingCard = document.createElement("listing-card-component");
               listingCard.setAttribute("data-listing", JSON.stringify(win));
-              itemsContainer.appendChild(listingCard);
+              itemsContainer?.appendChild(listingCard);
             });
-            if (userData.wins?.length === 0) {
+            if (!userData.wins?.length) {
               itemsContainer.innerHTML = `
               <p>You have no wins yet. Start bidding on your favorite Bidlets!
               <a class="underline" href="./">Find a new Bidlet</a>
@@ -169,28 +173,17 @@ class UserCard extends HTMLElement {
               `;
             }
           });
-        }
-      });
-      myBidsBtn?.addEventListener("click", () => {
-        itemsContainer.innerHTML = "";
-        const userName = this.getAttribute("user-name");
-        if (userName) {
+        } else if (button.id === "myBidsBtn") {
           api.profiles.bidsByProfile(userName).then((bids: Bid[]) => {
-            console.log(bids);
             bids.forEach((bid: Bid) => {
-              const listing = bid.listing;
-              console.log(typeof listing, listing);
               const listingCard = document.createElement("listing-card-component");
-              listingCard.setAttribute("data-listing", JSON.stringify(listing));
-              itemsContainer.appendChild(listingCard);
-              // create new component for this
-              // can not display seller
-              // display: my bid amount, title.
+              listingCard.setAttribute("data-listing", JSON.stringify(bid.listing));
+              itemsContainer?.appendChild(listingCard);
             });
           });
         }
       });
-    }
+    });
   }
 }
 
