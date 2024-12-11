@@ -32,6 +32,33 @@ async function initializePage(): Promise<void> {
       document.title = `Bidlet | ${listing.title}`;
 
       main.appendChild(item);
+
+
+      // Get all the slides and buttons
+      const slides = document.querySelectorAll("#slideContainer")
+      let currentIndex = 0
+      const prevButton = document.getElementById("prevButton")
+      const nextButton = document.getElementById("nextButton")
+      
+      function showSlide(index: number) {
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("hidden", i !== index)
+        })
+      }
+
+      showSlide(currentIndex)
+
+      nextButton?.addEventListener("click", () => {
+        currentIndex = (currentIndex + 1) % slides.length
+        showSlide(currentIndex)
+      })
+
+      prevButton?.addEventListener("click", () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length
+        showSlide(currentIndex)
+      })
+      
+
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
