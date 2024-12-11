@@ -3,9 +3,11 @@ import { Listing } from "../types/types";
 import { calculateTimeRemaining, formatDateAndTime } from "../utilities/formatting";
 import { getCurrentBid } from "../utilities/getCurrentBid";
 
-export async function displayItem(listing: Listing) {
+export async function displayItem(listing: Listing): Promise<HTMLElement> {
     const section = document.createElement("section");
     section.className = "flex flex-col m-auto my-6 px-4 max-w-xl";
+    console.log(listing);
+    
 
     // Image section
     const imageSection = document.createElement("div");
@@ -79,7 +81,8 @@ export async function displayItem(listing: Listing) {
     const sellerLink = document.createElement("a");
     const seller = document.createElement("p");
     seller.className = "font-body text-sm md:text-base mb-7";
-    seller.textContent = listing.seller.name || "Unknown seller";
+    
+    seller.textContent = listing.seller?.name || "Unknown seller";
     sellerLink.appendChild(seller);
     detailsInnerDiv.appendChild(sellerLink);
 
