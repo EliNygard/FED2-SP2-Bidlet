@@ -5,6 +5,7 @@ import { displayItem } from "../../components/displayItem.ts";
 import { showLoader } from "../../utilities/showLoader.ts";
 import { hideLoader } from "../../utilities/hideLoader.ts";
 import { delay } from "../../utilities/delay.ts";
+import { handleCarousel } from "../../utilities/handleCarousel.ts";
 
 async function initializePage(): Promise<void> {
   const page = document.getElementById("app");
@@ -20,51 +21,25 @@ async function initializePage(): Promise<void> {
       const main = document.createElement("main");
       const footer = document.createElement("footer-component");
 
-      page.append(header, main, footer);
       if (!listingId) {
         throw new Error("Listing ID is missing");
       }
 
       const listing = await api.listing.read(listingId);
       const item = await displayItem(listing);
-      console.log(listing);
 
       document.title = `Bidlet | ${listing.title}`;
 
+      page.append(header, main, footer);
       main.appendChild(item);
 
-
-      // Get all the slides and buttons
-      const slides = document.querySelectorAll("#slideContainer")
-      let currentIndex = 0
-      const prevButton = document.getElementById("prevButton")
-      const nextButton = document.getElementById("nextButton")
-      
-      function showSlide(index: number) {
-        slides.forEach((slide, i) => {
-          slide.classList.toggle("hidden", i !== index)
-        })
-      }
-
-      showSlide(currentIndex)
-
-      nextButton?.addEventListener("click", () => {
-        currentIndex = (currentIndex + 1) % slides.length
-        showSlide(currentIndex)
-      })
-
-      prevButton?.addEventListener("click", () => {
-        currentIndex = (currentIndex - 1 + slides.length) % slides.length
-        showSlide(currentIndex)
-      })
-      
-
+      handleCarousel();
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
       } else {
         console.error("An unknown error occurred");
-        // display error, create a component
+        alert(error);
       }
     } finally {
       hideLoader(document.body);

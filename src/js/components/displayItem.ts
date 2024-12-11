@@ -6,22 +6,17 @@ import { getCurrentBid } from "../utilities/getCurrentBid";
 export async function displayItem(listing: Listing): Promise<HTMLElement> {
   const section = document.createElement("section");
   section.className = "flex flex-col m-auto my-6 px-4 max-w-xl";
-  console.log(listing);
 
   // Image section
   const imageSection = document.createElement("div");
   imageSection.className = "relative flex justify-center";
   imageSection.id = "slideshowContainer";
-  //   const image = document.createElement("img");
-  //   image.className = "max-w-full max-h-full object-contain item-img";
   const carousel = document.createElement("ul");
   carousel.id = "carousel";
   const mediaArray = listing.media;
-  console.log(mediaArray);
 
   if (mediaArray) {
     mediaArray.forEach((media) => {
-      console.log(media);
       const li = document.createElement("li");
       li.className = "relative hidden";
       li.id = "slideContainer";
@@ -34,33 +29,27 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
     });
   }
 
-  //   if (listing.media) {
-  //     image.src = listing.media?.[0]?.url || "default-image-url";
-  //     image.alt = listing.media?.[0]?.alt || `Image of item for sale: ${listing.title}`;
-  //   }
-  //   imageSection.appendChild(image);
-
   imageSection.appendChild(carousel);
-
   section.appendChild(imageSection);
 
   // Navigation buttons
   const navButtonsDiv = document.createElement("div");
-  navButtonsDiv.className = "flex justify-center gap-12 mt-4";
+  navButtonsDiv.className = "flex justify-center gap-12 md:gap-24 mt-4";
+  navButtonsDiv.id = "navButtonsDiv";
 
   const prevButton = document.createElement("button");
-  prevButton.ariaLabel = "Previous button";
+  prevButton.ariaLabel = "Go to previous image";
   prevButton.id = "prevButton";
   const prevIcon = document.createElement("span");
-  prevIcon.className = "fa-solid fa-chevron-left";
+  prevIcon.className = "fa-solid fa-chevron-left text-xl md:text-2xl hover:text-accent-dark pointer";
   prevIcon.setAttribute("aria-hidden", "true");
   prevButton.appendChild(prevIcon);
 
   const nextButton = document.createElement("button");
-  nextButton.ariaLabel = "Next button";
+  nextButton.ariaLabel = "Go to next image";
   nextButton.id = "nextButton";
   const nextIcon = document.createElement("span");
-  nextIcon.className = "fa-solid fa-chevron-right hover:text-accent-dark";
+  nextIcon.className = "fa-solid fa-chevron-right text-xl md:text-2xl hover:text-accent-dark pointer";
   nextIcon.setAttribute("aria-hidden", "true");
   nextButton.appendChild(nextIcon);
 
@@ -78,7 +67,6 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
   detailsDiv.appendChild(tagsList);
 
   const tags = listing.tags;
-  console.log(tags);
 
   if (tags) {
     tags.forEach((tag: string) => {
@@ -190,6 +178,7 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
   bidsList.className = "bids-list";
   bidsSection.appendChild(bidsList);
   const bids = listing.bids;
+
   if (bids) {
     bids.forEach((bid: { created: string; amount: number }) => {
       const bidItem = document.createElement("li");
@@ -205,6 +194,13 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
       bidItem.append(bidDate, bidAmount);
       bidsList.appendChild(bidItem);
     });
+  }
+  if (bids?.length === 0) {
+    const message = document.createElement("p");
+    message.textContent = "This Bidlet has no bids yet. Be the first?";
+    message.className = "font-body text-base md:text-lg";
+
+    bidsList.appendChild(message);
   }
 
   section.appendChild(bidsSection);
