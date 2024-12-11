@@ -160,7 +160,7 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
 
   const description = document.createElement("p");
   description.className = "description font-body text-base md:text-lg";
-  description.textContent = listing.description || "No description available.";
+  description.textContent = listing.description || "No description on this Bidlet.";
   descriptionSection.appendChild(description);
 
   section.appendChild(descriptionSection);
