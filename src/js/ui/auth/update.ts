@@ -44,5 +44,6 @@ export async function onUpdate(event: Event) {
     button.removeChild(loader);
     button.textContent = "Update";
     updateImageContainer?.classList.toggle("hidden");
+    window.location.reload();
   }
 }
