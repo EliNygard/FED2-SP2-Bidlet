@@ -27,7 +27,7 @@ class HeaderComponent extends HTMLElement {
     `;
 
     this.innerHTML = `
-    <header class="max-w-7xl mx-auto px-5 sticky">
+    <header class="max-w-7xl mx-auto py-4 px-5 sticky">
   <nav class="flex justify-between items-center">
     <div>
       <a title="home" class="text-xl font-heading tracking-widest text-brand-dark hover:text-accent-dark sm:text-3xl md:text-4xl" href="./">Bidlet</a>
@@ -50,22 +50,11 @@ class HeaderComponent extends HTMLElement {
       profileButton?.addEventListener("click", () => {
         authComponent?.classList.toggle("hidden")
         authComponent?.classList.toggle("block")
-        // if (authComponent?.classList.contains("visible")) {
-        //   authComponent.classList.remove("visible");
-        //   authComponent.classList.add("hidden");
-        // } else {
-        //   authComponent?.classList.remove("hidden");
-        //   authComponent?.classList.add("visible");
-        // }
       });
 
       closeButton?.addEventListener("click", () => {
         authComponent?.classList.toggle("hidden")
         authComponent?.classList.toggle("block")
-        // if (authComponent?.classList.contains("visible")) {
-        //   authComponent.classList.remove("visible");
-        //   authComponent.classList.add("hidden");
-        // }
       });
     }
   }

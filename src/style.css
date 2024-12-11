@@ -14,7 +14,7 @@
   }
 
   .btn-accent {
-    @apply bg-accent-default text-brand-dark;
+    @apply bg-accent-default border border-accent-default text-brand-dark;
   }
 
   .btn-accent:hover {
@@ -32,8 +32,28 @@
   .btn-big {
     @apply h-14 min-w-64 max-w-max70;
   }
+
+  .tab-btn {
+    @apply border-b-2 border-transparent pb-1 transition ease-in;
+  }
+
+  .tab-btn.active {
+    @apply border-b-2 border-brand-dark duration-200;
+  }
 }
 
 .form-input {
   @apply border border-brand-dark h-12 p-2;
+}
+
+.page-content {
+  @apply relative;
+}
+
+.profile-overlay {
+  @apply backdrop-blur-[2px] absolute top-0 h-full rounded-md w-full flex justify-center items-center font-body text-xs text-brand-dark opacity-0 transition-opacity duration-500;
+}
+
+#profileImage:hover .profile-overlay {
+  @apply opacity-100;
 }
