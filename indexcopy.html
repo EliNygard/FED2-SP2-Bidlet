@@ -13,21 +13,14 @@
     <script type="module" src="/src/js/router/views/create.ts"></script>
     <title>Bidlet</title>
   </head>
-  <body class="min-h-screen py-2 bg-slate-500">
+  <body class="min-h-screen py-2">
     <main class="">
-      <div class="">
-        <div class="max-w-xl bg-white m-auto p-8">
-          <form
-            class="font-body text-base md:text-lg flex flex-col gap-1 max-w-2xl my-12"
-            name="updateAvatar"
-            action="#"
-          >
-            <label for="profileImg" class="mt-2">Update your profile image</label>
-            <input class="form-input mb-2" type="text" id="profileImg" name="profileImg" />
-            <button class="btn btn-auth btn-big mt-6" type="submit">Update</button>
-          </form>
+      <button id="profileImage" class="w-24 h-32 relative overflow-hidden" title="Edit your profile image">
+        <div class="profile-overlay">
+          <p class="bg-brand-default/70 rounded-sm px-3 py-1 text-brand-dark">Update</p>
         </div>
-      </div>
+        <img class="rounded-md h-full object-cover" src="./phillip-goldsberry-fZuleEfeA1Q-unsplash.jpg" alt="" />
+      </button>
     </main>
   </body>
 </html>

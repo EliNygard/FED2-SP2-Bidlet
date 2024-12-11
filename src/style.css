@@ -49,3 +49,11 @@
 .page-content {
   @apply relative;
 }
+
+.profile-overlay {
+  @apply backdrop-blur-[2px] absolute top-0 h-full rounded-md w-full flex justify-center items-center font-body text-xs text-brand-dark opacity-0 transition-opacity duration-500;
+}
+
+#profileImage:hover .profile-overlay {
+  @apply opacity-100;
+}

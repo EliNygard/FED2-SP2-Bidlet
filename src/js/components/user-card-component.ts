@@ -44,16 +44,21 @@ class UserCard extends HTMLElement {
             </div>
           </div>
         </div>
+
+        <div>
         
         <div class="mx-auto">
-          <div class="max-w-4xl mx-auto px-6 mt-14">
+          <div class="max-w-7xl mx-auto px-6 mt-14">
             <section class="flex">
-              <button id="profileImage" class="w-24 h-32" title="Edit your profile image">
+              <button id="profileImage" class="w-24 h-32 relative overflow-hidden" title="Edit your profile image">
+                <div class="profile-overlay">
+                  <p class="bg-brand-default/70 rounded-sm px-3 py-1 text-brand-dark">Update</p>
+                </div>
                 <img class="rounded-md h-full object-cover" src="${userData.avatar?.url}" alt="">
               </button>
-              <div class="font-body ml-4 flex flex-col items-start">
-                <h1 class="text-2xl mb-5">${userData.name}</h1>
-                <div class="flex flex-col items-center text-sm">
+              <div class="font-body ml-4 md:ml-10 flex flex-col items-start">
+                <h1 class="text-2xl md:text-3xl mb-5">${userData.name}</h1>
+                <div class="flex flex-col md:flex-row md:gap-1 items-center text-sm md:text-base lg:text-lg">
                   <p>${userData.credits}</p>
                   <p>credits</p>
                 </div>
@@ -73,7 +78,7 @@ class UserCard extends HTMLElement {
           </div>
 
           <div class="bg-brand-default">
-            <div id="itemsContainer" class="max-w-4xl py-8 px-6 mt-4 m-auto grid gap-3 justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch"></div>
+            <div id="itemsContainer" class="max-w-7xl py-8 px-6 mt-4 m-auto grid gap-3 justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch"></div>
           </div>
       
         </div>
