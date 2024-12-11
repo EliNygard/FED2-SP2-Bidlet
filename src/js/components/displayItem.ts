@@ -26,7 +26,7 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
       li.className = "relative hidden";
       li.id = "slideContainer";
       const imgElement = document.createElement("img");
-      imgElement.className = "max-w-full max-h-full object-contain item-img";
+      imgElement.className = "max-w-full max-h-[500px] object-contain item-img";
       imgElement.src = media.url || "";
       imgElement.alt = media.alt || `Image of item for sale: ${listing.title}`;
       li.appendChild(imgElement);
@@ -60,7 +60,7 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
   nextButton.ariaLabel = "Next button";
   nextButton.id = "nextButton";
   const nextIcon = document.createElement("span");
-  nextIcon.className = "fa-solid fa-chevron-right";
+  nextIcon.className = "fa-solid fa-chevron-right hover:text-accent-dark";
   nextIcon.setAttribute("aria-hidden", "true");
   nextButton.appendChild(nextIcon);
 
