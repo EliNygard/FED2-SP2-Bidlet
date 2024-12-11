@@ -192,6 +192,13 @@ class UserCard extends HTMLElement {
               listingCard.setAttribute("data-listing", JSON.stringify(bid.listing));
               itemsContainer?.appendChild(listingCard);
             });
+            if (!bids?.length) {
+              itemsContainer.innerHTML = `
+              <p>You have not placed any bids yet. Start bidding on your favorite Bidlets!
+              <a class="underline" href="./">Find a new Bidlet</a>
+              </p>
+              `
+            }
           });
         }
       });
