@@ -25,6 +25,10 @@
     @apply bg-brand-dark text-brand-default;
   }
 
+  .btn-disabled {
+    @apply bg-transparent border border-brand-dark text-brand-dark;
+  }
+
   .btn-auth:hover {
     @apply bg-transparent border border-brand-dark text-brand-dark;
   }

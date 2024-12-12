@@ -1,5 +1,5 @@
 import { onBid } from "../formSubmissions/onBid";
-import { Listing } from "../types/types";
+import { Listing, Seller } from "../types/types";
 import { calculateTimeRemaining, formatDateAndTime } from "../utilities/formatting";
 import { getCurrentBid } from "../utilities/getCurrentBid";
 
@@ -9,7 +9,7 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
 
   // Image section
   const imageSection = document.createElement("div");
-  imageSection.className = "relative flex justify-center";
+  imageSection.className = "flex justify-center";
   imageSection.id = "slideshowContainer";
   const carousel = document.createElement("ul");
   carousel.id = "carousel";
@@ -18,7 +18,7 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
   if (mediaArray) {
     mediaArray.forEach((media) => {
       const li = document.createElement("li");
-      li.className = "relative hidden";
+      li.className = "hidden";
       li.id = "slideContainer";
       const imgElement = document.createElement("img");
       imgElement.className = "max-w-full max-h-[500px] object-contain item-img";
@@ -143,8 +143,8 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
 
   form.appendChild(bidButton);
   form.addEventListener("submit", (event: Event) => {
-    const id = listing.id;
-    onBid(event, id);
+    // const id = listing.id;
+    onBid(event, listing);
   });
 
   section.appendChild(form);
@@ -160,7 +160,7 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
 
   const description = document.createElement("p");
   description.className = "description font-body text-base md:text-lg";
-  description.textContent = listing.description || "No description available.";
+  description.textContent = listing.description || "No description on this Bidlet.";
   descriptionSection.appendChild(description);
 
   section.appendChild(descriptionSection);
@@ -180,16 +180,21 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
   const bids = listing.bids;
 
   if (bids) {
-    bids.forEach((bid: { created: string; amount: number }) => {
+    bids.forEach((bid: { created: string; amount: number; bidder:Seller }) => {
       const bidItem = document.createElement("li");
       bidItem.className = "bids-list flex flex-row justify-between";
+
       const bidDate = document.createElement("p");
       bidDate.textContent = formatDateAndTime(bid.created);
-
       bidDate.className = "font-body text-base md:text-lg";
+
       const bidAmount = document.createElement("p");
       bidAmount.textContent = `${bid.amount} kr`;
       bidAmount.className = "font-body text-base md:text-lg";
+
+      const bidder = document.createElement("p")
+      bidder.textContent = bid.bidder.name
+      bidder.className = "font-body text-base md:text-lg"
 
       bidItem.append(bidDate, bidAmount);
       bidsList.appendChild(bidItem);
