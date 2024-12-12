@@ -34,9 +34,9 @@ export default class EndpointsAPI {
 
   get token(): string | null {
     try {
-      return localStorage.getItem("token") || "";
+      return localStorage.getItem("token");
     } catch {
-      return "";
+      return null;
     }
   }
 
