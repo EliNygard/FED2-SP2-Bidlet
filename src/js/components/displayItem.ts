@@ -6,6 +6,8 @@ import { getCurrentBid } from "../utilities/getCurrentBid";
 export async function displayItem(listing: Listing): Promise<HTMLElement> {
   const section = document.createElement("section");
   section.className = "flex flex-col m-auto my-6 px-4 max-w-xl";
+  console.log(listing);
+  
 
   // Image section
   const imageSection = document.createElement("div");
@@ -13,7 +15,7 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
   imageSection.id = "slideshowContainer";
   const carousel = document.createElement("ul");
   carousel.id = "carousel";
-  const mediaArray = listing.media;
+  const mediaArray = listing.media || [];
 
   if (mediaArray) {
     mediaArray.forEach((media) => {
@@ -30,7 +32,10 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
   }
 
   imageSection.appendChild(carousel);
-  section.appendChild(imageSection);
+
+  if (mediaArray.length >= 1) {
+    section.appendChild(imageSection);
+  }
 
   // Navigation buttons
   const navButtonsDiv = document.createElement("div");
@@ -53,20 +58,27 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
   nextIcon.setAttribute("aria-hidden", "true");
   nextButton.appendChild(nextIcon);
 
-  navButtonsDiv.appendChild(prevButton);
-  navButtonsDiv.appendChild(nextButton);
-
-  section.appendChild(navButtonsDiv);
-
+  
+  if (mediaArray.length >= 2) {
+    navButtonsDiv.appendChild(prevButton);
+    navButtonsDiv.appendChild(nextButton);
+    section.appendChild(navButtonsDiv);
+  }
+  
   // Tags and item details
   const detailsDiv = document.createElement("div");
   detailsDiv.className = "mb-6 mt-8";
 
   const tagsList = document.createElement("ul");
   tagsList.className = "mb-6 tags flex gap-3";
-  detailsDiv.appendChild(tagsList);
-
-  const tags = listing.tags;
+  
+  const tags = listing.tags || [];
+  
+  if (tags?.length >= 1) {
+    detailsDiv.appendChild(tagsList);
+  }
+  console.log(tags);
+  
 
   if (tags) {
     tags.forEach((tag: string) => {
@@ -76,7 +88,7 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
       tagItem.textContent = tag;
       tagsList.append(tagItem);
     });
-  }
+  } 
 
   const detailsInnerDiv = document.createElement("div");
 
@@ -110,6 +122,21 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
   const endsAtConverted = formatDateAndTime(listing.endsAt);
   endsAt.textContent = `Auction ends at ${endsAtConverted || "No end date"}`;
   detailsInnerDiv.appendChild(endsAt);
+
+  if (endsAt) {
+    const now = new Date()
+    const endsAtDate = new Date(listing.endsAt)
+    if (endsAtDate < now) {
+      endsAt.className = "ends-at bg-brand-light text-brand-default inline-flex py-px px-1 rounded";
+      endsAt.textContent = "Auction ended";
+      if (currentBid) {
+        currentBid.remove()
+      }
+      if (timeLeft) {
+        timeLeft.remove()
+      }
+    }
+  }
 
   detailsDiv.appendChild(detailsInnerDiv);
   section.appendChild(detailsDiv);
