@@ -98,8 +98,6 @@ class UserCard extends HTMLElement {
       itemsContainer?.appendChild(listingCard);
     });
 
-    const myWins = userData?.wins;
-    console.log(myWins);
   }
 
   attachEventListeners() {
@@ -108,16 +106,12 @@ class UserCard extends HTMLElement {
       api.auth.logout();
     });
 
-    // const body = document.querySelector("body");
-
     const page = document.getElementById("app");
     const updateImageContainer = this.querySelector<HTMLElement>("#updateImageContainer");
     const profileImageBtn = this.querySelector<HTMLButtonElement>("#profileImage");
     profileImageBtn?.addEventListener("click", () => {
       console.log(page);
       
-      // updateImageContainer?.classList.remove("hidden")
-
       updateImageContainer?.classList.toggle("hidden");
       updateImageContainer?.classList.toggle("fixed");
     });
