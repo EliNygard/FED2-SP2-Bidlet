@@ -10,6 +10,7 @@ async function initializePage(): Promise<void> {
   const page = document.getElementById("app");
   if (page) {
     showLoader(page);
+
     try {
       const header = document.createElement("header-component");
       const main = document.createElement("main");
