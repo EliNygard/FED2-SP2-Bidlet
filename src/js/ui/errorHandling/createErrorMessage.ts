@@ -1,6 +1,7 @@
 export function createErrorMessageElement(message: string): HTMLElement {
     const container = document.createElement("div")
     container.className = "mt-9 border border-alert-dark bg-alert-light py-4 px-5 font-body text-base max-w-96 flex gap-6"
+    container.setAttribute("role", "alert")
 
     const errorText = document.createElement("p")
     errorText.textContent = `${message}. Please try again.`

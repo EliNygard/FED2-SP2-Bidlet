@@ -7,10 +7,10 @@ class HeaderComponent extends HTMLElement {
 
   connectedCallback() {
     const isLoggedIn = Boolean(localStorage.getItem("token"));
-    const loginDropdownId = "login-dropdown";
+    // const loginDropdownId = "login-dropdown";
 
     const loggedinLinks = `
-    <a aria-label="Link to Create new Bidlet page" title="Create a new Bidlet" href="./create">
+    <a aria-label="Link to Create new Bidlet" title="Create a new Bidlet" href="./create">
         <span aria-hidden="true" class="fa-solid fa-plus text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
       </a>
       <a aria-label="Link to profile page" title="Go to your profile page" href="./profile">
@@ -19,11 +19,11 @@ class HeaderComponent extends HTMLElement {
     `;
 
     const loggedOutLinks = `
-    <button id="profile-button" aria-label="Link to log in or register page" title="Log in or register an account">
+    <button id="profile-button" aria-label="Link to log in or register page" aria-controls="login-dropdown" aria-expanded="false" title="Log in or register an account">
       <span aria-hidden="true" class="fa-regular fa-user text-xl text-brand-dark hover:text-accent-dark sm:text-2xl"></span>
     </button>
 
-    <auth-component data-mode="login" id="${loginDropdownId}" class="hidden"></auth-component>
+    <auth-component data-mode="login" id="login-dropdown" class="hidden" tabindex="-1" aria-hidden="true" aria-live="polite" role="dialog" aria-labelledby="auth-title"></auth-component>
     `;
 
     this.innerHTML = `
@@ -48,13 +48,19 @@ class HeaderComponent extends HTMLElement {
       const closeButton = this.querySelector("#closeButton");
 
       profileButton?.addEventListener("click", () => {
-        authComponent?.classList.toggle("hidden")
-        authComponent?.classList.toggle("block")
+        const isExpanded = profileButton.getAttribute("aria-expanded") === "true"
+        authComponent?.classList.toggle("hidden", isExpanded)
+        authComponent?.classList.toggle("block", !isExpanded)
+        profileButton.setAttribute("aria-expanded", (!isExpanded).toString())
+        authComponent?.setAttribute("aria-hidden", isExpanded.toString())
+
       });
 
       closeButton?.addEventListener("click", () => {
         authComponent?.classList.toggle("hidden")
         authComponent?.classList.toggle("block")
+        authComponent?.setAttribute("aria-hidden", "true")
+        profileButton?.setAttribute("aria-hidden", "false")
       });
     }
   }
