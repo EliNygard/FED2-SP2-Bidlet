@@ -2,7 +2,7 @@ import { expect, describe, it, beforeEach, vi } from "vitest";
 import EndpointsAPI from "../../../api/index.ts";
 
 describe("log in registered user", () => {
-  let api: EndpointsAPI;
+  let api;
 
   beforeEach(() => {
     globalThis.fetch = vi.fn();
@@ -23,7 +23,7 @@ describe("log in registered user", () => {
       },
     };
 
-    globalThis.fetch.mockResolvedValue({
+    fetch.mockResolvedValue({
       ok: true,
       json: () => Promise.resolve(response),
     });

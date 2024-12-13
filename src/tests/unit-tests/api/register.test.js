@@ -14,7 +14,7 @@ describe("register new profile", () => {
       },
     };
 
-    globalThis.fetch.mockResolvedValue({
+    fetch.mockResolvedValue({
       ok: true,
       json: () => Promise.resolve(successResponse),
     });
@@ -33,7 +33,7 @@ describe("register new profile", () => {
       errors: [{ message: "Email already in use" }],
     };
 
-    globalThis.fetch.mockResolvedValue({
+    fetch.mockResolvedValue({
       ok: false,
       status: 400,
       statusText: "Bad Request",
@@ -45,7 +45,7 @@ describe("register new profile", () => {
         name: "TestUser",
         email: "testuser@stud.noroff.no",
         password: "testPassword123",
-      })
+      }),
     ).rejects.toThrow("Email already in use");
   });
 });
