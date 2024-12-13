@@ -26,11 +26,11 @@ class AuthComponent extends HTMLElement {
     this.innerHTML = `
     <div id="authWrapper" class="fixed inset-0 bg-white z-50 flex items-center justify-center">
         <div id="authContainer" class="bg-brand-default px-6 py-2 w-full md:max-w-xl flex flex-col md:my-20 text-brand-dark max-h-[90vh] overflow-y-auto">
-      <button class="inline-flex justify-end mt-4 md:mt-9 md:mr-6" id="closeButton">
-        <span class="fa-solid fa-x text-2xl"></span>
+      <button class="inline-flex justify-end mt-4 md:mt-9 md:mr-6" id="closeButton" aria-label="Close ${isLogin ? 'log in' : 'register'} form">
+        <span class="fa-solid fa-x text-2xl" aria-hidden="true"></span>
       </button>
       <section class="flex flex-col items-center mt-11 mb-8">
-        <h1 class="font-heading text-2xl md:text-3xl">${isLogin ? "Log in" : "Register"} at Bidlet</h1>
+        <h1 class="font-heading text-2xl md:text-3xl" id="auth-title">${isLogin ? "Log in" : "Register"} at Bidlet</h1>
         ${
           !isLogin
             ? `
