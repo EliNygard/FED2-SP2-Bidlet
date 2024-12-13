@@ -26,7 +26,7 @@ async function initializePage(): Promise<void> {
       const listings = await api.listings.readAll("&_active=true&sort=endsAt&sortOrder=asc");
       console.log(listings);
 
-      listings.forEach((listing: Listing) => {
+      listings.data.forEach((listing: Listing) => {
         const listingCard = document.createElement("listing-card-component");
         listingCard.setAttribute("data-listing", JSON.stringify(listing));
         listingsSection.appendChild(listingCard);

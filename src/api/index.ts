@@ -141,6 +141,16 @@ export default class EndpointsAPI {
     }
   };
 
+  meta = {
+    isFirstPage: true,
+    isLastPage: true,
+    currentPage: 1,
+    previousPage: null,
+    nextPage: null,
+    pageCount: 1,
+    totalCount: 2
+  }
+
   profiles = {
     update: async (profileName: string | null, data: UpdateProfile) => {
       const url = new URL(`${this.apiProfilesPath}/${profileName}`)
@@ -214,18 +224,34 @@ export default class EndpointsAPI {
   };
 
   listings = {
+    // meta: null,
+    // currentPage: 1,
+
     readAll: async (parameter: string) => {
-      const url = new URL(`${this.apiListingsPath}${this.apiListingsQueryParam}${parameter}`);
+      const url = new URL(`${this.apiListingsPath}${this.apiListingsQueryParam}${parameter}&limit=5`);
       const response = await fetch(url, {
         headers: this.util.setupHeaders(true, false, false),
         method: "GET",
       });
 
       if (response.ok) {
-        const { data } = await response.json();
-        return data;
+        const { data, meta } = await response.json();
+        this.meta = meta
+        return {data, meta};
       }
       throw new Error("Could not fetch listings");
+    },
+    nextPage: async () => {
+      if (this.meta && !this.meta.isLastPage) {
+        const nextPage = this.meta.currentPage + 1
+        return await this.listings.readAll(`?page=${nextPage}`)
+      }
+    },
+    previousPage: async () => {
+      if (this.meta && !this.meta.isFirstPage) {
+        const previousPage = this.meta.currentPage - 1
+        return await this.listings.readAll(`?page=${previousPage}`)
+      }
     },
     create: async ({ title, description, tags = [], media = [], endsAt }: CreateListing) => {
       try {

@@ -37,7 +37,13 @@ async function initializePage(): Promise<void> {
       const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc");
       console.log(listings);
 
-      listings.forEach((listing: Listing) => {
+      const { data, meta } = await api.listings.readAll("?page=2")
+      console.log("First page data:", data);
+      console.log("Pagination info:", meta);
+      
+      
+
+      listings.data.forEach((listing: Listing) => {
         const listingCard = document.createElement("listing-card-component");
         listingCard.setAttribute("data-listing", JSON.stringify(listing));
         listingsSection.appendChild(listingCard);
@@ -61,7 +67,7 @@ async function initializePage(): Promise<void> {
 
           if (button.id === "activeBidlets") {
             const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc")
-            listings.forEach((listing: Listing) => {
+            listings.data.forEach((listing: Listing) => {
               const listingCard = document.createElement("listing-card-component");
               listingCard.setAttribute("data-listing", JSON.stringify(listing));
               listingsSection.appendChild(listingCard);
@@ -70,7 +76,7 @@ async function initializePage(): Promise<void> {
 
           else if (button.id === "allBidlets") {
             const listings = await api.listings.readAll("&sort=created&sortOrder=desc")
-            listings.forEach((listing: Listing) => {
+            listings.data.forEach((listing: Listing) => {
               const listingCard = document.createElement("listing-card-component");
               listingCard.setAttribute("data-listing", JSON.stringify(listing));
               listingsSection.appendChild(listingCard);
