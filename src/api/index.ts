@@ -54,7 +54,7 @@ export default class EndpointsAPI {
 
   static base = "https://v2.api.noroff.dev";
 
-  private apiKey = "fe311d91-e71a-404d-a858-c3e3e9bd0e65";
+  private apiKey = process.env.API_KEY;
 
   static paths = {
     register: `${EndpointsAPI.base}/auth/register`,
@@ -72,7 +72,7 @@ export default class EndpointsAPI {
         headers.append("Authorization", `Bearer ${this.token}`);
       }
       if (key) {
-        headers.append("X-Noroff-API-Key", this.apiKey);
+        headers.append("X-Noroff-API-Key", this.apiKey || "");
       }
 
       return headers;
