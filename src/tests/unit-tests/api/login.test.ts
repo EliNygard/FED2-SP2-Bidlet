@@ -6,7 +6,7 @@ describe("log in registered user", () => {
 
   beforeEach(() => {
     globalThis.fetch = vi.fn();
-    api = new EndpointsAPI()
+    api = new EndpointsAPI();
   });
 
   afterEach(() => {
@@ -33,12 +33,11 @@ describe("log in registered user", () => {
       password: "testPassword123",
     });
 
-    const storedToken = localStorage.getItem("token")
-    
-    expect(storedToken).toBe("test-token")
-    expect(api.token).toBe("test-token");
-    
-    expect(fetch).toHaveBeenCalledTimes(1);
+    const storedToken = localStorage.getItem("token");
 
+    expect(storedToken).toBe("test-token");
+    expect(api.token).toBe("test-token");
+
+    expect(fetch).toHaveBeenCalledTimes(1);
   });
 });
