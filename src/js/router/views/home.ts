@@ -20,7 +20,7 @@ async function initializePage(): Promise<void> {
       listingsHeader.className = "max-w-7xl mx-auto px-5 mt-9 flex justify-between md:justify-start md:gap-8 lg:gap-12 font-heading text-base tracking-[.11em] md:text-xl tracking-widest"
       const activeBidletsBtn = document.createElement("button")
       activeBidletsBtn.textContent = "Active Bidlets"
-      activeBidletsBtn.className = "tab-btn"
+      activeBidletsBtn.className = "tab-btn active"
       activeBidletsBtn.id = "activeBidlets"
       const allBidletsBtn = document.createElement("button")
       allBidletsBtn.textContent = "All Bidlets"

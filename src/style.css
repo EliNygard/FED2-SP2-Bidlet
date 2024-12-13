@@ -38,7 +38,7 @@
   }
 
   .tab-btn {
-    @apply border-b-2 border-transparent pb-1 transition ease-in;
+    @apply border-b-2 border-transparent pb-1 transition ease-in hover:border-brand-dark;
   }
 
   .tab-btn.active {
