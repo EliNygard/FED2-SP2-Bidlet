@@ -1,14 +1,16 @@
 <a name="readme-top"></a>
-#### FED2 Semester Project 2
+#### FED2 Semester Project 2 Auction house
+
 # Bidlet
 
 ##### Delivery: December 2024
 
-
-➡️ Add image
-➡️ Add link to deployed page
-
 <br>
+
+**[Visit Bidlet](https://bidlet.netlify.app/)**
+
+You can register a user with a stud.noroff.no email (expamle@stud.noroff.no) to log in and create items and bid on items.
+
 
 ## About the Project
 
@@ -39,45 +41,48 @@ git clone https://github.com/EliNygard/sp2-auction.git
 ```
 
 2. Install the dependencies:
-
+  
 ```
 npm install
 ```
 
-Will install: 
-- Typescript
-- Tailwind
+<br>
+Running `npm install` will set up:
+
+#### Core Dependencies:
+- **[Tailwind CSS](https://tailwindcss.com/):** For styling the app.
+- **[Vite](https://vitejs.dev/):** A fast development server and build tool.
+- **[TypeScript](https://www.typescriptlang.org/):** For static typing and better developer experience.
+
+#### Development Tools:
+- **[Husky](https://typicode.github.io/husky/):** Automates linting and formatting on Git commits.
+- **[Lint-Staged](https://github.com/okonet/lint-staged):** Runs linters on staged files before committing.
+- **[ESLint](https://eslint.org/):** Ensures code quality by catching errors.
+- **[Prettier](https://prettier.io/):** Formats code consistently across files.
+- **[Vitest](https://vitest.dev/):** For fast and modern unit testing.
+- **[JSDOM](https://github.com/jsdom/jsdom):** Provides a DOM-like environment for testing.
+- **[dotenv](https://github.com/motdotla/dotenv):** For securely managing environment variables.
+
+##### "Note: The installation may take a few minutes due to large dependencies such as Vite and TypeScript."
 
 ### Running
 
-To run the app, run the following commands:
+To run the app and start the development server, run the following commands:
 
 ```bash
-npm run start
+npm run dev
 ```
 
-➡️ Add only if tests are finished, instructions to install Jest and Cypress?: 
 ### Running tests
 
 To run the unit tests, run the following command: 
 ```bash
-npm run test
+npm run unit-test
 ```
 
-To run the end-to-end tests, run the following command: 
-```bash
-npm run e2e
-```
-
-#### ????Test User
-Use the following test credentials for testing:
-email: 
-password: 
-???api-key
 
 <br>
 
-You can register a user with a stud.noroff.no email (expamle@stud.noroff.no) to create an item or bid on items. 
 
 <p align="right"><a href="#readme-top">⬆️ Back to Top</a></p>
 
