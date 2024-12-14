@@ -88,10 +88,12 @@ export function displayCreate(): HTMLElement {
   categories.forEach((category) => {
     const categoryWrapper = document.createElement('label');
     categoryWrapper.className = 'flex items-center gap-2 py-2 pr-2';
+    categoryWrapper.setAttribute("for", category.value)
 
     const categoryInput = document.createElement('input');
     categoryInput.type = 'checkbox';
-    categoryInput.name = 'category';
+    categoryInput.name = category.value;
+    categoryInput.id = category.value;
     categoryInput.value = category.value;
 
     categoryWrapper.appendChild(categoryInput);
