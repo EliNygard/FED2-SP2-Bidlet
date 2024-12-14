@@ -33,8 +33,8 @@ class UserCard extends HTMLElement {
         <div class="hidden top-0 left-0 right-0 bottom-0 bg-brand-dark/50 z-50" id="updateImageContainer">
           <div class="relative bg-white max-w-4xl m-auto p-8 z-10">
             <div class="flex flex-col">
-              <button class="inline-flex justify-end mt-4 md:mt-9 md:mr-6" id="closeButton">
-                <span class="fa-solid fa-x text-2xl"></span>
+              <button class="inline-flex justify-end mt-4 md:mt-9 md:mr-6" id="closeButton" aria-label="Close update profile image form" title="Close">
+                <span class="fa-solid fa-x text-2xl" aria-hidden="true"></span>
               </button>
               <form class="font-body text-base md:text-lg flex flex-col gap-1 max-w-2xl my-12" name="updateImage" action="#">
                 <label for="profileImg" class="mt-2">Update your profile image</label>

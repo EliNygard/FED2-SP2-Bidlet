@@ -16,16 +16,23 @@ async function initializePage(): Promise<void> {
       const main = document.createElement("main");
       const footer = document.createElement("footer-component");
 
+      const heading = document.createElement("h1")
+      heading.textContent = "Browse Active and All Bidlets"
+      heading.className = "sr-only"
+      heading.id = "bidletsHeading"
+
       const listingsHeader = document.createElement("div")
       listingsHeader.className = "max-w-7xl mx-auto px-5 mt-9 flex justify-between md:justify-start md:gap-8 lg:gap-12 font-heading text-base tracking-[.11em] md:text-xl tracking-widest"
       const activeBidletsBtn = document.createElement("button")
       activeBidletsBtn.textContent = "Active Bidlets"
       activeBidletsBtn.className = "tab-btn active"
       activeBidletsBtn.id = "activeBidlets"
+      activeBidletsBtn.setAttribute("aria-labelledby", "bidletsHeading")
       const allBidletsBtn = document.createElement("button")
       allBidletsBtn.textContent = "All Bidlets"
       allBidletsBtn.className = "tab-btn"
       allBidletsBtn.id = "allBidlets"
+      allBidletsBtn.setAttribute("aria-labelledby", "bidletsHeading")
       listingsHeader.append(activeBidletsBtn, allBidletsBtn)
 
       const bgListingsSection = document.createElement("div");
@@ -50,7 +57,7 @@ async function initializePage(): Promise<void> {
       });
 
       bgListingsSection.appendChild(listingsSection);
-      main.append(listingsHeader, bgListingsSection);
+      main.append(heading, listingsHeader, bgListingsSection);
       page.append(header, main, footer);
 
       const listingsHeaderButtons = document.querySelectorAll(".tab-btn")
