@@ -21,11 +21,11 @@ export default class EndpointsAPI {
   }
 
   get apiProfilesPath() {
-    return `${this.apiBase}/auction/profiles`
+    return `${this.apiBase}/auction/profiles`;
   }
 
   get apiProfilesQueryParams() {
-    return `?_listings=true&_wins=true`
+    return `?_listings=true&_wins=true`;
   }
 
   set token(accessToken: string) {
@@ -129,16 +129,16 @@ export default class EndpointsAPI {
     },
     logout: () => {
       try {
-        this.user = "{}"
-        this.token = ""
-        window.location.href = "./"
+        this.user = "{}";
+        this.token = "";
+        window.location.href = "./";
       } catch (error) {
         console.error("Error during logout:", error);
-        alert("Could not log out. Please try again")
+        alert("Could not log out. Please try again");
       } finally {
-        localStorage.clear()
+        localStorage.clear();
       }
-    }
+    },
   };
 
   meta = {
@@ -148,60 +148,59 @@ export default class EndpointsAPI {
     previousPage: null,
     nextPage: null,
     pageCount: 1,
-    totalCount: 2
-  }
+    totalCount: 2,
+  };
 
   profiles = {
     update: async (profileName: string | null, data: UpdateProfile) => {
-      const url = new URL(`${this.apiProfilesPath}/${profileName}`)
+      const url = new URL(`${this.apiProfilesPath}/${profileName}`);
 
       const response = await fetch(url, {
         headers: this.util.setupHeaders(true, true, true),
         method: "PUT",
-        body: JSON.stringify(data)
-      })
+        body: JSON.stringify(data),
+      });
 
       if (response.ok) {
-        return await response.json()
+        return await response.json();
       }
-      throw new Error("Error updating profile")
+      throw new Error("Error updating profile");
     },
     singleProfile: async (userName: string | null) => {
       if (!userName) {
-        throw new Error("No user name found")
+        throw new Error("No user name found");
       }
 
-      const url = new URL(`${this.apiProfilesPath}/${userName}${this.apiProfilesQueryParams}`)
+      const url = new URL(`${this.apiProfilesPath}/${userName}${this.apiProfilesQueryParams}`);
       const response = await fetch(url, {
         headers: this.util.setupHeaders(true, true, true),
         method: "GET",
-      })
+      });
 
       if (response.ok) {
-        const { data } = await response.json()
-        return data
+        const { data } = await response.json();
+        return data;
       }
-      throw new Error("Could not get profile")
+      throw new Error("Could not get profile");
     },
     bidsByProfile: async (userName: string | null) => {
       if (!userName) {
-        throw new Error("No user name found")
+        throw new Error("No user name found");
       }
 
-      const url = new URL(`${this.apiProfilesPath}/${userName}/bids?_listings=true`)
+      const url = new URL(`${this.apiProfilesPath}/${userName}/bids?_listings=true`);
       const response = await fetch(url, {
         headers: this.util.setupHeaders(true, true, true),
         method: "GET",
-      })
+      });
 
       if (response.ok) {
-        const { data } = await response.json()
-        return data
+        const { data } = await response.json();
+        return data;
       }
-      throw new Error("Could not get your bids")
-    }
-
-  }
+      throw new Error("Could not get your bids");
+    },
+  };
 
   listing = {
     read: async (id: string | null) => {
@@ -228,7 +227,7 @@ export default class EndpointsAPI {
     // currentPage: 1,
 
     readAll: async (parameter: string) => {
-      const url = new URL(`${this.apiListingsPath}${this.apiListingsQueryParam}${parameter}&limit=5`);
+      const url = new URL(`${this.apiListingsPath}${this.apiListingsQueryParam}${parameter}`);
       const response = await fetch(url, {
         headers: this.util.setupHeaders(true, false, false),
         method: "GET",
@@ -236,60 +235,69 @@ export default class EndpointsAPI {
 
       if (response.ok) {
         const { data, meta } = await response.json();
-        this.meta = meta
-        return {data, meta};
+        this.meta = meta;
+        return { data, meta };
       }
       throw new Error("Could not fetch listings");
     },
     nextPage: async () => {
       if (this.meta && !this.meta.isLastPage) {
-        const nextPage = this.meta.currentPage + 1
-        return await this.listings.readAll(`?page=${nextPage}`)
+        const nextPage = this.meta.currentPage + 1;
+        return await this.listings.readAll(`?page=${nextPage}`);
       }
     },
     previousPage: async () => {
       if (this.meta && !this.meta.isFirstPage) {
-        const previousPage = this.meta.currentPage - 1
-        return await this.listings.readAll(`?page=${previousPage}`)
+        const previousPage = this.meta.currentPage - 1;
+        return await this.listings.readAll(`?page=${previousPage}`);
       }
+    },
+    goToPage: async (page: number) => {
+      if (page < 1 || (this.meta && page > this.meta.pageCount)) {
+        throw new Error("Invalid page number");
+      }
+      return await this.listings.readAll(`?page=${page}`);
     },
     create: async ({ title, description, tags = [], media = [], endsAt }: CreateListing) => {
       try {
         const payload: CreateListing = {
-          title, description, tags, media, endsAt,
-        }
+          title,
+          description,
+          tags,
+          media,
+          endsAt,
+        };
 
-        if(!title) {
-          throw new Error("You must have a title")
+        if (!title) {
+          throw new Error("You must have a title");
         }
 
         if (tags.length > 0) {
-          payload.tags = tags
+          payload.tags = tags;
         }
         if (media.length > 0) {
-          payload.media = media
+          payload.media = media;
         }
 
         const response = await fetch(this.apiListingsPath, {
           headers: this.util.setupHeaders(true, true, true),
           method: "POST",
-          body: JSON.stringify(payload)
-        })
+          body: JSON.stringify(payload),
+        });
 
         if (!response.ok) {
           // const errorBody = await response.json()
           // console.log(errorBody.errors);
           // extractErrors(errorBody)
-          
-          throw new Error(`Failed to create new Bidlet ${response.statusText}`)
+
+          throw new Error(`Failed to create new Bidlet ${response.statusText}`);
         }
 
-        const data = await response.json()
-        return data
-
+        const data = await response.json();
+        return data;
       } catch (error) {
         console.error(error);
-        throw error
+        throw error;
       }
     },
     bid: async (id: string | null, body: number) => {
@@ -315,7 +323,9 @@ export default class EndpointsAPI {
         throw new Error("Please type in your search.");
       }
 
-      const url = new URL(`${this.apiListingsPath}/search?q=${query}&_seller=true&_bids=true&sort=endsAt&sortOrder=desc`);
+      const url = new URL(
+        `${this.apiListingsPath}/search?q=${query}&_seller=true&_bids=true&sort=endsAt&sortOrder=desc`,
+      );
       const response = await fetch(url, {
         method: "GET",
       });
