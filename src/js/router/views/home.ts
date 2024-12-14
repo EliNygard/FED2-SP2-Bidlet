@@ -42,7 +42,7 @@ async function initializePage(): Promise<void> {
       listingsSection.className =
         "max-w-7xl py-8 px-5 mt-4 m-auto grid gap-3 justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch";
 
-      const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc&limit=2&page=1");
+      const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc&limit=10&page=1");
       console.log("First page data:", listings.data);
       console.log("Pagination info:", listings.meta);
 
@@ -113,18 +113,26 @@ async function initializePage(): Promise<void> {
       updatePaginationControls(listings.meta);
 
       nextBtn.addEventListener("click", async () => {
-        console.log("go to next page");
-
         const nextPage = api.meta.nextPage;
-        console.log(nextPage);
         const listings = await api.listings.readAll(
-          `&_active=true&sort=created&sortOrder=desc&limit=2&page=${nextPage}`,
+          `&_active=true&sort=created&sortOrder=desc&limit=10&page=${nextPage}`,
         );
-        console.log(listings.data);
-        console.log(listings.meta);
-
         listingsSection.innerHTML = "";
+        listings.data.forEach((listing: Listing) => {
+          const listingCard = document.createElement("listing-card-component");
+          listingCard.setAttribute("data-listing", JSON.stringify(listing));
+          listingsSection.appendChild(listingCard);
+        });
 
+        updatePaginationControls(listings.meta);
+      });
+
+      prevBtn.addEventListener("click", async () => {
+        const prevPage = api.meta.previousPage;
+        const listings = await api.listings.readAll(
+          `&_active=true&sort=created&sortOrder=desc&limit=10&page=${prevPage}`,
+        );
+        listingsSection.innerHTML = "";
         listings.data.forEach((listing: Listing) => {
           const listingCard = document.createElement("listing-card-component");
           listingCard.setAttribute("data-listing", JSON.stringify(listing));
