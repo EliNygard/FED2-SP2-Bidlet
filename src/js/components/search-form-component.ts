@@ -3,12 +3,9 @@ class SearchFormComponent extends HTMLElement {
     this.innerHTML = `
       <div class="max-w-7xl m-auto">
         <form id="searchForm" class="mt-12 mx-4 flex justify-center">
-          <slot name="input">
-            <input id="searchInput" class="border border-brand-dark p-2 w-4/5" type="text" placeholder="Search among all our items">
-          </slot>
-          <slot name="button">
-            <button class="bg-accent-default text-brand-dark py-2 px-4">Search</button>
-          </slot>
+          <label for="searchInput" class="sr-only">Search among all our items</label>
+          <input id="searchInput" class="border border-brand-dark p-2 w-4/5" type="text" placeholder="Search among all our items">
+          <button class="bg-accent-default text-brand-dark py-2 px-4">Search</button>
         </form>
         </div>
       `;

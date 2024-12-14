@@ -51,7 +51,7 @@ async function initializePage(): Promise<void> {
       });
 
       bgListingsSection.appendChild(listingsSection);
-      main.append(listingsHeader, bgListingsSection);
+      main.append(heading, listingsHeader, bgListingsSection);
       page.append(header, main, footer);
 
       const listingsHeaderButtons = document.querySelectorAll(".tab-btn")

@@ -17,6 +17,10 @@ async function initializePage(): Promise<void> {
       const searchForm = document.createElement("search-form-component");
       const footer = document.createElement("footer-component");
 
+      const heading = document.createElement("h1")
+      heading.textContent = "Search Bidlets"
+      heading.className = "sr-only"
+
       const bgListingsSection = document.createElement("div");
       bgListingsSection.className = "bg-brand-default mt-4";
       const listingsSection = document.createElement("div");
@@ -33,7 +37,7 @@ async function initializePage(): Promise<void> {
       });
 
       bgListingsSection.appendChild(listingsSection);
-      main.append(searchForm, bgListingsSection);
+      main.append(heading, searchForm, bgListingsSection);
       page.append(header, main, footer);
 
       const displayQuery = document.createElement("p");
@@ -47,7 +51,7 @@ async function initializePage(): Promise<void> {
         
         main.innerHTML = "";
 
-        main.append(searchForm);
+        main.append(heading, searchForm);
 
         listingsSection.innerHTML = "";
         

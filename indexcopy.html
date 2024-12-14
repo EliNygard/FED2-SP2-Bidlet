@@ -15,12 +15,20 @@
   </head>
   <body class="min-h-screen py-2">
     <main class="">
-      <div class="text-center mx-auto mt-14 p-4 max-w-2xl">
-        <h1 class="font-heading text-2xl md:text-3xl mb-4">404 - Page Not Found</h1>
-        <p class="font-body text-base md:text-lg">
-          The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
-        </p>
-      </div>
+      <form id="searchForm" class="mt-12 mx-4 flex justify-center">
+        <slot name="input">
+          <label for="searchInput" class="sr-only">Search among all our items</label>
+          <input
+            id="searchInput"
+            class="border border-brand-dark p-2 w-4/5"
+            type="text"
+            placeholder="Search among all our items"
+          />
+        </slot>
+        <slot name="button">
+          <button class="bg-accent-default text-brand-dark py-2 px-4">Search</button>
+        </slot>
+      </form>
     </main>
   </body>
 </html>
