@@ -94,7 +94,3 @@ Eli Nygård
 Email: eli.nygard@gmail.com
 
 [My Linkedin Page](https://www.linkedin.com/in/eli-nyg%C3%A5rd/)
-
-GitHub Project Link: [https://github.com/EliNygard/sp2-auction](https://github.com/EliNygard/sp2-auction)
-
-➡️ Badges for languages, tests
