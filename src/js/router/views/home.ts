@@ -5,7 +5,6 @@ import api from "../../../api/instance.ts";
 import { showLoader } from "../../utilities/showLoader.ts";
 import { hideLoader } from "../../utilities/hideLoader.ts";
 import { Listing, Meta } from "../../types/types.ts";
-import { delay } from "../../utilities/delay.ts";
 
 async function initializePage(): Promise<void> {
   const page = document.getElementById("app");
@@ -99,7 +98,6 @@ async function initializePage(): Promise<void> {
             showLoader(bgListingsSection)
 
             try {
-              await delay(3000)
               const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc&limit=10&page=1");
               listings.data.forEach((listing: Listing) => {
                 const listingCard = document.createElement("listing-card-component");
@@ -119,7 +117,6 @@ async function initializePage(): Promise<void> {
             showLoader(bgListingsSection)
 
             try {
-              await delay(2000)
               const listings = await api.listings.readAll("&sort=created&sortOrder=desc&limit=10&page=1");
               listings.data.forEach((listing: Listing) => {
                 const listingCard = document.createElement("listing-card-component");
