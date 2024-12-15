@@ -43,9 +43,9 @@ class HeaderComponent extends HTMLElement {
 `;
 
     if (!isLoggedIn) {
-      const profileButton = this.querySelector("#profile-button");
+      const profileButton = this.querySelector("#profile-button") as HTMLButtonElement;
       const authComponent = this.querySelector("auth-component");
-      const closeButton = this.querySelector("#closeButton");
+      const closeButton = this.querySelector("#closeButton") as HTMLButtonElement;
 
       profileButton?.addEventListener("click", () => {
         const isExpanded = profileButton.getAttribute("aria-expanded") === "true"
@@ -53,7 +53,7 @@ class HeaderComponent extends HTMLElement {
         authComponent?.classList.toggle("block", !isExpanded)
         profileButton.setAttribute("aria-expanded", (!isExpanded).toString())
         authComponent?.setAttribute("aria-hidden", isExpanded.toString())
-
+        closeButton.focus()
       });
 
       closeButton?.addEventListener("click", () => {
@@ -61,6 +61,7 @@ class HeaderComponent extends HTMLElement {
         authComponent?.classList.toggle("block")
         authComponent?.setAttribute("aria-hidden", "true")
         profileButton?.setAttribute("aria-hidden", "false")
+        profileButton.focus()
       });
     }
   }
