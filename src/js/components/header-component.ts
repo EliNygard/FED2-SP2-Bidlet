@@ -7,7 +7,6 @@ class HeaderComponent extends HTMLElement {
 
   connectedCallback() {
     const isLoggedIn = Boolean(localStorage.getItem("token"));
-    // const loginDropdownId = "login-dropdown";
 
     const loggedinLinks = `
     <a aria-label="Link to Create new Bidlet" title="Create a new Bidlet" href="./create">

@@ -166,7 +166,6 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
 
   form.appendChild(bidButton);
   form.addEventListener("submit", (event: Event) => {
-    // const id = listing.id;
     onBid(event, listing);
   });
 

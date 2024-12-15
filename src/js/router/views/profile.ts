@@ -16,7 +16,6 @@ async function initializePage(): Promise<void> {
       const main = document.createElement("main");
       const footer = document.createElement("footer-component");
       const userCard = document.createElement("user-card-component");
-      // userCard.className = "relative"
       userCard.setAttribute("user-name", userName);
 
       main.appendChild(userCard);
