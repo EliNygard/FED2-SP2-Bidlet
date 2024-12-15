@@ -5,6 +5,7 @@ import api from "../../../api/instance.ts";
 import { showLoader } from "../../utilities/showLoader.ts";
 import { hideLoader } from "../../utilities/hideLoader.ts";
 import { Listing, Meta } from "../../types/types.ts";
+import { delay } from "../../utilities/delay.ts";
 
 async function initializePage(): Promise<void> {
   const page = document.getElementById("app");
@@ -48,16 +49,28 @@ async function initializePage(): Promise<void> {
 
       const paginationControls = document.createElement("div");
       paginationControls.id = "paginationControls";
+      paginationControls.className = "flex justify-center items-center gap-20 max-w-md mx-auto pt-6 pb-6";
 
       const prevBtn = document.createElement("button");
-      prevBtn.textContent = "Previous";
       prevBtn.id = "prevBtn";
+      prevBtn.ariaLabel = "Go to previous page of listings";
+      prevBtn.className = "disabled:text-gray-500 pointer";
+      const prevIcon = document.createElement("span");
+      prevIcon.setAttribute("aria-hidden", "true");
+      prevIcon.className = "fa-solid fa-chevron-left text-xl md:text-2xl";
+      prevBtn.appendChild(prevIcon);
       const pageInfo = document.createElement("span");
       pageInfo.textContent = "";
       pageInfo.id = "pageInfo";
+      pageInfo.className = "font-body text-sm md:text-base";
       const nextBtn = document.createElement("button");
-      nextBtn.textContent = "Next";
       nextBtn.id = "nextBtn";
+      nextBtn.ariaLabel = "Go to next page of listings";
+      nextBtn.className = "disabled:text-gray-500 pointer";
+      const nextIcon = document.createElement("span");
+      nextIcon.setAttribute("aria-hidden", "true");
+      nextIcon.className = "fa-solid fa-chevron-right text-xl md:text-2xl";
+      nextBtn.appendChild(nextIcon);
 
       paginationControls.append(prevBtn, pageInfo, nextBtn);
 
@@ -114,32 +127,58 @@ async function initializePage(): Promise<void> {
 
       nextBtn.addEventListener("click", async () => {
         const nextPage = api.meta.nextPage;
-        const listings = await api.listings.readAll(
-          `&_active=true&sort=created&sortOrder=desc&limit=10&page=${nextPage}`,
-        );
-        listingsSection.innerHTML = "";
-        listings.data.forEach((listing: Listing) => {
-          const listingCard = document.createElement("listing-card-component");
-          listingCard.setAttribute("data-listing", JSON.stringify(listing));
-          listingsSection.appendChild(listingCard);
-        });
 
-        updatePaginationControls(listings.meta);
+        listingsSection.innerHTML = "";
+        bgListingsSection.innerHTML = "";
+        showLoader(bgListingsSection);
+        window.scrollTo(0, 0);
+
+        try {
+          const listings = await api.listings.readAll(
+            `&_active=true&sort=created&sortOrder=desc&limit=10&page=${nextPage}`,
+          );
+          listings.data.forEach((listing: Listing) => {
+            const listingCard = document.createElement("listing-card-component");
+            listingCard.setAttribute("data-listing", JSON.stringify(listing));
+            listingsSection.appendChild(listingCard);
+          });
+          bgListingsSection.append(listingsSection, paginationControls);
+
+          updatePaginationControls(listings.meta);
+        } catch (error) {
+          console.error(error);
+          alert("Could not display next page");
+        } finally {
+          hideLoader(bgListingsSection);
+        }
       });
 
       prevBtn.addEventListener("click", async () => {
         const prevPage = api.meta.previousPage;
-        const listings = await api.listings.readAll(
-          `&_active=true&sort=created&sortOrder=desc&limit=10&page=${prevPage}`,
-        );
-        listingsSection.innerHTML = "";
-        listings.data.forEach((listing: Listing) => {
-          const listingCard = document.createElement("listing-card-component");
-          listingCard.setAttribute("data-listing", JSON.stringify(listing));
-          listingsSection.appendChild(listingCard);
-        });
 
-        updatePaginationControls(listings.meta);
+        listingsSection.innerHTML = "";
+        bgListingsSection.innerHTML = "";
+        showLoader(bgListingsSection);
+        window.scrollTo(0, 0);
+
+        try {
+          const listings = await api.listings.readAll(
+            `&_active=true&sort=created&sortOrder=desc&limit=10&page=${prevPage}`,
+          );
+          listings.data.forEach((listing: Listing) => {
+            const listingCard = document.createElement("listing-card-component");
+            listingCard.setAttribute("data-listing", JSON.stringify(listing));
+            listingsSection.appendChild(listingCard);
+          });
+          bgListingsSection.append(listingsSection, paginationControls);
+
+          updatePaginationControls(listings.meta);
+        } catch (error) {
+          console.error(error);
+          alert("Could not display next page");
+        } finally {
+          hideLoader(bgListingsSection);
+        }
       });
     } catch (error) {
       console.error(error);
