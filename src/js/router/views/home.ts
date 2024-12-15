@@ -42,7 +42,7 @@ async function initializePage(): Promise<void> {
       listingsSection.className =
         "max-w-7xl py-8 px-5 mt-4 m-auto grid gap-3 justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch";
 
-      const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc&limit=10&page=1");
+      const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc&limit=12&page=1");
       console.log("First page data:", listings.data);
       console.log("Pagination info:", listings.meta);
 
@@ -98,7 +98,7 @@ async function initializePage(): Promise<void> {
             showLoader(bgListingsSection)
 
             try {
-              const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc&limit=10&page=1");
+              const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc&limit=12&page=1");
               listings.data.forEach((listing: Listing) => {
                 const listingCard = document.createElement("listing-card-component");
                 listingCard.setAttribute("data-listing", JSON.stringify(listing));
@@ -117,7 +117,7 @@ async function initializePage(): Promise<void> {
             showLoader(bgListingsSection)
 
             try {
-              const listings = await api.listings.readAll("&sort=created&sortOrder=desc&limit=10&page=1");
+              const listings = await api.listings.readAll("&sort=created&sortOrder=desc&limit=12&page=1");
               listings.data.forEach((listing: Listing) => {
                 const listingCard = document.createElement("listing-card-component");
                 listingCard.setAttribute("data-listing", JSON.stringify(listing));
@@ -158,7 +158,7 @@ async function initializePage(): Promise<void> {
 
         try {
           const listings = await api.listings.readAll(
-            `&_active=true&sort=created&sortOrder=desc&limit=10&page=${nextPage}`,
+            `&_active=true&sort=created&sortOrder=desc&limit=12&page=${nextPage}`,
           );
           listings.data.forEach((listing: Listing) => {
             const listingCard = document.createElement("listing-card-component");
@@ -186,7 +186,7 @@ async function initializePage(): Promise<void> {
 
         try {
           const listings = await api.listings.readAll(
-            `&_active=true&sort=created&sortOrder=desc&limit=10&page=${prevPage}`,
+            `&_active=true&sort=created&sortOrder=desc&limit=12&page=${prevPage}`,
           );
           listings.data.forEach((listing: Listing) => {
             const listingCard = document.createElement("listing-card-component");
