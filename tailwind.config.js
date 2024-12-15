@@ -7,9 +7,15 @@ export default {
         heading: ["Manrope", "sans-serif"],
         body: ["Inter", "sans-serif"],
       },
-      fontSize: {
-        TwoRem: "2rem",
+      letterSpacing: {
+        widest: ".1375rem",
       },
+      fontSize: {
+        "22px": "1.375rem",
+        "3xl": "2rem",
+        "4xl": "2.5rem",
+      },
+
       colors: {
         brand: {
           light: "#373737",
@@ -24,6 +30,10 @@ export default {
           light: "#FEE0E0",
           dark: "#C40000",
         },
+      },
+      maxWidth: {
+        max70: "17rem",
+        maxW52: "52rem",
       },
     },
   },
