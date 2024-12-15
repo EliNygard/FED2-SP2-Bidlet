@@ -20,12 +20,6 @@ export default async function router(pathname = window.location.pathname) {
             updateMetaDescription("Search for exciting auction items and find your next treasure.")
             await import ("./views/search.ts")
             break
-        case "/login":
-        case "/login/":
-            document.title = "Bidlet | Log in to Bidlet"
-            updateMetaDescription("Log in to your Bidlet account to start selling your own items and bid on others.")
-            await import ("./views/login.ts")
-            break
         case "/register":
         case "/register/":
             document.title = "Bidlet | Register to Bidlet"
