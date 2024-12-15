@@ -223,9 +223,6 @@ export default class EndpointsAPI {
   };
 
   listings = {
-    // meta: null,
-    // currentPage: 1,
-
     readAll: async (parameter: string) => {
       const url = new URL(`${this.apiListingsPath}${this.apiListingsQueryParam}${parameter}`);
       const response = await fetch(url, {
