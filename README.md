@@ -7,9 +7,10 @@
 
 <br>
 
-**[Visit Bidlet](https://bidlet.netlify.app/)**
+### **[Visit Bidlet](https://bidlet.netlify.app/)**
 
-You can register a user with a stud.noroff.no email (expamle@stud.noroff.no) to log in and create items and bid on items.
+
+You can register a user with a stud.noroff.no email (example@stud.noroff.no) to log in and create items and bid on items.
 
 
 ## About the Project
@@ -63,7 +64,7 @@ Running `npm install` will set up:
 - **[JSDOM](https://github.com/jsdom/jsdom):** Provides a DOM-like environment for testing.
 - **[dotenv](https://github.com/motdotla/dotenv):** For securely managing environment variables.
 
-##### "Note: The installation may take a few minutes due to large dependencies such as Vite and TypeScript."
+##### Note: The installation may take a few minutes due to large dependencies such as Vite and TypeScript.
 
 ### Running
 
