@@ -77,3 +77,13 @@ export interface CreateListing {
   tags?: string[];
   media?: Media[];
 }
+
+export interface Meta {
+  isFirstPage: boolean;
+  isLastPage: boolean;
+  currentPage: number;
+  previousPage: number | null;
+  nextPage: number | null;
+  pageCount: number;
+  totalCount: number;
+}

@@ -15,20 +15,15 @@
   </head>
   <body class="min-h-screen py-2">
     <main class="">
-      <form id="searchForm" class="mt-12 mx-4 flex justify-center">
-        <slot name="input">
-          <label for="searchInput" class="sr-only">Search among all our items</label>
-          <input
-            id="searchInput"
-            class="border border-brand-dark p-2 w-4/5"
-            type="text"
-            placeholder="Search among all our items"
-          />
-        </slot>
-        <slot name="button">
-          <button class="bg-accent-default text-brand-dark py-2 px-4">Search</button>
-        </slot>
-      </form>
+      <div id="paginationControls" class="flex justify-center items-center gap-20 max-w-md mx-auto pt-10 pb-6">
+        <button id="prevBtn" disabled="" class="disabled:text-gray-500 pointer">
+          <span class="fa-solid fa-chevron-left text-xl md:text-2xl" aria-hidden="true"></span>
+        </button>
+        <span id="pageInfo" class="font-body text-sm md:text-base">Page 1 of 57</span>
+        <button id="nextBtn">
+          <span class="fa-solid fa-chevron-right text-xl md:text-2xl" aria-hidden="true"></span>
+        </button>
+      </div>
     </main>
   </body>
 </html>

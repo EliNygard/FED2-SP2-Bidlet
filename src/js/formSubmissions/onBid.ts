@@ -31,6 +31,10 @@ export async function onBid(event: Event, listing: Listing) {
     return
   }
 
+  if (token && bidAmount > highestBid) {
+    alert(`You are placing a bid of ${bidAmount} kr`)
+  }
+
   try {
     await api.listings.bid(id, bidAmount);
   } catch (error) {
