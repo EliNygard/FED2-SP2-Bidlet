@@ -95,19 +95,45 @@ async function initializePage(): Promise<void> {
           listingsSection.innerHTML = "";
 
           if (button.id === "activeBidlets") {
-            const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc");
-            listings.data.forEach((listing: Listing) => {
-              const listingCard = document.createElement("listing-card-component");
-              listingCard.setAttribute("data-listing", JSON.stringify(listing));
-              listingsSection.appendChild(listingCard);
-            });
+            bgListingsSection.innerHTML = ""
+            showLoader(bgListingsSection)
+
+            try {
+              await delay(3000)
+              const listings = await api.listings.readAll("&_active=true&sort=created&sortOrder=desc&limit=10&page=1");
+              listings.data.forEach((listing: Listing) => {
+                const listingCard = document.createElement("listing-card-component");
+                listingCard.setAttribute("data-listing", JSON.stringify(listing));
+                listingsSection.appendChild(listingCard);
+              });
+              bgListingsSection.append(listingsSection, paginationControls)
+              updatePaginationControls(listings.meta)
+            } catch (error) {
+              console.error(error);
+              alert("Could not display active bidlets")
+            } finally {
+              hideLoader(bgListingsSection)
+            }
           } else if (button.id === "allBidlets") {
-            const listings = await api.listings.readAll("&sort=created&sortOrder=desc");
-            listings.data.forEach((listing: Listing) => {
-              const listingCard = document.createElement("listing-card-component");
-              listingCard.setAttribute("data-listing", JSON.stringify(listing));
-              listingsSection.appendChild(listingCard);
-            });
+            bgListingsSection.innerHTML = ""
+            showLoader(bgListingsSection)
+
+            try {
+              await delay(2000)
+              const listings = await api.listings.readAll("&sort=created&sortOrder=desc&limit=10&page=1");
+              listings.data.forEach((listing: Listing) => {
+                const listingCard = document.createElement("listing-card-component");
+                listingCard.setAttribute("data-listing", JSON.stringify(listing));
+                listingsSection.appendChild(listingCard);
+              });
+              bgListingsSection.append(listingsSection, paginationControls)
+              updatePaginationControls(listings.meta)
+            } catch (error) {
+              console.error(error);
+              alert("Could not display all bidlets")
+            } finally {
+              hideLoader(bgListingsSection)
+            }
           }
         });
       });
