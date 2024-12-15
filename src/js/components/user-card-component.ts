@@ -90,14 +90,12 @@ class UserCard extends HTMLElement {
     }
     const itemsContainer = this.querySelector<HTMLElement>("#itemsContainer");
     const myListings = userData?.listings;
-    console.log(myListings);
 
     myListings?.forEach((listing: Listing) => {
       const listingCard = document.createElement("listing-card-component");
       listingCard.setAttribute("data-listing", JSON.stringify(listing));
       itemsContainer?.appendChild(listingCard);
     });
-
   }
 
   attachEventListeners() {
@@ -106,12 +104,9 @@ class UserCard extends HTMLElement {
       api.auth.logout();
     });
 
-    const page = document.getElementById("app");
     const updateImageContainer = this.querySelector<HTMLElement>("#updateImageContainer");
     const profileImageBtn = this.querySelector<HTMLButtonElement>("#profileImage");
     profileImageBtn?.addEventListener("click", () => {
-      console.log(page);
-      
       updateImageContainer?.classList.toggle("hidden");
       updateImageContainer?.classList.toggle("fixed");
     });
@@ -148,8 +143,6 @@ class UserCard extends HTMLElement {
         if (button.id === "myItemsBtn") {
           api.profiles.singleProfile(userName).then((userData: Profile) => {
             userData.listings?.forEach((listing: Listing) => {
-              console.log(listing);
-
               const listingCard = document.createElement("listing-card-component");
               listingCard.setAttribute("data-listing", JSON.stringify(listing));
               itemsContainer?.appendChild(listingCard);
@@ -165,8 +158,6 @@ class UserCard extends HTMLElement {
         } else if (button.id === "myWinsBtn") {
           api.profiles.singleProfile(userName).then((userData: Profile) => {
             userData.wins?.forEach((win: Listing) => {
-              console.log(win);
-              
               const listingCard = document.createElement("listing-card-component");
               listingCard.setAttribute("data-listing", JSON.stringify(win));
               itemsContainer?.appendChild(listingCard);

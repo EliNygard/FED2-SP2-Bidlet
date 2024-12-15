@@ -283,10 +283,6 @@ export default class EndpointsAPI {
         });
 
         if (!response.ok) {
-          // const errorBody = await response.json()
-          // console.log(errorBody.errors);
-          // extractErrors(errorBody)
-
           throw new Error(`Failed to create new Bidlet ${response.statusText}`);
         }
 

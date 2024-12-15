@@ -31,7 +31,6 @@ export async function onCreateListing(event: Event) {
   try {
     const formData = new FormData(form);
     const formEntries = Object.fromEntries(formData.entries());
-    console.log("Form entries", formEntries);
 
     const title = formEntries.title as string | undefined;
     const description = formEntries.description as string | undefined;
@@ -41,7 +40,6 @@ export async function onCreateListing(event: Event) {
       ? new Date(new Date(endsAt).getTime() - new Date(endsAt).getTimezoneOffset() * 60 * 1000).toISOString()
       : "";
     const now = new Date().toISOString();
-    console.log(now);
 
     const selectedCategories = formData.getAll("category") as string[];
     const imageInputs = form.querySelectorAll('input[name="image"]') as NodeListOf<HTMLInputElement>;
@@ -80,7 +78,6 @@ export async function onCreateListing(event: Event) {
         const heading = createContainer.querySelector("h1");
         const errorString = error.toString();
         errorMessage = createErrorMessageElement(errorString);
-        console.log(errorMessage);
         if (heading) {
           heading.insertAdjacentElement("afterend", errorMessage);
         } else {

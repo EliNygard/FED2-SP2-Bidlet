@@ -6,8 +6,6 @@ import { getCurrentBid } from "../utilities/getCurrentBid";
 export async function displayItem(listing: Listing): Promise<HTMLElement> {
   const section = document.createElement("section");
   section.className = "flex flex-col m-auto my-6 px-4 max-w-xl";
-  console.log(listing);
-  
 
   // Image section
   const imageSection = document.createElement("div");
@@ -77,8 +75,6 @@ export async function displayItem(listing: Listing): Promise<HTMLElement> {
   if (tags?.length >= 1) {
     detailsDiv.appendChild(tagsList);
   }
-  console.log(tags);
-  
 
   if (tags) {
     tags.forEach((tag: string) => {

@@ -14,7 +14,6 @@ export async function onLogin(event: Event) {
   }
   const formData = new FormData(form);
   const data = Object.fromEntries(formData.entries()) as unknown as LoginUser;
-  console.log(data);
   const button = form.querySelector("button[type='submit']");
   if (!button) {
     console.error("Submit button not found");
@@ -40,7 +39,6 @@ export async function onLogin(event: Event) {
     }
 
     const authComponent = document.querySelector("auth-component");
-    console.log(authComponent);
 
     if (authComponent) {
       const heading = authComponent.querySelector("h1");

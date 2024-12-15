@@ -28,8 +28,6 @@ async function initializePage(): Promise<void> {
         "max-w-7xl py-8 px-5 mt-4 m-auto grid gap-3 justify-center grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-stretch";
 
       const listings = await api.listings.readAll("&_active=true&sort=endsAt&sortOrder=asc");
-      console.log(listings);
-
       listings.data.forEach((listing: Listing) => {
         const listingCard = document.createElement("listing-card-component");
         listingCard.setAttribute("data-listing", JSON.stringify(listing));
