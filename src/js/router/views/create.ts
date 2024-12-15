@@ -4,7 +4,6 @@ import { displayCreate } from "../../components/displayCreate.ts";
 import { onCreateListing } from "../../ui/auth/create.ts";
 import { showLoader } from "../../utilities/showLoader.ts";
 import { hideLoader } from "../../utilities/hideLoader.ts";
-import { delay } from "../../utilities/delay.ts";
 
 async function initializePage(): Promise<void> {
   const page = document.getElementById("app");
@@ -12,7 +11,6 @@ async function initializePage(): Promise<void> {
   if (page) {
     showLoader(document.body);
     try {
-      await delay(1000)
       const header = document.createElement("header-component");
       const main = document.createElement("main");
       const footer = document.createElement("footer-component");
