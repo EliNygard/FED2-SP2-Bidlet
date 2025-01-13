@@ -5,7 +5,6 @@
 
 ##### Delivery: December 2024
 
-<br>
 
 ### **[Visit Bidlet](https://bidlet.netlify.app/)**
 
@@ -26,6 +25,10 @@ API documentation used on the project:
 The API can be found under Auction House endpoints in the [Noroff API documentation](https://docs.noroff.dev/docs/v2)
 
 I aimed to design and build a website where it is easy for the user to move around the site and find items they are interested in. I think the search function is an important part of an auction website and especially wanted that to be working well for the user.   
+
+
+## Built with
+[![My Skills](https://skillicons.dev/icons?i=figma,vite,ts,html,tailwind)](https://skillicons.dev)
 
 <br>
 
