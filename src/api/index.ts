@@ -329,5 +329,21 @@ export default class EndpointsAPI {
       }
       throw new Error("Could not find a match for the search. Please try again.");
     },
+    sortDesc: async (sortField: string | null) => {
+      if (!sortField) {
+        throw new Error("Could not sort on this field.")
+      }
+
+      const url = new URL(`${this.apiListingsPath}?_bids=true&_seller=true&_active=true&sort=${sortField}&sortOrder=desc`)
+      const response = await fetch(url, {
+        method: "GET",
+      })
+
+      if (response.ok) {
+        const { data } = await response.json()
+        return data
+      }
+      throw new Error("Could not sort listings. Please try again")
+    }, 
   };
 }
