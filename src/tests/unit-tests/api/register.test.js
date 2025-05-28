@@ -22,7 +22,7 @@ describe("register new profile", () => {
     const result = await api.auth.register({
       name: "TestUser",
       email: "testuser@stud.noroff.no",
-      password: "",
+      password: "testPassword123",
     });
 
     console.log(fetch.mock.calls);
