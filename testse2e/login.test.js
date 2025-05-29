@@ -1,13 +1,14 @@
 import { test, expect } from "@playwright/test";
+import { EMAIL_IN, LOGIN_BTN, LOGOUT_BTN, MSG_CONT, PASS_IN, SUBMIT_BTN } from "./consts";
 
 test.describe("login", () => {
-  const LOGIN_BTN = '[aria-label="Link to log in or register page"]';
-  const DROPDOWN = "#login-dropdown";
-  const EMAIL_IN = `${DROPDOWN} input[name="email"]`;
-  const PASS_IN = `${DROPDOWN} input[name="password"]`;
-  const SUBMIT_BTN = `${DROPDOWN} button:has-text("Log in")`;
-  const LOGOUT_BTN = 'button:has-text("Log out")';
-  const MSG_CONT = `${DROPDOWN} [role="alert"]`;
+  //   const LOGIN_BTN = '[aria-label="Link to log in or register page"]';
+  //   const DROPDOWN = "#login-dropdown";
+  //   const EMAIL_IN = `${DROPDOWN} input[name="email"]`;
+  //   const PASS_IN = `${DROPDOWN} input[name="password"]`;
+  //   const SUBMIT_BTN = `${DROPDOWN} button:has-text("Log in")`;
+  //   const LOGOUT_BTN = 'button:has-text("Log out")';
+  //   const MSG_CONT = `${DROPDOWN} [role="alert"]`;
 
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
