@@ -25,6 +25,26 @@ describe("register new profile", () => {
       password: "testPassword123",
     });
 
+    console.log(fetch.mock.calls);
+
+    expect(fetch).toHaveBeenCalledTimes(1);
+
+    const [url, options] = fetch.mock.calls[0];
+    expect(url).toBe("https://v2.api.noroff.dev/auth/register");
+
+    expect(options.method).toBe("POST");
+
+    expect(options.headers).toBeInstanceOf(Headers);
+    expect(options.headers.get("Content-Type")).toBe("application/json");
+
+    const bodyObject = JSON.parse(options.body);
+    expect(bodyObject).toEqual({
+      name: "TestUser",
+      email: "testuser@stud.noroff.no",
+      password: "testPassword123",
+      avatar: undefined,
+    });
+
     expect(result).toEqual(successResponse.data);
   });
 
@@ -46,6 +66,10 @@ describe("register new profile", () => {
         email: "testuser@stud.noroff.no",
         password: "testPassword123",
       }),
-    ).rejects.toThrow("Email already in use");
+    ).rejects.toMatchObject({
+      message: "Email already in use",
+      status: 400,
+      statusText: "Bad Request",
+    });
   });
 });
