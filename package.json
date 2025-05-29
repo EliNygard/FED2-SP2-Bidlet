@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "start": "live-server --port=5173",
-    "unit-test": "vitest"
+    "unit-test": "vitest",
+    "test:e2e": "npx playwright test --ui"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",
