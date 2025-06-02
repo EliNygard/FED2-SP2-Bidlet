@@ -12,11 +12,39 @@ test.describe("when logged in, the user can create a new listing", () => {
   });
 
   test("clicking create-link navigates to /create", async ({ page }) => {
-    const createLink = page.getByRole("link", { name: "Create a new Bidlet" });
+    const createLink = page.getByRole("link", { name: "Link to Create new Bidlet" });
+
     await expect(createLink).toBeVisible();
     await expect(createLink).toHaveAttribute("href", "./create");
 
     await Promise.all([page.waitForURL("/create"), createLink.click()]);
     await expect(page).toHaveURL(/\/create$/);
+  });
+
+  test("filling out the form and clicking Publish creates a new listing", async ({ page }) => {
+    await page.route(`${process.env.API_BASE}/auction/listings`, async (route) => {
+      const fakeResponse = { data: { id: "fakeuuid1234" } };
+      await route.fulfill({
+        status: 201,
+        contentType: "application/json",
+        body: JSON.stringify(fakeResponse),
+      });
+    });
+
+    await page.goto("/create");
+    const TITLE_IN = 'input[id="title"]';
+    const DESC_IN = 'input[id="description"]';
+    const DATE_IN = 'input[id="endsAt"]';
+    const PUBLISH_BTN = 'button:has-text("Publish")';
+
+    await expect(page.locator(PUBLISH_BTN)).toBeVisible();
+
+    await page.fill(TITLE_IN, "A test Bidlet");
+    await page.fill(DESC_IN, "Selling this test Bidlet.");
+    await page.fill(DATE_IN, "2027-06-02T14:27");
+
+    await Promise.all([page.waitForURL("/item?id=fakeuuid1234"), page.click(PUBLISH_BTN)]);
+
+    await expect(page).toHaveURL("/item?id=fakeuuid1234");
   });
 });
